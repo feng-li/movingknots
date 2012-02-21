@@ -1,0 +1,29 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sun Feb 13 17:18:29 2011
+;; Desktop file format version 206
+;; Emacs version 23.2.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("desktop" "ecb" "scim" "flymake" "fonts" "dired" "bar" "dired" "bar" "dired" "knotsArgs" "knotsargs" "P.mat" "q.i" "q.knots" "diag.K.list"))
+(setq regexp-search-ring '("latex"))
+(setq register-alist nil)
+(setq file-name-history '("~/.emacs.d/ede-projects.el" "~/box/Dropbox/system/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs" "~/.emacs.d/ede-projects.el" "~/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/system/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/system/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/models/linear/etc/delta.beta.tilde.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/pathdef.m" "~/.emacs" "~/workplace/MovingKnots/R" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/Work/MovingKnots/R/utils/others/foldMat.R" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex" "~/box/Dropbox/system/.emacs" "~/.emacs.d/ede-projects.el" "~/Desktop/WileyChapter_Jan2011/WileyChapter_Jan2011.tex"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/home/fli/box/Dropbox/system/.emacs"
+  ".emacs"
+  'emacs-lisp-mode
+  '(auto-complete-mode autopair-mode ecb-minor-mode flyspell-mode)
+  5992
+  '(5941 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+

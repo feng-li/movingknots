@@ -1,0 +1,75 @@
+sourceDir("utils", T)
+sourceDir("../../utils", T)
+K(3, 3)
+K(3, 3)
+K(3, 3)
+K(3, 3)
+K(3, 3)
+K(3, 3)
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+q <- 100
+q <- 100
+200*200
+a = matrix(1, 200*200, 1)
+print(object.size(a), unit = "mb")
+print(object.size(a), unit = "Mb")
+system.time(matrix(100))
+system.time(matrix(1000))
+system.time(matrix(0, 1000))
+system.time(matrix(0, 1000, 1))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(matrix(0, 1000, 1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+system.time(diag(1000))
+delta.K
+delta.K
+delta.K(diag(10), -1/2)
+delta.K(diag(10), -1/2)
+delta.K(1:10, -1/2)
+sourceDir("../../utils", T)
+K(3, 3)
+n
+p
+p
+q_i
+n
+n
+sourceDir("../../utils", T)
+n
+n
+delta.K
+n
+delta.K2
+n
+n
+n
+n
+n
+delta.K2
+(diag(p) %x% K(q_i, p)
+)
+(diag(p) %x% K(q_i, p) %x% diag(q_i))
+ K(q_i, p) %x% diag(q_i)

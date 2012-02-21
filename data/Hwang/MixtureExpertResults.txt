@@ -1,0 +1,41 @@
+
+--------------------------------------------------------------------------------------------------------------------
+                                     Posterior Summary - Mixture of Experts                                         
+                         Author: Mattias Villani, Sveriges Riksbank and Stockholm University                        
+                                               November 14, 2006. 15:14:40                            
+--------------------------------------------------------------------------------------------------------------------
+
+
+DGP:       Data loaded from file 'HwangAdditive.mat'
+Estimated: Homoscedastic ME(1) - ThinPlate. Number of knots: 10 (Mean), 0 (Gating), 10 (Variance). Additive: [0  1  1]
+Covariates used in estimation: x1x2 (Mean),  (Gating),  (variance)
+Selects principal components with 99% (Mean), 99% (Gating),  and 99% (Variance) of the total basis function variance.
+Selected no. of principal components: 26 (Mean),  (Gating),  and  (Variance)
+
+Giordani-Kohn-Villani Gibbs sampler for logit gating function.
+Initializing expert allocation with method: randomize.
+
+
+    Expert               Prob.          Sigma        v1        v2        v3        v4        v5        v6        v7        v8        v9       v10       v11       v12       v13       v14       v15       v16       v17       v18       v19       v20       v21       v22       v23       v24       v25       v26       v27       v28       v29
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     1.000     Mean:       NaN          0.259     2.272     1.937   -13.619     0.229     0.325     0.039     0.011     0.172     0.231    -0.861    -0.282    -0.577     0.818     0.013    -0.112     0.423    -0.531     0.599    -0.140    -0.044    -0.909    -0.856    -1.389     0.146    -0.190     1.647     0.288    -0.903    -1.539
+                Std:       NaN          0.012     0.017     4.300     4.207     0.122     0.113     0.010     0.009     0.007     0.204     0.208     0.060     0.095     0.179     0.052     0.053     0.061     0.170     0.225     0.175     0.136     0.153     0.332     0.227     0.249     0.230     0.380     0.263     0.259     0.313
+               Ineff       NaN          1.260     0.868     1.084     1.027     1.123     0.949     0.968     1.014     1.159     1.121     0.966     0.994     1.043     1.042     0.971     0.915     1.184     1.003     1.136     1.090     1.080     0.845     1.042     1.146     1.069     1.025     1.096     1.004     1.022     1.005
+
+
+
+
+Algorithm summary
+------------------------------------
+Mean acceptance prob - Logit:                                      NaN
+Mean acceptance prob - Hetero:                                     NaN
+Mean acceptance prob - Allocation:                             100.000
+
+
+
+In Sample Fit
+------------------------------------
+   Subsets       x1,x2
+RMISE for mean:   1.1789
+FUV: 1.4222
+RMISE for stdev: 0.0085562

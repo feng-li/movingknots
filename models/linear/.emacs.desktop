@@ -1,0 +1,29 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Thu Jan 20 19:08:06 2011
+;; Desktop file format version 206
+;; Emacs version 23.2.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("con" "conf" "mapply" "mapp" "add-to" "auto-comple" "f9" "auto-com" "ess" "turn-on" "f11" "kill" "pause" "pa" "scrlk"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/workplace/MovingKnots/R/models/linear/" "~/.projects.ede" "/home/fli/workplace/MovingKnots/R/models/linear/linear_gradhess.R" "~/.projects.ede" "~/workplace/MovingKnots/Documents/MargLikeMultiRegNewNotation (ThinkPad's conflicted copy 2011-01-09).tex" "~/workplace/MovingKnots/R/stable/locate.knots.R" "~/.emacs.d/ede-projects.el" "~/box/Dropbox/system/.emacs.d/site-lisp/ess-5.12/lisp/ess-custom.el" "~/box/Dropbox/system/.emacs.d/site-lisp/ess-5.12/" "~/box/Dropbox/Work/MovingKnots/R/utils/mseq.R" "~/box/Dropbox/Work/MovingKnots/R/utils/mat2list.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_logpost.R" "~/.emacs" "~/box/Dropbox/Work/MovingKnots/R/models/linear/Sigma4betaFun.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/delta.vecPartiSigma4beta.inv.R" "~/box/Dropbox/Work/MovingKnots/R/stable/KStepNewtonMove.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/linear_gradhess.R" "~/box/Dropbox/Work/MovingKnots/R/models/linear/delta.vecSigma4beta.inv.R"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/home/fli/workplace/MovingKnots/R/models/linear/linear_gradhess.R"
+  "linear_gradhess.R"
+  'ess-mode
+  '(auto-fill-mode auto-complete-mode hs-minor-mode ecb-minor-mode flyspell-mode eldoc-mode ess-roxy-mode)
+  2575
+  '(9665 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (overwrite-mode)))
+

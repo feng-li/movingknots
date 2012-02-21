@@ -1,0 +1,51 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Sep 13 18:26:36 2010
+;; Desktop file format version 206
+;; Emacs version 23.2.2
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring nil)
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/workplace/MovingKnots/R/stable/" "~/.emacs" "~/workplace/MovingKnots/R/stable/hessian_approx.R" "~/rxoygen/roxygen/R/collate.R" "~/rxoygen/roxygen/R/roxygen.R" "~/rxoygen/roxygen/tests/runit/runit.Rd.R" "~/rxoygen/roxygen/inst/doc/pseudoprime/R/pseudoprime.R" "~/rxoygen/" "~/workplace/MovingKnots/R/stable/test.html" "~/workplace/MovingKnots/R/stable/delta.xi.R" "~/test.html" "~/.emacs" "~/box/Dropbox/private/MovingKnots/R/stable/d.matrix.R" "~/box/Dropbox/private/MovingKnots/R/stable/delta.xi.R" "~/workplace/MovingKnots/" "~/workplace/MovingKnots/R/stable/.emacs.desktop" "~/box/Dropbox/private/MovingKnots/R/stable/" "~/workplace/MovingKnots/R/stable/delta.xi.R" "~/test.cpp" "~/box/Dropbox/private/MovingKnots/Documents/MovingKnots_Model_2.tex" "~/workplace/MovingKnots/R/models/linear/config/linear_gradhess.R" "~/workplace/MovingKnots/Documents/MovingKnots_Model_2.tex" "~/box/Dropbox/private/MovingKnots/R/models/linear/config/linear_gradhess.R" "/usr/local/texlive/2009/texmf-dist/doc/latex/pdfx/small2e.tex" "~/test.c" "~/test.R" "/home/fli/.emacs" "~/box/Dropbox/private/" "/home/fli/workplace/MovingKnots/Documents/MovingKnots_Model_2.tex" "/home/fli/workplace/MovingKnots/R/wishart.R"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/home/fli/workplace/MovingKnots/R/stable/delta.xi.R"
+  "delta.xi.R"
+  'html-mode
+  '(ecb-minor-mode flyspell-mode)
+  1075
+  '(1488 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/home/fli/workplace/MovingKnots/R/stable/hessian_approx.R"
+  "hessian_approx.R"
+  'ess-mode
+  '(auto-fill-mode ede-minor-mode hs-minor-mode ecb-minor-mode ess-roxy-mode)
+  993
+  '(1 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/home/fli/.emacs"
+  ".emacs"
+  'emacs-lisp-mode
+  '(ede-minor-mode ecb-minor-mode)
+  8620
+  '(11617 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+

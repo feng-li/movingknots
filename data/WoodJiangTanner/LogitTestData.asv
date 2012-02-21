@@ -1,0 +1,32 @@
+function [y,X,MeanSurface,StdSurface]=LogitTestData(T,GammaDGP,SigmaDGP,DeltaDGP,Model)
+
+% Construct grid
+if T==0
+    % Only compute the mean and variance over a grid of 1000 points.
+    T=1000;
+    X=-2:6/1000:4;
+    %X=sort(randn(T,1));
+    Errors=zeros(size(X,1),1);
+else
+    X=-2+rand(T,1)*4;
+    %X=sort(randn(T,1));
+    % Generate errors
+    Errors=randn(T,1);
+end
+
+% Compute mean surface
+switch Model
+    case {'Logit1','logit1'} % Sine wave
+        MeanSurface=exp(GammaDGP*X)./(exp(GammaDGP*X)+1)
+    otherwise
+end
+
+StdSurface=SigmaDGP*exp(DeltaDGP'*X/2);
+
+y=MeanSurface+StdSurface.*Errors;
+
+XPred=X;
+LogitModel=Model;
+if T>0
+    save(LogitModel,'y','X','MeanSurface','StdSurface','LogitModel','XPred','GammaDGP','SigmaDGP','DeltaDGP')
+end
