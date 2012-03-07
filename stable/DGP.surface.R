@@ -15,7 +15,8 @@
 ##' @param splineArgs 
 ##' @param splineArgs.crl 
 ##' @param sPlotDGP 
-DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl, PlotDGP = FALSE)
+DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
+                        PlotDGP = FALSE)
   {
     OK <- FALSE
     nRun <- 0
