@@ -12,7 +12,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Fri Apr 22 18:50:11 CEST 2011;
 ##'       Current:       Fri Apr 22 18:50:20 CEST 2011.
-##' DEPENDS: rmvnorm()
+##' DEPENDS: rmvnorm
 ##' TODO: remove the loop
 rmixnorm <- function(n, means, sigmas, weights)
   {
