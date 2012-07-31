@@ -1,20 +1,20 @@
-##' <description>
+##' DGP Surface nested
 ##'
-##' <details>
-##' @title 
-##' @return 
-##' @references 
+##' A DGP process where the true model nests in the fitted model
+##' @title
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Mon Apr 11 09:18:38 CEST 2011;
-##'       Current:       Mon Apr 11 09:18:46 CEST 2011.
-##' @param n 
-##' @param p 
-##' @param q.o 
-##' @param q.s 
-##' @param Sigma 
-##' @param splineArgs 
-##' @param splineArgs.crl 
-##' @param sPlotDGP 
+##'       Current:       Tue Jul 31 08:54:18 CEST 2012.
+##' @param n
+##' @param p
+##' @param q.o
+##' @param q.s
+##' @param Sigma
+##' @param splineArgs
+##' @param splineArgs.crl
+##' @param sPlotDGP
 DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                         PlotDGP = FALSE)
   {
@@ -26,33 +26,33 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
     check.pval <- TRUE
     check.nlf <- FALSE
     check.man <- FALSE
-    
+
     while(OK ==  FALSE)
       {
         ## nCenters <- ceiling(sqrt(q.s))
         nCenters <- q.s
         weights <- runif(nCenters, 0, 1) # random weights
-        
+
         means <- matrix(runif(nCenters*q.o, -1, 1), q.o, nCenters, byrow = TRUE)
         sigma0 <- diag(q.o)/10
-        
+
         sigmas <- array(sigma0, c(q.o, q.o, nCenters))
-        
+
         ## x.gen <- matrix(rnorm(n*q.o), n, q.o)
-        
+
         x.gen <- rmixnorm(n, means, sigmas, weights)
 
         knots.s.idx <- sample(1:n, q.s)
         knots.s <- x.gen[knots.s.idx, , drop = FALSE] # TODO: Maybe a bug
                                         # in rdist() function.
-        
+
         knots.gen <- list(thinplate.s = knots.s)
-        
+
         X.desi <- d.matrix(x = x.gen, knots = knots.gen, splineArgs = splineArgs)
-        
+
         q <- dim(X.desi)[2]
-        
-        ## Generate coefficients matrix 
+
+        ## Generate coefficients matrix
         seq0 <- c(-1, 1)
         b0 <- rep(seq0, floor(q/2))
         if(q%%2 == 1) b0 <- c(b0, seq0[1])
@@ -65,17 +65,17 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
             B <- B*C0
           }
         ## B <- matrix(runif(q*p), q, p)
-        
+
         SurfaceMean <- X.desi %*% B
 
         Error <-  rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
-        
+
         y.gen <- SurfaceMean + Error
 
 
         ## Generate new x for predictions TODO: Ellpses Mardia 39
         x.testing <- matrix(runif(nPred*q.o, min(x.gen), max(x.gen)), nPred)
-        
+
         ## Signal to noise,  make sure the noise are not too big
         Sig2Noise <- mean(abs(y.gen/sd(Error)))
 
@@ -83,12 +83,12 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
         ## Regression with additive knots
         ## To control the DGP has a relevantly good nonlinear surface,  we tried to fit
         ## the results with only one additive model. Just make sure the surface is not too
-        ## flat.         
+        ## flat.
         if(check.pval == TRUE)
           {
             knots.ctrl <- make.knots(x = x.gen, method = "k-means", splineArgs.ctrl)
             X.desi.ctrl <- d.matrix(x = x.gen, knots = knots.ctrl, splineArgs =
-                                    splineArgs.ctrl) 
+                                    splineArgs.ctrl)
             lmgen <- summary(lm(y.gen~x.gen)) # regression with only linear part
             lmgen.ctrl <- summary(lm(y.gen~0+X.desi.ctrl)) # regression with one knot
 
@@ -115,15 +115,15 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                 Sig2Noise <- NA
               }
           }
-        
+
         if(check.nlf == TRUE)
           {
-            
-            ## Compute the nonlinear factor 
+
+            ## Compute the nonlinear factor
             B.lin <- matrix(lm(y.gen~x.gen)$coef, , p)
             y4ctrl <- cbind(1, x.testing)%*%B.lin
             NonlinFactor <- sd((y4ctrl-SurfaceMean)) # TODO: relevant measure for
-                                        # different dataset,  correlations  
+                                        # different dataset,  correlations
 
            if(all(NonlinFactor > runif(1, 10, 100))) # ad-hoc let the NL in 10-100. when q =
                                         # 10,  TODO: remember to change this later.
@@ -131,8 +131,8 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                 OK <- TRUE
               }
           }
-        
-        if(check.crit == FALSE) # don't check anything. quit 
+
+        if(check.crit == FALSE) # don't check anything. quit
           {
             OK <- TRUE
             NonlinFactor <- NA
@@ -157,24 +157,24 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
           }
         nRun <- nRun + 1
       }
-    
+
     out <- list(x = x.gen, Y = y.gen, knots = knots.gen, Error = Error, B = B, SurfaceMean =
                 SurfaceMean, nRun = nRun, NonlinFactor = NonlinFactor, Sig2Noise =
-                Sig2Noise, x.testing = x.testing)  
-    
+                Sig2Noise, x.testing = x.testing)
+
     ## Plotting option
     if(PlotDGP && q.o == 2 && p == 1)
-      {  
+      {
         require(rgl)
         plot3d(x = x.gen[, 1], y = x.gen[, 2], z = y.gen, col = "red",
                xlab = "X1", ylab = "X2", zlab = "y")
       }
-    
+
     return(out)
   }
 
 ##----------------------------------------------------------------------------------------
-## TESTS: 
+## TESTS:
 ##----------------------------------------------------------------------------------------
 ## n <- 200
 ## p <- 1
@@ -182,8 +182,8 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
 ## q.s <- 5
 
 ## splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s"), # the
-##                                         # components of the design matrix. 
-##                    thinplate.s.dim = c(q.s, q.o), # the dimension of the knots for surface.  
+##                                         # components of the design matrix.
+##                    thinplate.s.dim = c(q.s, q.o), # the dimension of the knots for surface.
 ##                    thinplate.a.locate = c(0, 0, 0, 0)) # no. of knots used in each
 ##                                         # covariates for the additive part. zero means no
 ##                                         # knots for that covariates
