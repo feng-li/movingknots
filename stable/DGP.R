@@ -12,24 +12,28 @@
 ##'         When the model is "spline",  you also need to supply paramters,  see otherArgs.
 ##' @param otherArgs "list".
 ##'         Other arguemnts need to pass to the function.
-##'         otherArgs$seed: Set the seed. If this vaule is unset, use a random seed.
+##'         otherArgs$seed: Set the seed. If this vaule is unset, use a random
+##' seed.
+##'         otherArgs$xi:
+##'         otherArgs$withOnt:
+##'         otherArgs$spline.type:
 ##' @param PlotData "logical"
 ##'         If need to plot the data out.
-##'
 ##' @return
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
-##'       Current:       Sun Sep 19 11:58:28 CEST 2010.
+##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
 ##' DEPENDS: mvtnorm
-DGP <- function(n, Sigma, model, otherArgs,  PlotData)
+DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
 {
   ## Get user supplied seed.
+  ## If the seed is set, use it when random variable is used. Otherwise, no seed set.
   seed <- otherArgs$seed
+  seed.const <- 0.24
 
-  ## If the seed is set, use it.
-  if(is.null(seed)  == FALSE) set.seed(seed)
   ## n uniform draws on the unit square.
+  if(!is.na(seed)) set.seed(seed)
   X.orig <- matrix(runif(n*2), n, 2) # [0, 1]
 
   ## Make the grid values for printing out the surface.
@@ -47,7 +51,7 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
 
   ## Generate errors
   ## If the seed is set, use it.
-  if(is.null(seed) == FALSE) set.seed(seed)
+  if(!is.na(seed)) set.seed(seed+seed.const)
   Errors <- rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
 
   if(tolower(model == "spline")) ## Both univariate and multivariate cases when
@@ -58,15 +62,13 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
       withInt <- otherArgs$withInt
       spline.type <- otherArgs$spline.type
 
-      X.desi <- d.matrix(x = X, xi = xi, args = list(method = spline.type, withInt =
-                                           withInt))
+      X.desi <- d.matrix(x = X, xi = xi, args = list(method = spline.type,
+                                           withInt = withInt))
 
       q <- dim(X.desi)[2]
 
       ## If the seed is set, use it.
-      if(is.null(seed)  == FALSE)
-        {set.seed(seed)}
-
+      if(!is.na(seed)) set.seed(seed+seed.const^2)
       B <- matrix(runif(p*q), q, p)
 
       MeanSurface <- X.desi%*%B
@@ -106,15 +108,16 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
   ## The final response variable
   MeanSurface.orig <- MeanSurface[1:n, , drop = FALSE]
   y.orig <- MeanSurface.orig + Errors
+  names(y.orig) <- NULL
 
-  y.grid <- matrix(MeanSurface[(n+1):(n+n.grid^2),], n.grid, n.grid)
+  out <- list(y = y.orig, X  = X.orig, Sigma = Sigma)
 
-  out <- list(y = y.orig, Sigma = Sigma, X  = X.orig)
-
-  ## option for print the data out if on unitvariate model
+  ## Print the data out if p  = 1 and q = 2
   ## FIXME: use try command to avoid error when gui is not available.
-  if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(x.orig)[2] == 2)
+  if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(X.orig)[2] == 2)
     {
+      y.grid <- matrix(MeanSurface[(n+1):(n+n.grid^2),], n.grid, n.grid)
+
       image(X1.grid, X2.grid, y.grid, xlab = "X1", ylab = "X2")
       filled.contour(X1.grid, X2.grid, y.grid)
       title(toupper(model))
