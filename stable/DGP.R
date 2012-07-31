@@ -12,12 +12,12 @@
 ##'         When the model is "spline",  you also need to supply paramters,  see otherArgs.
 ##' @param otherArgs "list".
 ##'         Other arguemnts need to pass to the function.
-##'         otherArgs$seed: Set the seed. If this vaule is unset, use a random seed. 
+##'         otherArgs$seed: Set the seed. If this vaule is unset, use a random seed.
 ##' @param PlotData "logical"
 ##'         If need to plot the data out.
-##' 
-##' @return 
-##' @references 
+##'
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
 ##'       Current:       Sun Sep 19 11:58:28 CEST 2010.
@@ -44,7 +44,7 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
   ## X.mesh <- cbind(X1.mesh, X2.mesh) # n*n-by-2
   X <- rbind(X.orig, X.mesh) # (n + n*n)-by-2
   p <- dim(Sigma)[1]
-  
+
   ## Generate errors
   ## If the seed is set, use it.
   if(is.null(seed) == FALSE) set.seed(seed)
@@ -62,33 +62,33 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
                                            withInt))
 
       q <- dim(X.desi)[2]
-      
+
       ## If the seed is set, use it.
       if(is.null(seed)  == FALSE)
         {set.seed(seed)}
-      
+
       B <- matrix(runif(p*q), q, p)
-      
+
       MeanSurface <- X.desi%*%B
     }
-  else if(tolower(model) == "simple") ## only univariate case
+  else if(tolower(model) == "simple") ## only univariate response case
     {
       MeanSurface <- 10.391*((X[,1, drop = FALSE]-0.4)*(X[,2, drop = FALSE]-0.6)+0.36)
     }
-  else if(tolower(model)  == "radial") ## only univariate case
+  else if(tolower(model)  == "radial") ## only univariate response case
     {
       r2 <- (X[,1, drop = FALSE]-0.5)^2+(X[,2, drop = FALSE]-0.5)^2
       MeanSurface <- 24.234*(r2*(0.75-r2))
     }
-  else if(tolower(model) == "harmonic") ## only univariate case
+  else if(tolower(model) == "harmonic") ## only univariate response case
     {
         XTilde <- X-0.5
         MeanSurface <- 42.659*(0.1+XTilde[,1, drop = FALSE]
                                *(0.05+XTilde[,1, drop = FALSE]^4
                                  -10*XTilde[,1, drop = FALSE]^2*XTilde[,2, drop = FALSE]^2
-                                 +5*XTilde[,2, drop = FALSE]^4))  
+                                 +5*XTilde[,2, drop = FALSE]^4))
     }
-  else if(tolower(model) == "additive") ## only univariate case
+  else if(tolower(model) == "additive") ## only univariate response case
     {
       MeanSurface <- 1.3356*(1.5*(1-X[,1, drop = FALSE])
                              + exp(2*X[,1, drop = FALSE]-1)
@@ -96,14 +96,14 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
                              +exp(3*(X[,2, drop = FALSE]-0.5))
                              *sin(4*pi*(X[,2, drop = FALSE]-0.9)^2))
     }
-  else if(tolower(model) == "interaction") ## only univariate case
+  else if(tolower(model) == "interaction") ## only univariate response case
     {
       MeanSurface <- 1.9*(1.35 + exp(X[,1, drop = FALSE])
                           *sin(13*(X[,1, drop = FALSE]-0.6)^2)
                           *exp(-X[,2, drop = FALSE])*sin(7*X[,2, drop = FALSE]))
     }
 
-  ## The response variable
+  ## The final response variable
   MeanSurface.orig <- MeanSurface[1:n, , drop = FALSE]
   y.orig <- MeanSurface.orig + Errors
 
@@ -123,7 +123,7 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
       require(rgl)
       plot3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, col = "red",
             xlab = "X1", ylab = "X2", zlab = "y")
-      
+
       ## Put the surface on
       ## FIXME: merge the two figures
       rgl.open()
@@ -132,6 +132,6 @@ DGP <- function(n, Sigma, model, otherArgs,  PlotData)
       ##      spheres3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, radius = 0.01)
     }
 
-  
+
   return(out)
 }

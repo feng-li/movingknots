@@ -14,7 +14,7 @@
 ##' @note First version: Wed Apr 15 20:00:43  CET 2009;
 ##'       Current:       Sat Apr 16 16:02:17 CEST 2011.
 ##' TODO: add environmental option, allow to only source byte code.
-sourceDir <- function(..., byte.compile = TRUE, recursive = TRUE, silent = FALSE,
+sourceDir <- function(..., byte.compile = FALSE, recursive = TRUE, silent = FALSE,
                       ignore.error = FALSE) 
 {
   ## call the path
