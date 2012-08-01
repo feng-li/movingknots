@@ -93,7 +93,8 @@ glm_logpost <- function(Y, x, Params, callParam, splineArgs, priorArgs, Params_T
 ### THE LIKELIHOOD
 ###----------------------------------------------------------------------------
 
-  ## The likelihood for the Gaussian case TODO: make it general
+  ## The likelihood for the Gaussian case TODO: make it general,  write a
+  ## separate function if needed.
   loglik<- -n/2*determinant(2*pi*Sigma)$modulus[1] -
     1/2* tr(Sigma.inv %*% crossprod(Y-X%*%B))
 

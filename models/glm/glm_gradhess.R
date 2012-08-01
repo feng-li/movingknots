@@ -1,25 +1,171 @@
+glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorArgs,
+                            Params_Transform)
+{
+##----------------------------------------------------------------------------------------
+  ## initialize and pre-computing
+##----------------------------------------------------------------------------------------
+  ## Transform back when Params has been transformed.
+  ParamsTB <- mapply(par.transform, par = Params, method = Params_Transform, SIMPLIFY =
+                     FALSE)
+
+  ## Get the knots name
+  comp <- splineArgs[["comp"]]
+  knots.comp <- comp[! comp %in% c("intercept", "covariates")] # use in making the gradient
+
+  ## Get the parameters w.r.t. the model
+  diag.K <- ParamsTB[["shrinkages"]]
+  Sigma <- vech2m(ParamsTB[["covariance"]])
+  B <- ParamsTB[["coefficients"]]
+  knots.mat <- ParamsTB[["knots"]]
+  knots.list <- knots.mat2list(knots.mat, splineArgs)
+
+  ## Pre-compute essential parts
+  X <- d.matrix(x,knots.list,splineArgs) # The design matrix.
+
+  dim.x <- dim(x)
+  n <- dim.x[1] # no. of obs
+  p <- dim(Y)[2] # multivariate if p > 1
+  q <- dim(X)[2] # no. of covs including knots and intercept.
+
+  diag.K.list <- lapply(apply(matrix(diag.K, p), 2, list), unlist)
+  Sigma.inv <- solve(Sigma) # inverse of Sigma
+  P4X <- crossprod(X) # X'X where X is the design matrix
+
+  q.knots <- sapply(knots.list, nrow) # no. of knots used for surface, and additive
+  q.i <- c(q - sum(q.knots), q.knots) # no. covs used in each components,  cov,  surface,
+                                      # additive
+
+  ## The prior settings
+  P.mats.all <- P.matrix(X, q.i, priorArgs) # The P matrices and X matrices, list
+  P.mats <- P.mats.all[["P"]]
+  X.mats <- P.mats.all[["X"]]
+  P.type <- priorArgs$P.type # The type of P matrices of the prior
+
+  mu <- priorArgs$coefficients.mu0 # for B
+
+  ## Boundary check
+  if(knots.check.boundary(P4X, method = "singular") == "bad") # bad boundary, return NaN
+                                        # and quit
+    {
+      out <- list(gradObs = NaN, hessObs = NaN)
+      return(out)
+    }
+  ## Good and continuous
+
+##----------------------------------------------------------------------------------------
+  ## The gradient and hessian with respect to the knots and shrinkage
+##----------------------------------------------------------------------------------------
+
+  ## Conditional gradient for knots (surface and/or additive)
+  if("knots" %in% callParam$id)
+    {
+##----------------------------------------------------------------------------------------
+      ## gradient for likelihood part
+##----------------------------------------------------------------------------------------
+
+      ## Final gradient for marginal part.
+      gradObs.margi <- t(gradObs.margi0) # transform to a col
+
+##----------------------------------------------------------------------------------------
+      ## gradient and hessian for the prior
+##----------------------------------------------------------------------------------------
+
+      ## Gradient and Hessian for prior
+      pri.type <- priorArgs$knots.priType
+      pri.mean <- priorArgs$knots.mu0
+      pri.covariance <- priorArgs$knots.Sigma0
+      pri.shrinkage <- priorArgs$knots.c
+
+      gradHessObsPri <- deriv_prior(Params[["knots"]], priorArgs = list(mean = pri.mean,
+                                                         covariance = pri.covariance,
+                                                         shrinkage = pri.shrinkage,
+                                                         prior_type = pri.type))
+
+      ## Pick gradient and hessian part for the knots (subset)
+      gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
+      hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+##----------------------------------------------------------------------------------------
+      ## Hessian matrix for marginal part
+##----------------------------------------------------------------------------------------
+      if(hessMethod == "exact") # Use the exact Hessian
+        {
+          hessObs <- "Write the exact hessian here"
+        }
+      else # call the approximation of Hessian
+        {
+          hessObs.margi <- hessian_approx(gradient = gradObs.margi, method = hessMethod)
+        }
+##----------------------------------------------------------------------------------------
+      ## The final gradient and Hessian
+##----------------------------------------------------------------------------------------
+      gradObs = gradObs.margi + gradObs.pri
+      hessObs = hessObs.margi + hessObs.pri
+      out <- list(gradObs = gradObs, hessObs = hessObs)
+      return(out)
+    }
+  else if("shrinkages" %in% callParam$id) ## gradient for shrinkage K.
+    {
+
+##----------------------------------------------------------------------------------------
+      ## gradient for the likelihood part
+##----------------------------------------------------------------------------------------
 
 
+      ## Final gradient for marginal part.
+      gradObs.margi <- t(gradObs.margi0) # transform to a col
 
+##----------------------------------------------------------------------------------------
+      ## gradient and hessian for the prior
+##----------------------------------------------------------------------------------------
 
+      ## Gradient and Hessian for prior
+      pri.type <- priorArgs$shrinkages.priType
+      pri.mean <- priorArgs$shrinkages.mu0
+      pri.covariance <- priorArgs$shrinkages.Sigma0
+      pri.shrinkage <- priorArgs$shrinkages.c
 
+      gradHessObsPri <- deriv_prior(Params[["shrinkages"]], priorArgs = list(mean = pri.mean,
+                                                 covariance = pri.covariance, shrinkage =
+                                                 pri.shrinkage, prior_type = pri.type))
 
+      ## Pick gradient and hessian part for the knots (subset)
+      gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
+      hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+##----------------------------------------------------------------------------------------
+      ## Hessian (prior + marginal likelihood)
+##----------------------------------------------------------------------------------------
+      if(hessMethod == "exact") # Use the exact Hessian
+        {
+          hessObs <- "Write the exact hessian here"
+        }
+      else # call the approximation of Hessian
+        {
+          hessObs.margi <- hessian_approx(gradient = gradObs.margi, method = hessMethod)
+        }
 
+##----------------------------------------------------------------------------------------
+      ## The final output
+##----------------------------------------------------------------------------------------
+      gradObs = gradObs.margi + gradObs.pri
+      hessObs = hessObs.margi + hessObs.pri
+      ## cat("hessObs.marig", hessObs.margi, "hessObs.pri", hessObs.pri, "\n")
 
+      out <- list(gradObs = gradObs, hessObs = hessObs)
+      return(out)
+    }
+  else if("covariates" %in% callParam$id) ## gradient for covariates.
+    {
 
+    }
+  else if("covariance" %in% callParam$id) ## gradient for covariance.
+    {
 
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+  else
+    {
+      stop("Wrong argument for callParam !")
+    }
+}
 
 ## Gradient w.r.t. vecB
 ## Be aware that this will give a q--by--1 matrix
@@ -43,7 +189,7 @@ gradient_vecB <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.vecB)
     return(t(grad.vecB.out))
   }
 
-  ## The gradient with respect to vech Sigma
+## The gradient with respect to vech Sigma
 ## Mon Mar 29 09:17:32 CEST 2010
 ## p--by--1 matrix
 
