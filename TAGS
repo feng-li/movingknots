@@ -1,0 +1,714 @@
+
+./examples/rajan_s_moving_2_plus_a_moving_2.R,1360
+ppath.lib40,1943
+ssave.output43,1982
+ttrack.MCMC53,2375
+xx71,2896
+nn74,2957
+pp77,2994
+mm80,3040
+MModelDescription87,3290
+MModel_Name90,3360
+ssplineArgs93,3409
+PParams4Gibbs102,4002
+PParams_Fixed106,4168
+PParams_subsetsArgs113,4590
+PParams_Transform123,5201
+hhessMethods129,5421
+ppropMethods135,5625
+nnIter145,6077
+bburn.in148,6103
+LLPDS.sampleProp151,6177
+ccross.validation154,6280
+nnNewtonSteps159,6568
+MMH.prop.df165,6808
+kknots.by.kmeans177,7311
+XX.init178,7380
+llm.init179,7439
+SS0.init180,7465
+qq181,7512
+PP.type185,7630
+ccovariance.priType188,7727
+ccovariance.df0189,7767
+ccovariance.S0190,7788
+ccoefficients.priType193,7867
+ccoefficients.mu0194,7900
+kknots.priType197,8003
+kknots.mu0198,8029
+kknots.Sigma0200,8136
+kknots.c201,8230
+mmodel.comp.len204,8284
+sshrinkages.pri.trans206,8452
+sshrinkages.priType209,8699
+sshrinkages.mu0210,8730
+sshrinkages.Sigma0213,8959
+sshrinkages.c215,9120
+ppriorArgs218,9181
+IINIT.knots244,10334
+IINIT.shrinkages247,10416
+IINIT.covariance250,10482
+ggradhess.fun.name260,10983
+llogpost.fun.name263,11086
+ccrossvalid.struc272,11573
+nnCross275,11676
+nnTraining278,11766
+PParams281,11840
+PParams.sub.struc287,12081
+OOUT.accept.probs298,12543
+IINIT.knots.mat302,12724
+OOUT.Params304,12770
+RRunning.data326,14109
+
+./examples/simul_10cov_5knots_1p_200n_s.R,615
+ppath.lib40,2607
+ssave.output43,2646
+ttrack.MCMC52,2967
+nn60,3220
+pp62,3250
+qq.o76,3441
+qq.s_gen79,3485
+qq.moving_seq82,3529
+qq.fixed_seq84,3551
+nnRep87,3596
+nnPred90,3650
+ssplineArgs.gen93,3698
+ssplineArgs.ctrl96,3911
+RRunning.date100,4141
+MModelDescription106,4402
+MModel_Name109,4468
+OOUT.q.s_seq112,4524
+ooneRep.len115,4592
+OOUT.fixed_seq118,4657
+LLOSS.tmp122,4773
+CCompTim.tmp125,4845
+ttotalRep128,4910
+OOUT.Data.gen131,4953
+OOUT.NolinFct134,5013
+OOUT.Data.testing137,5069
+OOUT.Data.pred140,5119
+iidx4Data142,5144
+OOUT.LOSS428,18089
+OOUT.time430,18131
+
+./examples/simul_10cov_5knots_2p_200n_s.R,615
+ppath.lib40,2607
+ssave.output43,2646
+ttrack.MCMC52,2969
+nn59,3221
+pp62,3252
+qq.o76,3444
+qq.s_gen79,3488
+qq.moving_seq82,3533
+qq.fixed_seq84,3555
+nnRep87,3600
+nnPred90,3654
+ssplineArgs.gen93,3702
+ssplineArgs.ctrl96,3915
+RRunning.date100,4145
+MModelDescription106,4406
+MModel_Name109,4472
+OOUT.q.s_seq112,4528
+ooneRep.len115,4596
+OOUT.fixed_seq118,4661
+LLOSS.tmp122,4777
+CCompTim.tmp125,4849
+ttotalRep128,4914
+OOUT.Data.gen131,4957
+OOUT.NolinFct134,5017
+OOUT.Data.testing137,5073
+OOUT.Data.pred140,5123
+iidx4Data142,5148
+OOUT.LOSS431,18156
+OOUT.time433,18198
+
+./models/glm/glm_gradhess.R,99
+ggradient_vecB28,130
+ggrad_vech_Sigma50,764
+ggradient_xi70,1260
+ggradient_xi_condi131,3005
+
+./models/glm/glm_logpost.R,22
+gglm_logpost37,1117
+
+./models/linear/etc/aT.x.DvecSigma4beta.inv.R,33
+aaT.x.DvecSigma4beta.inv17,395
+
+./models/linear/etc/delta.K.R,17
+ddelta.K22,635
+
+./models/linear/etc/delta.sumlogdetP.R,26
+ddelta.sumlogdetP13,280
+
+./models/linear/etc/delta.sumqlogdetK .R,27
+ddelta.sumqlogdetK13,397
+
+./models/linear/etc/delta.vecPartiSigma4beta.inv.R,38
+ddelta.vecPartiSigma4beta.inv12,367
+
+./models/linear/etc/delta.xi.R,19
+ddelta.xi41,2147
+
+./models/linear/etc/d.matrix.R,19
+dd.matrix38,1850
+
+./models/linear/etc/idx.b2beta.R,20
+iidx.b2beta12,252
+
+./models/linear/etc/idx.beta2b.R,20
+iidx.beta2b12,254
+
+./models/linear/etc/knots.list2mat.R,24
+kknots.list2mat12,362
+
+./models/linear/etc/knots.mat2list.R,24
+kknots.mat2list10,246
+
+./models/linear/etc/make.knotsPriVar.R,26
+mmake.knotsPriVar12,326
+
+./models/linear/etc/Mat.x.AT.k.I.x.K.x.delta.knots.R,40
+MMat.x.AT.k.I.x.K.x.delta.knots13,344
+
+./models/linear/etc/Mat.x.delta.vecSigma4beta.inv.R,39
+MMat.x.delta.vecSigma4beta.inv13,430
+
+./models/linear/etc/Mat.x.delta.xi.R,22
+MMat.delta.xi14,277
+
+./models/linear/etc/Mat.x.DvecA.k.P_stp1.R,30
+MMat.x.DvecA.k.P_stp113,419
+
+./models/linear/etc/Mat.x.DvecA.k.P_stp2.R,30
+MMat.x.DvecA.k.P_stp213,419
+
+./models/linear/etc/Mat.x.DvecA.k.XTX_stp1.R,32
+MMat.x.DvecA.k.XTX_stp113,413
+
+./models/linear/etc/Mat.x.DvecA.k.XTX_stp2.R,32
+MMat.x.DvecA.k.XTX_stp213,419
+
+./models/linear/etc/Mat.x.DvecSigma.inv.k.XTX.R,35
+MMat.x.DvecSigma.inv.k.XTX15,351
+
+./models/linear/etc/P.matrix.R,18
+PP.matrix14,551
+
+./models/linear/etc/Sigma4betaFun.R,23
+SSigma4betaFun15,603
+
+./models/linear/etc/Xmats.x.delta.xi.R,26
+XXmats.x.delta.xi10,281
+
+./models/linear/etc/X.x.delta.xi.R,22
+XX.x.delta.xi10,279
+
+./models/linear/linear_gradhess.R,26
+llinear_gradhess59,2653
+
+./models/linear/linear_IWishart.R,25
+llinear_IWishart10,339
+
+./models/linear/linear_logpost.R,25
+llinear_logpost38,1127
+
+./models/linear/linear_post4coef.R,26
+llinear_post4coef20,520
+
+./models/linear.multishrinkage/linear.multishrinkage_gradhess.R,41
+llinear.multishrinkage_gradhess57,2648
+
+./models/linear.multishrinkage/linear.multishrinkage_logpost.R,40
+llinear.multishrinkage_logpost36,1115
+
+./models/linear.multishrinkage/linear.multishrinkage_pdf.R,20
+llinear_pdf15,309
+
+./models/linear.singleshrinkage/linear.singleshrinkage_gradhess.R,42
+llinear.singleshrinkage_gradhess57,2677
+
+./models/linear.singleshrinkage/linear.singleshrinkage_logpost.R,41
+llinear.singleshrinkage_logpost34,1015
+
+./sid/density_prior.R,23
+ddensity_prior27,834
+
+./sid/logPost_spline.R,22
+llogPost_spline4,89
+
+./sid/Mu.R,11
+MMu5,119
+
+./stable/convert.densParams.R,28
+cconvert.densParams13,355
+
+./stable/data.partition.R,24
+ddata.partition13,359
+
+./stable/deriv_prior.R,22
+dderiv_prior31,1307
+
+./stable/DGP.R,14
+DDGP28,1013
+
+./stable/DGP.surface.R,21
+DDGP.surface18,461
+
+./stable/FitDiagnosis.R,22
+FFitDiagnosis11,238
+
+./stable/grad.x.deriv_link.R,27
+ggrad.x.deriv_link14,457
+
+./stable/hessian_approx.R,25
+hhessian_approx24,1039
+
+./stable/I.Kron.R,13
+II.Kron1,0
+
+./stable/knots.check.boundary.R,30
+kknots.check.boundary21,807
+
+./stable/knots.subsets.idx.R,27
+kknots.subsets.idx16,509
+
+./stable/KStepNewtonMove.R,26
+KKStepNewtonMove40,1249
+
+./stable/locate.knots.R,48
+llocate.knots24,1010
+ooptim.knots.no65,2633
+
+./stable/LogPredScore.R,22
+LLogPredScore22,570
+
+./stable/log_prior.R,20
+llog_prior29,1164
+
+./stable/make.knots.R,21
+mmake.knots29,1206
+
+./stable/MCMC.trajectory.R,25
+MMCMC.trajectory12,252
+
+./stable/MHPropMain.R,20
+MMHPropMain24,566
+
+./stable/MHPropWithIWishart.R,28
+MMHPropWithIWishart21,522
+
+./stable/MHPropWithKStepNewton.R,31
+MMHPropWithKStepNewton26,725
+
+./stable/MovingKnots_MCMC.R,23
+MMovingKnots_MCMC1,0
+
+./stable/num.gradient.R,22
+nnum.gradient12,312
+
+./stable/Params.subsets.R,24
+PParams.subsets13,349
+
+./stable/par.transform2.R,24
+ppar.transform212,348
+
+./stable/par.transform.R,23
+ppar.transform12,236
+
+./stable/PlotResid.R,19
+EEvalResid12,326
+
+./stable/progressbar.R,21
+pprogressbar12,342
+
+./stable/rmixnorm.R,18
+rrmixnorm17,664
+
+./stable/save.all.R,18
+ssave.all12,256
+
+./stable/set.crossvalid.R,24
+sset.crossvalid11,247
+
+./stable/StdData.R,17
+SStdData31,950
+
+./stable/sub.hessian.R,18
+ssub.hessian1,0
+
+./tests/b2beta.R,178
+pp1,0
+qq2,7
+BB4,16
+mmu4B5,44
+iidx4B7,76
+iidx4b9,105
+bbeta11,155
+mmu4beta12,173
+bb14,198
+mmu4b15,223
+SSigma4beta017,255
+SSigma4beta18,298
+SSigma4b20,346
+
+./tests/delta.beta.tilde.R,26
+ddelta.beta.tilde10,289
+
+./tests/det.R,35
+aa1,0
+bb2,28
+cc3,54
+dd5,81
+
+./tests/finiteNewtonProp.R,24
+ffiniteNewtonProp4,86
+
+./tests/Knots_Locate.R,19
+KKnots_Locate1,0
+
+./tests/KStepNewtonDimMove.R,29
+KKStepNewtonDimMove35,1578
+
+./tests/linear_setup.R,447
+DDATA18,329
+DDATA.std19,391
+mmodel.name22,441
+YY25,479
+xx26,515
+llink27,546
+ll029,566
+ll30,574
+kk34,596
+nn35,604
+pp36,619
+qq37,634
+xxi40,673
+SSigma41,700
+BB42,717
+kka46,773
+MM47,783
+nn048,852
+SS049,888
+ttmp.grad_xi55,994
+ttmp.grad_vecB56,1087
+ttmp.grad_xi_condi57,1164
+ttmp.grad_vech_Sigma58,1247
+ttmp.hess_xi60,1334
+ttmp.hess_vecB61,1383
+ttmp.hess_xi_condi62,1436
+ttmp.hess_vech_Sigma63,1497
+
+./tests/Main.R,978
+ssp50015,597
+xx16,633
+yy17,693
+XXX22,887
+iinvXX23,925
+OOnTrialDelta29,1070
+OOnTrialAlpha30,1091
+OOnTrialGamma31,1112
+AAlpha35,1243
+DDelta38,1409
+GGamma39,1439
+nnIter41,1470
+IICurrAlpha43,1485
+IICurrDelta44,1535
+IICurrGamma45,1585
+ccAlpha47,1668
+ccDelta48,1688
+ccGamma49,1708
+PPrInAlpha51,1729
+PPrInDelta52,1745
+PPrInGamma53,1761
+IIUpdatePrAlpha55,1778
+IIUpdatePrDelta56,1799
+IIUpdatePrGamma57,1820
+nnNewtonStepsAlpha59,1842
+nnNewtonStepsDelta60,1865
+nnNewtonStepsGamma61,1888
+ppropDfAlpha63,1912
+ppropDfDelta64,1930
+ppropDfGamma65,1948
+SSigma67,1967
+ggradHessFuncAlpha69,1979
+ggradHessFuncDelta70,2016
+ggradHessFuncGamma71,2053
+llogPostFuncAlpha73,2091
+llogPostFuncDelta74,2126
+llogPostFuncGamma75,2161
+AAlphaNew79,2289
+DDeltaNew80,2376
+GGammaNew81,2463
+IICurrAlphaNew83,2551
+IICurrDeltaNew84,2661
+IICurrGammaNew85,2771
+AAccPrAlphaNew87,2882
+AAccPrDeltaNew88,2959
+AAccPrGammaNew89,3036
+
+./tests/Mat.x.delta.vecP.R,26
+MMat.x.delta.vecP13,294
+
+./tests/mkdpprior.R,16
+mmkdpprior1,0
+
+./tests/num.hessian.R,21
+nnum.hessian15,551
+
+./tests/play.R,55
+ddata1,0
+xx3,57
+NN_Knots4,71
+KKnots_Locate5,84
+
+./tests/SETUP.R,428
+DDATA20,392
+DDATA.std21,454
+YY25,505
+xx26,541
+llink27,572
+ll029,592
+ll30,600
+kk34,622
+nn35,630
+pp36,645
+qq37,660
+xxi40,699
+SSigma41,726
+BB42,743
+kka46,799
+MM47,809
+nn048,878
+SS049,914
+ttmp.grad_xi55,1020
+ttmp.grad_vecB56,1113
+ttmp.grad_xi_condi57,1190
+ttmp.grad_vech_Sigma58,1273
+ttmp.hess_xi60,1360
+ttmp.hess_vecB61,1409
+ttmp.hess_xi_condi62,1462
+ttmp.hess_vech_Sigma63,1523
+
+./tests/test.B.R,134
+xxi21,0
+xx12,26
+xx23,59
+xx.mesh4,68
+xxx5,96
+BB26,131
+xxx.mesh8,162
+YY.mesh10,208
+PP317,334
+kka318,354
+BB319,391
+
+./tests/test.comp.R,31
+ttestfun3,21
+ttestfunc9,95
+
+./tests/test.gradient2.R,65
+DDelta.X4knots3,47
+aaa6,155
+ccc8,241
+aa9,318
+bbb10,335
+
+./tests/test_linear_gradhess.R,234
+xx11,224
+YY12,254
+xx15,263
+ssplineArgs16,287
+xxi17,344
+XXX19,430
+BB20,462
+SSigma22,519
+hhessMethod24,557
+ccallParams25,579
+PParams26,598
+MM29,657
+nn030,681
+SS031,721
+KKnotsSubset32,736
+ootherArgs33,756
+
+./tests/test_linear_logpost.R,126
+xxx1,0
+ssplineArgs2,7
+pprior_type4,68
+pprior_args5,91
+llogpost8,213
+mmyfun10,283
+ggrad.num15,411
+mmyfun18,459
+
+./tests/test_make.knots.R,94
+xx6,58
+kk011,218
+mmethod12,227
+RRadiusShrink13,257
+ee015,277
+ee17,387
+kkk20,449
+
+./tests/test_num_grad.R,372
+mmyfun6,278
+oout.num14,367
+xxx20,441
+mmyfun21,448
+ggrad.num31,789
+mmyfun41,1049
+vvecX48,1161
+nn49,1189
+pp50,1198
+oout.num51,1205
+XXx53,1240
+oout.the54,1267
+mmyfun60,1543
+vvecX67,1646
+oout.num68,1675
+XXx69,1709
+oout.the70,1738
+mmyfun77,2000
+vvecX84,2111
+oout.num85,2138
+XXx86,2172
+oout.the87,2199
+mmyfun95,2462
+vvecX100,2505
+
+./tests/test_num_max_posterior.R,42
+mmyfun2,75
+vvecxi16,465
+iiter18,494
+
+./tests/test.R,17
+aa1,0
+bb2,26
+
+./tests/tests.rgl.R,21
+ rgl.demo.bivar1,0
+
+./tests/test.wishart.R,32
+SSigma1,0
+nnu2,34
+IIW4,44
+
+./tests/unlist.R,17
+aa1,0
+bb2,33
+
+./utils/dbg/close.all.R,17
+cclose.all2,32
+
+./utils/dbg/dot_ls.objects.R,20
+..ls.objects8,231
+
+./utils/dist/DensMultiT.R,20
+DDensMultiT17,636
+
+./utils/dist/dwishart.R,19
+ddiwishart14,309
+
+./utils/dist/RndMultiT.R,19
+RRndMultiT14,569
+
+./utils/dist/rwishart.R,38
+rrwishart12,230
+rriwishart58,1422
+
+./utils/optim/bfgsi.R,12
+bbfgsi1,0
+
+./utils/optim/csminit.R,14
+ccsminit1,0
+
+./utils/optim/csminwelNew.R,15
+ccsminwel1,0
+
+./utils/optim/csminwel.R,16
+ccsminwel01,0
+
+./utils/optim/csolveNew.R,13
+ccsolve1,0
+
+./utils/optim/csolve.R,14
+ccsolve01,0
+
+./utils/optim/derivVec.R,15
+dderivVec1,0
+
+./utils/optim/numgrad.R,14
+nnumgrad1,0
+
+./utils/optim/numHess.R,14
+nnumHess1,0
+
+./utils/optim/volcano.R,14
+vvolcano1,0
+
+./utils/others/array2list.R,20
+aarray2list11,286
+
+./utils/others/block.diag.R,20
+bblock.diag11,424
+
+./utils/others/diag1.R,15
+ddiag110,241
+
+./utils/others/diag.prod.R,43
+"%d*%13,336
+"%*d%23,536
+"%d*d%34,750
+
+./utils/others/foldMat.R,17
+ffoldMat13,319
+
+./utils/others/inhull.R,13
+iinhull1,0
+
+./utils/others/is.singular.R,21
+iis.singular10,244
+
+./utils/others/K.R,11
+KK29,544
+
+./utils/others/K.X.R,13
+KK.X33,926
+
+./utils/others/mesh.grid.R,19
+mmesh.grid12,269
+
+./utils/others/mseq.R,14
+mmseq12,438
+
+./utils/others/mvgamma.R,17
+mmvgamma17,704
+
+./utils/others/rdist.R,15
+rrdist14,352
+
+./utils/others/size.R,14
+ssize13,332
+
+./utils/others/tr.R,12
+ttr11,368
+
+./utils/others/vech2m.R,16
+vvech2m13,307
+
+./utils/others/vech.R,14
+vvech12,232
+
+./utils/plot/grid2.R,15
+ggrid215,313
+
+./utils/sourceDir.R,19
+ssourceDir17,843
+
+./utils/systools/autoupdate.packages.R,29
+aautoupdate.packages13,377
+
+./utils/systools/ls2.R,10
+lls21,0
+
+./utils/systools/warningsClear.R,20
+wwarningsClear1,0
