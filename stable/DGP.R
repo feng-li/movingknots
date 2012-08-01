@@ -19,7 +19,7 @@
 ##'         otherArgs$spline.type:
 ##' @param PlotData "logical"
 ##'         If need to plot the data out.
-##' @return
+##' @return "list"
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
@@ -113,7 +113,7 @@ DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
   out <- list(y = y.orig, X  = X.orig, Sigma = Sigma)
 
   ## Print the data out if p  = 1 and q = 2
-  ## FIXME: use try command to avoid error when gui is not available.
+  ## FIXME: use try command to avoid error when the display is not available.
   if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(X.orig)[2] == 2)
     {
       y.grid <- matrix(MeanSurface[(n+1):(n+n.grid^2),], n.grid, n.grid)
@@ -134,7 +134,6 @@ DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
       rgl.surface(X1.grid, X2.grid, y.grid, front = "lines", color="#CCCCFF", alpha = .8)
       ##      spheres3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, radius = 0.01)
     }
-
 
   return(out)
 }
