@@ -18,16 +18,19 @@
 DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                         PlotDGP = FALSE)
   {
-    OK <- FALSE
+    DGP.OK <- FALSE
     nRun <- 0
 
     ## What criterion used
-    check.crit <- TRUE
-    check.pval <- TRUE
-    check.nlf <- FALSE
+    ## TODO: Hard coded,  use as an input argument
+    check.crit <- FALSE
+
+    ## If check.cirt == TRUE,  which options to check
+    check.pval <- FALSE
+    check.nlf <- TRUE
     check.man <- FALSE
 
-    while(OK ==  FALSE)
+    while(DGP.OK ==  FALSE)
       {
         ## nCenters <- ceiling(sqrt(q.s))
         nCenters <- q.s
@@ -79,82 +82,91 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
         ## Signal to noise,  make sure the noise are not too big
         Sig2Noise <- mean(abs(y.gen/sd(Error)))
 
-        ## DGP Check
-        ## Regression with additive knots
-        ## To control the DGP has a relevantly good nonlinear surface,  we tried to fit
-        ## the results with only one additive model. Just make sure the surface is not too
-        ## flat.
-        if(check.pval == TRUE)
-          {
-            knots.ctrl <- make.knots(x = x.gen, method = "k-means", splineArgs.ctrl)
-            X.desi.ctrl <- d.matrix(x = x.gen, knots = knots.ctrl, splineArgs =
-                                    splineArgs.ctrl)
-            lmgen <- summary(lm(y.gen~x.gen)) # regression with only linear part
-            lmgen.ctrl <- summary(lm(y.gen~0+X.desi.ctrl)) # regression with one knot
-
-            pval <- matrix(NA, (dim(x.gen)[2]+1), p)
-            pval.ctrl <- matrix(NA, dim(X.desi.ctrl)[2], p)
-            if(p>1)
-              {
-                for(i in 1:p)
-                  {
-                    pval[, i] <- lmgen[[i]][[4]][, 4]
-                    pval.ctrl[, i] <- lmgen.ctrl[[i]][[4]][, 4]
-                  }
-              }
-            else
-              {
-                pval[, 1] <- lmgen[[4]][, 4]
-                pval.ctrl[, 1] <- lmgen.ctrl[[4]][, 4]
-                R2 <- lmgen$adj.r.squared
-              }
-            if(all(R2 <= 0.1) && all(pval.ctrl <= 0.1))
-              {
-                OK <- TRUE # PASS
-                NonlinFactor <- NA
-                Sig2Noise <- NA
-              }
-          }
-
-        if(check.nlf == TRUE)
-          {
-
-            ## Compute the nonlinear factor
-            B.lin <- matrix(lm(y.gen~x.gen)$coef, , p)
-            y4ctrl <- cbind(1, x.testing)%*%B.lin
-            NonlinFactor <- sd((y4ctrl-SurfaceMean)) # TODO: relevant measure for
-                                        # different dataset,  correlations
-
-           if(all(NonlinFactor > runif(1, 10, 100))) # ad-hoc let the NL in 10-100. when q =
-                                        # 10,  TODO: remember to change this later.
-              {
-                OK <- TRUE
-              }
-          }
+###----------------------------------------------------------------------------
+### ## DGP Check
+###----------------------------------------------------------------------------
+        ## Regression with additive knots To control the DGP has a relevantly
+        ## good nonlinear surface, we tried to fit the results with only one
+        ## additive model. Just make sure the surface is not too flat.
 
         if(check.crit == FALSE) # don't check anything. quit
           {
-            OK <- TRUE
+            DGP.OK <- TRUE
             NonlinFactor <- NA
             Sig2Noise <- NA
           }
-
-        if(check.man == TRUE)
+        else
           {
-            plot(x.gen, y.gen)
-            points(sort(x.gen), SurfaceMean[order(x.gen)], type = "l", col = "red")
-            answer <- substr(readline("Is this OK (yes/no)?  "), 1L, 1L)
-            if(tolower(answer) %in% c("yes", "y"))
+            ## Option to check p-value
+            if(check.pval == TRUE)
               {
-                OK <- TRUE
-                NonlinFactor <- NA
-                Sig2Noise <- NA
+                knots.ctrl <- make.knots(x = x.gen, method = "k-means", splineArgs.ctrl)
+                X.desi.ctrl <- d.matrix(x = x.gen, knots = knots.ctrl, splineArgs =
+                                        splineArgs.ctrl)
+                lmgen <- summary(lm(y.gen~x.gen)) # regression with only linear part
+                lmgen.ctrl <- summary(lm(y.gen~0+X.desi.ctrl)) # regression with one knot
+
+                pval <- matrix(NA, (dim(x.gen)[2]+1), p)
+                pval.ctrl <- matrix(NA, dim(X.desi.ctrl)[2], p)
+                R2 <- matrix(NA, p, 1)
+                if(p>1)
+                  {
+                    for(i in 1:p)
+                      {
+                        pval[, i] <- lmgen[[i]][[4]][, 4]
+                        pval.ctrl[, i] <- lmgen.ctrl[[i]][[4]][, 4]
+                        R2[i] <- lmgen[[i]]$adj.r.squared
+                      }
+                  }
+                else
+                  {
+                    pval[, 1] <- lmgen[[4]][, 4]
+                    pval.ctrl[, 1] <- lmgen.ctrl[[4]][, 4]
+                    R2 <- lmgen$adj.r.squared
+                  }
+                if(all(R2 <= 0.1) && all(pval.ctrl <= 0.1))
+                  {
+                    DGP.OK <- TRUE # PASS
+                    NonlinFactor <- NA
+                    Sig2Noise <- NA
+                  }
               }
-            else
+
+            ## Option to check nonlinear factor
+            if(check.nlf == TRUE)
               {
-                OK <- FALSE
+                ## Compute the nonlinear factor
+                B.lin <- matrix(lm(y.gen~x.gen)$coef, , p)
+                y4ctrl <- cbind(1, x.testing)%*%B.lin
+                NonlinFactor <- sd((y4ctrl-SurfaceMean)) # TODO: relevant measure for
+                                        # different dataset,  correlations
+
+                if(all(NonlinFactor > runif(1, 10, 100))) # ad-hoc let the NL in 10-100. when q =
+                                        # 10,  TODO: remember to change this later.
+                  {
+                    DGP.OK <- TRUE
+                  }
+              }
+
+            ## Option to check manually via plot
+            if(check.man == TRUE)
+              {
+                plot(x.gen, y.gen)
+                points(sort(x.gen), SurfaceMean[order(x.gen)], type = "l", col = "red")
+                answer <- substr(readline("Is this OK (yes/no)?  "), 1L, 1L)
+                if(tolower(answer) %in% c("yes", "y"))
+                  {
+                    DGP.OK <- TRUE
+                    NonlinFactor <- NA
+                    Sig2Noise <- NA
+                  }
+                else
+                  {
+                    DGP.OK <- FALSE
+                  }
               }
           }
+
         nRun <- nRun + 1
       }
 
