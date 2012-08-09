@@ -60,35 +60,35 @@ OOUT.Params304,12770
 RRunning.data326,14109
 
 ./examples/simul_10cov_5knots_1p_200n_s.R,615
-ppath.lib40,2607
-ssave.output43,2646
-ttrack.MCMC52,2967
-nn60,3220
-pp62,3250
-qq.o76,3441
-qq.s_gen79,3485
-qq.moving_seq82,3529
-qq.fixed_seq84,3551
-nnRep87,3596
-nnPred90,3650
-ssplineArgs.gen93,3698
-ssplineArgs.ctrl96,3911
-RRunning.date100,4141
-MModelDescription106,4402
-MModel_Name109,4468
-OOUT.q.s_seq112,4524
-ooneRep.len115,4592
-OOUT.fixed_seq118,4657
-LLOSS.tmp122,4773
-CCompTim.tmp125,4845
-ttotalRep128,4910
-OOUT.Data.gen131,4953
-OOUT.NolinFct134,5013
-OOUT.Data.testing137,5069
-OOUT.Data.pred140,5119
-iidx4Data142,5144
-OOUT.LOSS428,18089
-OOUT.time430,18131
+ppath.lib40,1943
+ssave.output43,1982
+ttrack.MCMC52,2298
+nn60,2550
+pp62,2580
+qq.o76,2771
+qq.s_gen79,2815
+qq.moving_seq82,2859
+qq.fixed_seq84,2881
+nnRep87,2926
+nnPred90,2980
+ssplineArgs.gen93,3028
+ssplineArgs.ctrl96,3239
+RRunning.date100,3467
+MModelDescription106,3728
+MModel_Name109,3794
+OOUT.q.s_seq112,3848
+ooneRep.len115,3916
+OOUT.fixed_seq118,3981
+LLOSS.tmp122,4097
+CCompTim.tmp125,4169
+ttotalRep128,4234
+OOUT.Data.gen131,4277
+OOUT.NolinFct134,4337
+OOUT.Data.testing137,4393
+OOUT.Data.pred140,4443
+iidx4Data142,4468
+OOUT.LOSS428,17160
+OOUT.time430,17202
 
 ./examples/simul_10cov_5knots_2p_200n_s.R,615
 ppath.lib40,2607
@@ -121,11 +121,40 @@ iidx4Data142,5148
 OOUT.LOSS431,18156
 OOUT.time433,18198
 
-./models/glm/glm_gradhess.R,99
-ggradient_vecB28,130
-ggrad_vech_Sigma50,764
-ggradient_xi70,1260
-ggradient_xi_condi131,3005
+./examples/simul_hwang_simple_1p_1000n_s.R,550
+ppath.lib40,1943
+ssave.output43,1983
+ttrack.MCMC53,2368
+nn60,2619
+pp63,2650
+qq.moving_seq78,2878
+qq.fixed_seq81,2940
+nnRep84,2982
+nnPred87,3036
+RRunning.date90,3065
+MModelDescription96,3326
+MModel_Name99,3384
+DDGP.model103,3481
+OOUT.q.s_seq106,3537
+ooneRep.len109,3605
+OOUT.fixed_seq112,3670
+LLOSS.tmp116,3786
+CCompTim.tmp119,3858
+ttotalRep122,3923
+OOUT.Data.gen125,3966
+OOUT.NolinFct128,4026
+OOUT.Data.testing131,4082
+OOUT.Data.pred134,4132
+iidx4Data136,4157
+OOUT.LOSS429,17188
+OOUT.time431,17230
+
+./models/glm/glm_gradhess.R,124
+gglm_gradhess1,0
+ggradient_vecB174,7341
+ggrad_vech_Sigma196,7973
+ggradient_xi216,8469
+ggradient_xi_condi277,10214
 
 ./models/glm/glm_logpost.R,22
 gglm_logpost37,1117
@@ -247,14 +276,17 @@ ddata.partition13,359
 ./stable/deriv_prior.R,22
 dderiv_prior31,1307
 
-./stable/DGP.R,14
-DDGP28,1013
+./stable/DGP.hwang.R,20
+DDGP.hwang28,1045
 
 ./stable/DGP.surface.R,21
 DDGP.surface18,461
 
+./stable/FitDiagnosis.hwang.R,28
+FFitDiagnosis.hwang12,364
+
 ./stable/FitDiagnosis.R,22
-FFitDiagnosis11,238
+FFitDiagnosis12,364
 
 ./stable/grad.x.deriv_link.R,27
 ggrad.x.deriv_link14,457
@@ -330,10 +362,13 @@ ssave.all12,256
 sset.crossvalid11,247
 
 ./stable/StdData.R,17
-SStdData31,950
+SStdData29,943
 
 ./stable/sub.hessian.R,18
 ssub.hessian1,0
+
+./stable/surface.R,14
+ssurface1,0
 
 ./tests/b2beta.R,178
 pp1,0

@@ -1,4 +1,4 @@
-##' A collection of DGPs for different models.
+##' A collection of DGPs for different models from Hwang's example.
 ##'
 ##' The model can be extended.
 ##' @name DGP
@@ -20,12 +20,12 @@
 ##' @param PlotData "logical"
 ##'         If need to plot the data out.
 ##' @return "list"
-##' @references
+##' @references Hwang 2000
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
 ##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
 ##' DEPENDS: mvtnorm
-DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
+DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
 {
   ## Get user supplied seed.
   ## If the seed is set, use it when random variable is used. Otherwise, no seed set.
@@ -54,69 +54,25 @@ DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
   if(!is.na(seed)) set.seed(seed+seed.const)
   Errors <- rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
 
-  if(tolower(model == "spline")) ## Both univariate and multivariate cases when
-    ## "spline.type" is "no-knots", reduces to linear regression
-    {
-
-      xi = otherArgs$xi
-      withInt <- otherArgs$withInt
-      spline.type <- otherArgs$spline.type
-
-      X.desi <- d.matrix(x = X, xi = xi, args = list(method = spline.type,
-                                           withInt = withInt))
-
-      q <- dim(X.desi)[2]
-
-      ## If the seed is set, use it.
-      if(!is.na(seed)) set.seed(seed+seed.const^2)
-      B <- matrix(runif(p*q), q, p)
-
-      MeanSurface <- X.desi%*%B
-    }
-  else if(tolower(model) == "simple") ## only univariate response case
-    {
-      MeanSurface <- 10.391*((X[,1, drop = FALSE]-0.4)*(X[,2, drop = FALSE]-0.6)+0.36)
-    }
-  else if(tolower(model)  == "radial") ## only univariate response case
-    {
-      r2 <- (X[,1, drop = FALSE]-0.5)^2+(X[,2, drop = FALSE]-0.5)^2
-      MeanSurface <- 24.234*(r2*(0.75-r2))
-    }
-  else if(tolower(model) == "harmonic") ## only univariate response case
-    {
-        XTilde <- X-0.5
-        MeanSurface <- 42.659*(0.1+XTilde[,1, drop = FALSE]
-                               *(0.05+XTilde[,1, drop = FALSE]^4
-                                 -10*XTilde[,1, drop = FALSE]^2*XTilde[,2, drop = FALSE]^2
-                                 +5*XTilde[,2, drop = FALSE]^4))
-    }
-  else if(tolower(model) == "additive") ## only univariate response case
-    {
-      MeanSurface <- 1.3356*(1.5*(1-X[,1, drop = FALSE])
-                             + exp(2*X[,1, drop = FALSE]-1)
-                             *sin(3*pi*(X[,1, drop = FALSE]-0.6)^2)
-                             +exp(3*(X[,2, drop = FALSE]-0.5))
-                             *sin(4*pi*(X[,2, drop = FALSE]-0.9)^2))
-    }
-  else if(tolower(model) == "interaction") ## only univariate response case
-    {
-      MeanSurface <- 1.9*(1.35 + exp(X[,1, drop = FALSE])
-                          *sin(13*(X[,1, drop = FALSE]-0.6)^2)
-                          *exp(-X[,2, drop = FALSE])*sin(7*X[,2, drop = FALSE]))
-    }
+  SurfaceMean <- surface(model = model, X = X)
 
   ## The final response variable
-  MeanSurface.orig <- MeanSurface[1:n, , drop = FALSE]
-  y.orig <- MeanSurface.orig + Errors
+  SurfaceMean.orig <- SurfaceMean[1:n, , drop = FALSE]
+  y.orig <- SurfaceMean.orig + Errors
   names(y.orig) <- NULL
 
-  out <- list(y = y.orig, X  = X.orig, Sigma = Sigma)
+  ## Computing the nonlinear factor
+  NonlinFactor <- NA
+
+  ## Signal to noise ratio
+  Errors.sd <- apply(Errors, 2, sd)
+  Sig2Noise <- mean(abs(SurfaceMean.orig/Errors.sd))
 
   ## Print the data out if p  = 1 and q = 2
   ## FIXME: use try command to avoid error when the display is not available.
   if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(X.orig)[2] == 2)
     {
-      y.grid <- matrix(MeanSurface[(n+1):(n+n.grid^2),], n.grid, n.grid)
+      y.grid <- matrix(SurfaceMean[(n+1):(n+n.grid^2),], n.grid, n.grid)
 
       image(X1.grid, X2.grid, y.grid, xlab = "X1", ylab = "X2")
       filled.contour(X1.grid, X2.grid, y.grid)
@@ -135,5 +91,7 @@ DGP <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
       ##      spheres3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, radius = 0.01)
     }
 
+  out <- list(Y = y.orig, x  = X.orig, SurfaceMean = SurfaceMean.orig,
+              Sigma = Sigma, NonlinFactor = NonlinFactor)
   return(out)
 }
