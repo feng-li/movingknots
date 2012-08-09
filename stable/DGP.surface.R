@@ -71,16 +71,16 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
 
         SurfaceMean <- X.desi %*% B
 
-        Error <-  rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
+        Errors <-  rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
 
-        y.gen <- SurfaceMean + Error
-
+        y.gen <- SurfaceMean + Errors
 
         ## Generate new x for predictions TODO: Ellpses Mardia 39
         x.testing <- matrix(runif(nPred*q.o, min(x.gen), max(x.gen)), nPred)
 
         ## Signal to noise,  make sure the noise are not too big
-        Sig2Noise <- mean(abs(y.gen/sd(Error)))
+        Errors.sd <- apply(Errors, 2, sd)
+        Sig2Noise <- mean(abs(SurfaceMean/Errors.sd))
 
 ###----------------------------------------------------------------------------
 ### ## DGP Check
@@ -170,7 +170,7 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
         nRun <- nRun + 1
       }
 
-    out <- list(x = x.gen, Y = y.gen, knots = knots.gen, Error = Error, B = B, SurfaceMean =
+    out <- list(x = x.gen, Y = y.gen, knots = knots.gen, Errors = Errors, B = B, SurfaceMean =
                 SurfaceMean, nRun = nRun, NonlinFactor = NonlinFactor, Sig2Noise =
                 Sig2Noise, x.testing = x.testing)
 
