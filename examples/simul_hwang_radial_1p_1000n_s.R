@@ -92,14 +92,14 @@ Running.date <- Sys.time()
 ## Model configurations
 ##----------------------------------------------------------------------------------------
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "simul_hwang_simple_1p_1000n"
+ModelDescription <- "simul_hwang_radio_1p_1000n"
 
 ## MODEL NAME
 Model_Name <- "linear"
 
 ## DGP MODEL
 ## "simple" "radial", "harmonic", "additive", "interaction"
-DGP.model <- c("simple")
+DGP.model <- c("radial")
 
 ## Simulations with different
 OUT.q.s_seq <- c(q.moving_seq, q.fixed_seq)
