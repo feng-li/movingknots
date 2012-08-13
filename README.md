@@ -33,11 +33,11 @@ console.
 
         #!/usr/bin/Rscript
 
-  or
+or
 
        #!/usr/bin/env Rscript
 
-  is on the first line of your R script.
+is on the first line of your R script.
 
 * You need make sure the script is executable
 
