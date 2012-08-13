@@ -29,15 +29,7 @@ console.
 
 ### Run with Rscript
 
-* Make sure that
-
-        #!/usr/bin/Rscript
-
-or
-
-       #!/usr/bin/env Rscript
-
-is on the first line of your R script.
+* Make sure that `#!/usr/bin/Rscript` or `#!/usr/bin/env Rscript` is on the first line of your R script.
 
 * You need make sure the script is executable
 
