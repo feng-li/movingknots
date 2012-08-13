@@ -15,15 +15,27 @@ Speed up R
 The moving knots model requires intensive matrix operations and one may compile R and
 link with fast BLAS library whenever possible.
 
-Run the code 
+Run the code
 ------------
 
 Please take a look at the `example` folder which contains a few setup templates
-for configuring the model. 
+for configuring the model. There are two ways to run the code
 
-You only need to use the `source` function to source the setup template and it
+* Run inside R
+
+  You only need to use the `source` function to source the setup template and it
 will run automatically and the summary of the results will be printed on the R
 console.
+
+* Run with Rscript
+
+  You need make sure the script is executable
+
+    chmod +x
+
+  And then just execute it like other bash script
+
+    ./rajan_example.R
 
 Help and bug reports
 --------------------
