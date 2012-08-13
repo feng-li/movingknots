@@ -36,6 +36,7 @@ gc()
 
 ## LOAD DEPENDENCES
 require("mvtnorm")
+require("methods")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
 path.lib <- "../R"
