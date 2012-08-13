@@ -23,7 +23,7 @@ for configuring the model. There are two ways to run the code
 
 ### Run inside R
 
-    You only need to use the `source` function to source the setup template and it
+You only need to use the `source` function to source the setup template and it
 will run automatically and the summary of the results will be printed on the R
 console.
 
@@ -31,11 +31,11 @@ console.
 
 * You need make sure the script is executable
 
-    chmod +x rajan_example.R
+        chmod +x rajan_example.R
 
 * And then just execute it like other bash script
 
-    ./rajan_example.R
+        ./rajan_example.R
 
 Help and bug reports
 --------------------
