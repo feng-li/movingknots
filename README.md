@@ -21,19 +21,19 @@ Run the code
 Please take a look at the `example` folder which contains a few setup templates
 for configuring the model. There are two ways to run the code
 
-* Run inside R
+### Run inside R
 
-  You only need to use the `source` function to source the setup template and it
+    You only need to use the `source` function to source the setup template and it
 will run automatically and the summary of the results will be printed on the R
 console.
 
-* Run with Rscript
+### Run with Rscript
 
-  You need make sure the script is executable
+* You need make sure the script is executable
 
-    chmod +x
+    chmod +x rajan_example.R
 
-  And then just execute it like other bash script
+* And then just execute it like other bash script
 
     ./rajan_example.R
 
