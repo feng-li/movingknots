@@ -202,7 +202,7 @@ knots.priType <- "mvnorm"
 knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
                                         # k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- 2n # The shrinkage
+knots.c <- n^2 # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
 model.comp.len <- length(splineArgs[["comp"]][ "intercept" != splineArgs[["comp"]] ])
