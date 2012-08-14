@@ -86,7 +86,7 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_pri_1_1_s_moving_20_plus_a_moving_4"
+ModelDescription <- "rajan_pri_random_varn_s_moving_20_plus_a_moving_4"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -144,7 +144,7 @@ propMethods <- list("knots" = "KStepNewton",
 ##----------------------------------------------------------------------------------------
 
 ## NO. OF ITERATIONS
-nIter <- 1000
+nIter <- 10000
 
 ## BURN-IN
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
@@ -177,7 +177,7 @@ MH.prop.df <- list("knots" = 10,
 ## "identity". Write a general function to handle this.
 
 ## Regression
-knots.location.gen <- make.knots(x = x, method = "equal-spaced", splineArgs)
+knots.location.gen <- make.knots(x = x, method = "random", splineArgs)
 
 X.init <- d.matrix(x, knots = knots.location.gen, splineArgs)
 lm.init <- lm(Y~0+X.init)
