@@ -119,6 +119,7 @@ make.knots <- function(x, method, splineArgs)
       if("thinplate.s"  %in% splineArgs$comp)
         {
           location <- apply(x, 2, uniquantile, n.locations = ks)
+          rownames(location) <- NULL
           out[["thinplate.s"]] <- location
         }
       if("thinplate.a"  %in% splineArgs$comp)
