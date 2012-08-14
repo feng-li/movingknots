@@ -60,7 +60,7 @@ FitDiagnosis.hwang <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, spl
         SurfaceMean[, ,which.j] <- SurfaceMean.j
 
         ## Simple progress bar
-        progressbar(which.j, length(sampleIdx))
+        ## progressbar(which.j, length(sampleIdx))
       }
 
     SurfaceMean.mean <- apply(SurfaceMean, c(1, 2), mean)
