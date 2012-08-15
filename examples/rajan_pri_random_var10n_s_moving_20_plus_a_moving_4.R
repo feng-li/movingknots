@@ -31,13 +31,12 @@
 ## Initialize R environment
 ##----------------------------------------------------------------------------------------
 
-Rprof()
 rm(list = ls())
 gc()
 
 ## LOAD DEPENDENCES
 require("mvtnorm")
-require("methods")
+require("methods") ## No loaded by default with Rscript
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
 path.lib <- "../R"
@@ -71,7 +70,7 @@ track.MCMC = TRUE
 load(file.path(path.lib, "data/Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
-x <- StdData(X, method = "norm-0-1")
+x <- StdData(X[, c(2, 4), drop = FALSE], method = "norm-0-1")
 
 ## no. of observations
 n <- dim(Y)[1]
@@ -87,7 +86,7 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_s_moving_20_plus_a_moving_4"
+ModelDescription <- "rajan_pri_random_var10n_s_moving_20_plus_a_moving_4"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -96,7 +95,7 @@ Model_Name <- "linear"
 splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"), # the
                                         # components of the design matrix.
                    thinplate.s.dim = c(20, m), # the dimension of the knots for surface.
-                   thinplate.a.locate = c(4, 4, 4, 4)) # no. of knots used in each
+                   thinplate.a.locate = c(4, 4)) # no. of knots used in each
                                         # covariates for the additive part. zero means no
                                         # knots for that covariates
 
@@ -145,7 +144,7 @@ propMethods <- list("knots" = "KStepNewton",
 ##----------------------------------------------------------------------------------------
 
 ## NO. OF ITERATIONS
-nIter <- 5000
+nIter <- 10000
 
 ## BURN-IN
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
@@ -169,6 +168,7 @@ MH.prop.df <- list("knots" = 10,
                    "shrinkages" = 10,
                    "covariance" = NA,
                    "coefficients" = NA)
+
 ##----------------------------------------------------------------------------------------
 ## Set up Priors
 ##----------------------------------------------------------------------------------------
@@ -177,8 +177,9 @@ MH.prop.df <- list("knots" = 10,
 ## "identity". Write a general function to handle this.
 
 ## Regression
-knots.by.kmeans <- make.knots(x = x, method = "k-means", splineArgs)
-X.init <- d.matrix(x, knots = knots.by.kmeans, splineArgs)
+knots.location.gen <- make.knots(x = x, method = "random", splineArgs)
+
+X.init <- d.matrix(x, knots = knots.location.gen, splineArgs)
 lm.init <- lm(Y~0+X.init)
 S0.init <- matrix(var(lm.init$residual), p, p)
 q <- dim(X.init)[2]
@@ -198,10 +199,10 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 
 ## PRIOR FOR KNOTS
 knots.priType <- "mvnorm"
-knots.mu0 <- knots.list2mat(knots.by.kmeans) # mean from
+knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
                                         # k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- n # The shrinkage
+knots.c <- 10*n # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
 model.comp.len <- length(splineArgs[["comp"]][ "intercept" != splineArgs[["comp"]] ])
@@ -244,7 +245,7 @@ priorArgs <- list(P.type = P.type,
 ## linkages if it is not "identity"
 
 ## INITIAL KNOTS LOCATIONS, "list"
-INIT.knots <- knots.by.kmeans
+INIT.knots <- knots.location.gen
 
 ## INITIAL SHRINKAGE FOR MODEL COVARIANCE "matrix"
 INIT.shrinkages <- shrinkages.mu0
@@ -337,10 +338,7 @@ MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Param
 ##----------------------------------------------------------------------------------------
 save.all(save.output, ModelDescription, Running.data)
 
-cat(paste("Finished at",
-          Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
-Rprof(NULL)
-summaryRprof()
+cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
 ##########################################################################################
 ##                                     THE END
 ##########################################################################################
