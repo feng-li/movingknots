@@ -314,6 +314,45 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##########################################################################################
 ## See the "tests" folder and tests at end of each function.
 
+## testing for analytical gradients
+gc()
+nt <- 100
+
+xx = x
+myfun1 <- function(x, Params, splineArgs, priorArgs, Params_Transform)
+  {
+    knots <- x
+    Params[["knots"]] = knots
+    linear_logpost(Y = Y, x = xx, Params = Params, callParam = list(id = "knots", subset = 1:length(knots)),
+                   splineArgs = splineArgs, priorArgs = priorArgs, Params_Transform = Params_Transform)
+  }
+
+xx = x
+myfun2 <- function(x, ...)
+  {
+    shrinkages <- x
+    Params[["shrinkages"]] = shrinkages
+    linear_logpost(Y = Y, x = xx, Params = Params,
+                   callParam = list(id = "shrinkages", subset =
+                     1:length(shrinkages)),
+                   splineArgs = splineArgs, priorArgs = priorArgs,
+                   Params_Transform = Params_Transform)
+  }
+
+t0 <- proc.time()
+for(i in 1:nt)
+  {
+    grad.num.xi <- numgrad(myfun1, x = INIT.knots.mat, Params = Params, splineArgs =
+                       splineArgs, priorArgs = priorArgs, Params_Transform =
+                           Params_Transform)
+    grad.num.ka <- numgrad(myfun2, x = INIT.shrinkages)
+  }
+t1 <- proc.time()
+
+tout <- (t1-t0)/nt
+print(tout)
+stop("Numeric gradients tests done!")
+
 ##########################################################################################
 ##                                   Main algorithm
 ##########################################################################################

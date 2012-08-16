@@ -1,5 +1,5 @@
 ## This is NOT working
-## See grad help for reasions
+## See grad help for reasons
 ## Fri Mar 26 10:26:57 CET 2010
 
 
@@ -11,7 +11,7 @@
 ##     knots <- x
 ##     Params[["knots"]] = knots
 ##     linear_logpost(Y = Y, x = xx, Params = Params, callParam = list(id = "knots", subset = 1:length(knots)),
-##                    splineArgs = splineArgs, priorArgs = priorArgs, Params_Transform = Params_Transform) 
+##                    splineArgs = splineArgs, priorArgs = priorArgs, Params_Transform = Params_Transform)
 ##   }
 ## grad.num.xi <- numgrad(myfun1, x = INIT.knots.mat, Params = Params, splineArgs =
 ##                        splineArgs, priorArgs = priorArgs, Params_Transform =
@@ -21,7 +21,7 @@
 ## myfun2 <- function(x, ...)
 ##   {
 ##     shrinkages <- x
-##     Params[["shrinkages"]] = shrinkages 
+##     Params[["shrinkages"]] = shrinkages
 ##     linear_logpost(Y = Y, x = xx, Params = Params, callParam = list(id = "shrinkages", subset = 1:length(shrinkages)),
 ##                    splineArgs = splineArgs, priorArgs = priorArgs, Params_Transform = Params_Transform)
 ##   }
@@ -48,15 +48,15 @@
 
 ##     P <- t(X)%*%X
 ##     P_1 <- solve(P)
-    
+
 ##     XP_1<- X%*%P # 6
 ##     B_tilde <- 1/(1+ka)*P_1%*%(t(X)%*%Y+ka*P%*%M)
 ##     Q_YXB <- t(Y-X%*%B_tilde) # 2
 ##     S_tilde <- Q_YXB%*%t(Q_YXB)/n
-    
+
 ##     B_tilde_M <- B_tilde-M # 3
 
-##     S_tilde_S0 <- n0*S0+n*S_tilde+ka*t(B_tilde_M)%*%P%*%B_tilde_M # 
+##     S_tilde_S0 <- n0*S0+n*S_tilde+ka*t(B_tilde_M)%*%P%*%B_tilde_M #
 
 ##     marginal.out <- -p/2*log(det((ka+1)*P))-
 ##                     (n+n0)/2*log(det(S_tilde_S0))
