@@ -18,12 +18,13 @@
 DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                         PlotDGP = FALSE)
   {
+    ## Initial DGP status
     DGP.OK <- FALSE
     nRun <- 0
 
     ## What criterion used
     ## TODO: Hard coded,  use as an input argument
-    check.crit <- FALSE
+    check.crit <- TRUE
 
     ## If check.cirt == TRUE,  which options to check
     check.pval <- FALSE
@@ -138,7 +139,8 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                 ## Compute the nonlinear factor
                 B.lin <- matrix(lm(y.gen~x.gen)$coef, , p)
                 y4ctrl <- cbind(1, x.testing)%*%B.lin
-                NonlinFactor <- sd((y4ctrl-SurfaceMean)) # TODO: relevant measure for
+                NLMean <- matrix(y4ctrl-SurfaceMean, , p)
+                NonlinFactor <- apply(NLMean, 2, sd) # TODO: relevant measure for
                                         # different dataset,  correlations
 
                 if(all(NonlinFactor > runif(1, 10, 100))) # ad-hoc let the NL in 10-100. when q =
