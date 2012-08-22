@@ -26,7 +26,7 @@
 ##' @note First version: Wed Mar 10 14:03:31  CET 2010;
 ##'       Current:       Thu Sep 16 13:56:37 CEST 2010.
 ##' TODO:
-make.knots <- function(x, method, splineArgs, ...)
+make.knots <- function(x, method, splineArgs, otherArgs = list())
 {
   out <- list()
 
@@ -84,8 +84,10 @@ make.knots <- function(x, method, splineArgs, ...)
           dim.x <- dim(x)
           n <- dim.x[1] # no. of obs.
 
+
           ## Set seed if a seed is supplied
-          if(!missing(seed)) set.seed(seed)
+          seed <- otherArgs$seed
+          if(!is.na(seed)) set.seed(seed)
 
           idx <- sample(1:n, ks)
           location <- x[idx, ,drop = FALSE]
@@ -110,7 +112,8 @@ make.knots <- function(x, method, splineArgs, ...)
             }
 
           ## Set seed if a seed is supplied
-          if(!missing(seed))
+          seed <- otherArgs$seed
+          if(!is.na(seed))
             {
               ## Very simple mechanism to generate a sequence of seed based
               ## only one supplied seed.
