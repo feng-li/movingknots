@@ -26,7 +26,7 @@
 ##' @note First version: Wed Mar 10 14:03:31  CET 2010;
 ##'       Current:       Thu Sep 16 13:56:37 CEST 2010.
 ##' TODO:
-make.knots <- function(x, method, splineArgs)
+make.knots <- function(x, method, splineArgs, ...)
 {
   out <- list()
 
@@ -83,6 +83,10 @@ make.knots <- function(x, method, splineArgs)
         {
           dim.x <- dim(x)
           n <- dim.x[1] # no. of obs.
+
+          ## Set seed if a seed is supplied
+          if(!missing(seed)) set.seed(seed)
+
           idx <- sample(1:n, ks)
           location <- x[idx, ,drop = FALSE]
           out[["thinplate.s"]] <- location
@@ -96,8 +100,28 @@ make.knots <- function(x, method, splineArgs)
           nknots <- a.locate[a.locate!=0]
           x.noempty <- x[, a.locate!=0, drop = FALSE]
           x.noempty.list <- array2list(x.noempty, 2)
-          location <-  mapply(x.noempty.list, FUN = function(x, nknots)  x[sample(1:n,
-                                                nknots)], nknots = as.list(nknots))
+
+          ## Create a function to sample the knots with the seed option
+          sampleFun <- function(x, nknots, sample.seed)
+            {
+              if(!missing(sample.seed)) set.seed(sample.seed)
+              out <- x[sample(1:n,nknots)]
+              return(out)
+            }
+
+          ## Set seed if a seed is supplied
+          if(!missing(seed))
+            {
+              ## Very simple mechanism to generate a sequence of seed based
+              ## only one supplied seed.
+              fixed.seeds <- 1:length(nknots)
+              loc.seeds <- seed + fixed.seeds
+            }
+
+          location <-  mapply(x.noempty.list,
+                              FUN = sampleFun,
+                              nknots = as.list(nknots),
+                              sample.seed = loc.seeds)
           out[["thinplate.a"]] <- matrix(unlist(location))
         }
     }
