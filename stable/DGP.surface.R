@@ -27,8 +27,8 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
     check.crit <- TRUE
 
     ## If check.cirt == TRUE,  which options to check
-    check.pval <- FALSE
-    check.nlf <- TRUE
+    check.pval <- TRUE
+    check.nlf <- FALSE
     check.man <- FALSE
 
     while(DGP.OK ==  FALSE)
@@ -110,6 +110,7 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                 pval <- matrix(NA, (dim(x.gen)[2]+1), p)
                 pval.ctrl <- matrix(NA, dim(X.desi.ctrl)[2], p)
                 R2 <- matrix(NA, p, 1)
+
                 if(p>1)
                   {
                     for(i in 1:p)
