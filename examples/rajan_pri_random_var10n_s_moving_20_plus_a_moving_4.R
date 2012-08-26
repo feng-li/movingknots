@@ -177,7 +177,7 @@ MH.prop.df <- list("knots" = 10,
 ## "identity". Write a general function to handle this.
 
 ## Regression
-knotSeed <- 1234 ## Set the seed to make comparison among different configures
+knotSeed <- 123 ## Set the seed to make comparison among different configures
 knots.location.gen <- make.knots(x = x,
                                  method = "random",
                                  splineArgs = splineArgs,

@@ -1,4 +1,9 @@
-setwd("~/running/prioreval/Results/")
+###----------------------------------------------------------------------------
+### Generate mesh data for the posterior plots
+###----------------------------------------------------------------------------
+
+## Load the raw MCMC results
+setwd("~/running/prioreval/Results/new")
 
 rdfiles <- dir()
 for(i in rdfiles)
@@ -40,7 +45,7 @@ for(i in rdfiles)
         X.desi <- d.matrix(x.mesh, knots.ilst, splineArgs)
         B <- matrix(OUT.Params[["coefficients"]][, , i,], , 1)
         Y.mesh[, i] <- X.desi %*% B
-        progressbar(i, nIter)
+        ## progressbar(i, nIter)
       }
 
     y.orig0 <- exp(Y.mesh)/(1+exp(Y.mesh))
@@ -52,5 +57,19 @@ for(i in rdfiles)
     ofile <- paste("Plot_", ModelDescription, ".Rdata", sep = "")
     save.image(file = ofile)
 
-    ## source("~/workspace/MovingKnots/R/plots/PlotRajanPosterior.R")
+  }
+
+
+###----------------------------------------------------------------------------
+### Posterior plot
+###----------------------------------------------------------------------------
+
+## Load the plot mesh
+
+setwd("~/running/prioreval/Results/plot")
+PlotRDfiles <- dir()
+for(i in PlotRDfiles)
+  {
+    load(i)
+    source("~/workspace/MovingKnots/R/plots/PlotRajanPosterior.R")
   }

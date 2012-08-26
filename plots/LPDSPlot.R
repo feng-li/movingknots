@@ -36,15 +36,15 @@ legend(-26, -1370, c("Free knots", "Fixed knots"), lty = c(1, 1), pch = c(1, NA)
 ##----------------------------------------------------------------------------------------
 lpds <- read.csv("LPDS_Rajan.csv", header = TRUE)
 lpds0 <- 0
-ylim0 <- c(-1320, -1220)
+ylim0 <- c(-1320, -1210)
 maxknots <- 60
 xlim0 <- c(0, maxknots)
-at2 <- seq(-1320, -1220, 10)
+at2 <- seq(-1320, -1210, 10)
 at1 <- seq(0, maxknots, 5)
-par(mfrow = c(3, 2), mar = c(1.5, 0.2, 0.8, 0.2), oma = c(2.5, 3.7, 0.1, 0.1), las = 1, ps = 10, cex = 1,
+par(mfrow = c(3, 2), mar = c(1.5, 0.2, 0.8, 0.2), oma = c(6, 3.7, 0.1, 0.1), las = 1, ps = 10, cex = 1,
     cex.main = 1, cex.lab = 1, cex.axis = 1)
 grid.x <- seq(0, maxknots, 5)
-grid.y <- seq(-1320, -1220, 10)
+grid.y <- seq(-1320, -1210, 10)
 
 ## 2 additive
 plot(lpds$Knots, lpds$s_fixed_plus_a_fixed_2-lpds0,  type = "l", lwd = 1.5, col = "blue", xlim =
@@ -52,7 +52,7 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_fixed_2-lpds0,  type = "l", lwd = 1.5, col 
 title(xlab = "", ylab = "LPDS", main =
      "Surface + 2 fixed additive knots", xpd = NA)
 lines(lpds$Knots, lpds$s_moving_plus_a_fixed_2-lpds0, type = "o", col = "red", pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, labels = FALSE)
@@ -64,7 +64,7 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_moving_2-lpds0,  type = "l",   lwd = 1.5, c
      "Surface + 2 free additive knots")
 lines(lpds$Knots, lpds$s_moving_plus_a_moving_2-lpds0, type = "o", col = "red",
       pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, labels = FALSE)
@@ -81,7 +81,7 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_fixed_4-lpds0,  type = "l", lwd = 1.5, col 
 title(xlab = "", ylab = "LPDS", main =
      "Surface + 4 fixed additive knots", xpd = NA)
 lines(lpds$Knots, lpds$s_moving_plus_a_fixed_4-lpds0, type = "o", col = "red", pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, labels = FALSE)
@@ -94,7 +94,7 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_moving_4-lpds0,  type = "l",   lwd = 1.5,
      col = "blue", xlim = xlim0, ylim = ylim0, xlab = "", ylab = "", axes=FALSE, main =
      "Surface + 4 free additive knots")
 lines(lpds$Knots, lpds$s_moving_plus_a_moving_4-lpds0, type = "o", col = "red", pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, labels = FALSE)
@@ -107,7 +107,7 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_fixed_8-lpds0,  type = "l", lwd = 1.5, col 
 title(xpd = NA,  xlab = "No. of surface knots", ylab = "LPDS", main =
      "Surface + 8 fixed additive knots")
 lines(lpds$Knots, lpds$s_moving_plus_a_fixed_8-lpds0, type = "o", col = "red", pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, xpd = NA)
@@ -121,11 +121,17 @@ plot(lpds$Knots, lpds$s_fixed_plus_a_moving_8-lpds0,  type = "l",  lwd = 1.5, co
 title(xpd = NA,  xlab = "No. of surface knots", ylab = "", main =
      "Surface + 8 free additive knots")
 lines(lpds$Knots, lpds$s_moving_plus_a_moving_8-lpds0, type = "o", col = "red", pch = 20)
-lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "red", pch = 1)
+lines(lpds$Knots, lpds$s_moving-lpds0, type = "o", col = "purple", pch = 1)
 
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5, xpd = NA)
 ## legend(20, -1290, c("Moving surface knots", "Fixed surface knots"), lty = c(1, 1), pch = c(1, NA),
 ##        col = c("red", "blue"), box.lwd = 0, bg = "white", box.lty = 0)
-legend(-27, -1285, c("Free surface knots", "Fixed surface knots"), lty = c(1, 1), pch = c(20, NA),
-       col = c("red", "blue"), lwd = c(1.5, 1.5), box.lwd = 0.5, xpd = NA, ncol = 2, bg = "white")
+legend(-80, -1355,
+       c("Free surface knots + additive knots",
+         "Fixed surface knots + additive knots",
+         "Benchmark: free surface knots only"),
+       lty = c(1, 1, 1), pch = c(20, NA, 1),
+       col = c("red", "blue", "purple"),
+       lwd = c(1.5, 1.5, 1.5), box.lwd = 0.5,
+       xpd = NA, ncol = 3, bg = "white")

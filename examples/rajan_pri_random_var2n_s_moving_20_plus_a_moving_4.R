@@ -86,7 +86,7 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_random_var2n_s_moving_20_plus_a_moving_4"
+ModelDescription <- "rajan_pri_random_var2n_s_moving_20_plus_a_moving_4"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -177,7 +177,7 @@ MH.prop.df <- list("knots" = 10,
 ## "identity". Write a general function to handle this.
 
 ## Regression
-knotSeed <- 1234 ## Set the seed to make comparison among different configures
+knotSeed <- 123 ## Set the seed to make comparison among different configures
 knots.location.gen <- make.knots(x = x,
                                  method = "random",
                                  splineArgs = splineArgs,
