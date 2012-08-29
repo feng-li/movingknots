@@ -81,7 +81,7 @@ DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
       ## The 3D scatter plot
       require(rgl)
       plot3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, col = "red",
-            xlab = "X1", ylab = "X2", zlab = "y")
+             xlab = "X1", ylab = "X2", zlab = "y")
 
       ## Put the surface on
       ## FIXME: merge the two figures

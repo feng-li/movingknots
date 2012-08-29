@@ -53,7 +53,7 @@ FitDiagnosis <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArg
         Params.j <- lapply(OUT.Params, function(x) apply(x[, , j, iCross, drop =
                                                            FALSE], c(1, 2), "["))
         caller.SurfaceMean <- call(logpost.fun.name,Y = NA, x = x,
-                                Params = Params.j, callParam = list(id = "surface-mean"),
+                                   Params = Params.j, callParam = list(id = "surface-mean"),
                                    priorArgs = NA, splineArgs = splineArgs,
                                    Params_Transform = Params_Transform) # X*B
         SurfaceMean.j <- eval(caller.SurfaceMean)
@@ -74,6 +74,7 @@ FitDiagnosis <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArg
       {
         out["LOSS"] <- mean((SurfaceMean.gen - SurfaceMean.mean)^2)
         ## TODO: Consider individual LOSS for each surface
+        browser()
       }
     if("KL"  %in% criterion) ## Kullback–Leibler divergence
       {
