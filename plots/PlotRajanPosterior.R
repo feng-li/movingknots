@@ -55,18 +55,17 @@ nlev <- 14
 color0 <- terrain.colors(nlev+1)[15:1]
 
 dev.new()
-par(ps = 10, cex = 1, cex.main = 1, cex.sub = 1, cex.axis = 1, bty = "o",
-    bg = rgb(242, 242, 242, maxColorValue=255))
-filled.contour(market2book, profit, cnt, xlim = xlim0, ylim = ylim0, col = color0,
+par(ps = 10, cex = 1, cex.main = 1, cex.sub = 1, cex.axis = 1, bty = "o")
+filled.contour2(market2book, profit, cnt, xlim = xlim0, ylim = ylim0, col = color0,
                levels = seq(0, 0.07, length.out = nlev+1), axes = TRUE, las = 1,
                xlab = "Market2Book", ylab = "Profit",
                main = "Posterior locations of knots", key.title = title(main=""),
                plot.axes = {axis(1, at = x.at)
                             axis(2, at = y.at)
                             points(init.knots.s, pch = 19, col = "blue", cex = 0.6)
-                            ## contour(market2book, profit, cnt, xlim = xlim0,
-                            ##         ylim = ylim0, add = TRUE, col = "black",
-                            ##         lwd = 0.8, lty = "solid")
+                            contour(market2book, profit, cnt, xlim = xlim0,
+                                    ylim = ylim0, add = TRUE, col = "black",
+                                    lwd = 0.8, lty = "solid")
                             image(cont.x$x, cont.x$y,
                                   matrix(rowSums(cont.x$counts), nbinsx0,
                                          nbinsy0), col = color0,add = TRUE, axes
@@ -95,8 +94,9 @@ filled.contour(market2book, profit, cnt, xlim = xlim0, ylim = ylim0, col = color
                                    c("blue", "blue"), cex = c(1, 1), legend =
                                    c("Prior mean of surface knots",
                                      "Prior mean of additive knots"))
-                          }
-               )
+                          },
+                bg = rgb(242, 242, 242, maxColorValue=255)
+                )
 
 if(SavePlot)
   {

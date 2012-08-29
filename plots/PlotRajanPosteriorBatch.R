@@ -67,7 +67,7 @@ for(i in rdfiles)
 ## Load the plot mesh
 
 setwd("~/running/prioreval/Results/plot")
-PlotRDfiles <- dir()
+PlotRDfiles <- dir()[6]
 for(i in PlotRDfiles)
   {
     load(i)
