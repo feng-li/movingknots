@@ -27,9 +27,9 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
     check.crit <- TRUE
 
     ## If check.cirt == TRUE,  which options to check
-    check.pval <- TRUE
-    check.nlf <- FALSE
-    check.man <- FALSE
+    check.pval <- FALSE # If check p-value
+    check.nlf <- TRUE # If check nonlinear factor
+    check.man <- FALSE # If check manually with plots
 
     while(DGP.OK ==  FALSE)
       {
@@ -46,9 +46,10 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
 
         x.gen <- rmixnorm(n, means, sigmas, weights)
 
-        knots.s.idx <- sample(1:n, q.s)
-        knots.s <- x.gen[knots.s.idx, , drop = FALSE] # TODO: Maybe a bug
-                                        # in rdist() function.
+        ## knots.s.idx <- sample(1:n, q.s)
+        ## knots.s <- x.gen[knots.s.idx, , drop = FALSE] #
+        ## TODO: MUST be a bug in rdist() function.
+        knots.s <- matrix(runif(q.s*q.o, min(x.gen), max(x.gen)), nrow = q.s)
 
         knots.gen <- list(thinplate.s = knots.s)
 
@@ -138,13 +139,15 @@ DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
             if(check.nlf == TRUE)
               {
                 ## Compute the nonlinear factor
+                ## TODO: Think about the intercept seriously
+
                 B.lin <- matrix(lm(y.gen~x.gen)$coef, , p)
-                y4ctrl <- cbind(1, x.testing)%*%B.lin
+                y4ctrl <- cbind(1, x.gen)%*%B.lin
                 NLMean <- matrix(y4ctrl-SurfaceMean, , p)
                 NonlinFactor <- apply(NLMean, 2, sd) # TODO: relevant measure for
                                         # different dataset,  correlations
 
-                if(all(NonlinFactor > runif(1, 10, 100))) # ad-hoc let the NL in 10-100. when q =
+                if(all(NonlinFactor > 3)) # ad-hoc let the NL in 10-100. when q =
                                         # 10,  TODO: remember to change this later.
                   {
                     DGP.OK <- TRUE
