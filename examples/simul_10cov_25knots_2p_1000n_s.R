@@ -79,14 +79,14 @@ else
 q.o <- 10
 
 ## no. of knots in DGP (surface)
-q.s_gen <- 5
+q.s_gen <- 25
 
 ## no. of knots in estimation
-## q.moving_seq <- c(5, 10, 15)
-q.moving_seq <- 5
+q.moving_seq <- c(5, 10, 15, 20, 25, 50)
+## q.moving_seq <- 5
 
-## q.fixed_seq <- c(5, 10, 15, 20, 25, 50)
-q.fixed_seq <- 5
+q.fixed_seq <- c(5, 10, 15, 20, 25, 50)
+## q.fixed_seq <- 5
 
 ## no. of replications.
 nRep <- 1
@@ -108,7 +108,7 @@ Running.date <- Sys.time()
 ## Model configurations
 ##----------------------------------------------------------------------------------------
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "simul_10cov_5knots_2p_1000n_s"
+ModelDescription <- "simul_10cov_25knots_2p_1000n_s"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -223,7 +223,7 @@ for(iRep in 1:totalRep)
 ##----------------------------------------------------------------------------------------
 
   ## NO. OF ITERATIONS
-  nIter <- 5000
+  nIter <- 3000
 
   ## BURN-IN
   burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.

@@ -73,8 +73,7 @@ FitDiagnosis <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArg
     if("LOSS"  %in% criterion) ## Squared error loss (Gelman 2003,  p.256)
       {
         out["LOSS"] <- mean((SurfaceMean.gen - SurfaceMean.mean)^2)
-        ## TODO: Consider individual LOSS for each surface
-        browser()
+        ## TODO: Consider individual LOSS for each surface, did try,  no much difference
       }
     if("KL"  %in% criterion) ## Kullback–Leibler divergence
       {
