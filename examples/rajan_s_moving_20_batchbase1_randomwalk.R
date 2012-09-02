@@ -87,7 +87,7 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_s_moving_40"
+ModelDescription <- "rajan_s_moving_20_batchbase1_randomwalk"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -95,7 +95,7 @@ Model_Name <- "linear"
 ## ARGUMENTS FOR SPLINES
 splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s"), # the
                                         # components of the design matrix.
-                   thinplate.s.dim = c(40, m), # the dimension of the knots for surface.
+                   thinplate.s.dim = c(20, m), # the dimension of the knots for surface.
                    thinplate.a.locate = c(0, 0, 0, 0)) # no. of knots used in each
                                         # covariates for the additive part. zero means no
                                         # knots for that covariates
@@ -113,7 +113,11 @@ Params_Fixed <- list("knots" = list(thinplate.s = 0, thinplate.a = 0), # which k
                      "coefficients" = 0)
 
 ## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
-Params_subsetsArgs <- list("knots" = list(N.subsets = 1, partiMethod = "systematic", split = FALSE),
+BatchBase <- 1
+Params_subsetsArgs <- list("knots" = list(
+                             N.subsets = splineArgs$thinplate.s.dim[1]/BatchBase,
+                             partiMethod = "systematic",
+                             split = FALSE),
                            "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
                            "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
                            "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
@@ -135,7 +139,7 @@ hessMethods <- list("knots" = "outer",
                     "coefficients" = NA)
 
 ## Propose method in Metropolis-Hasting
-propMethods <- list("knots" = "KStepNewton",
+propMethods <- list("knots" = "Random-Walk",
                     "shrinkages" = "KStepNewton",
                     "covariance" = "Inverse-Wishart", # random MH without K-step Newton
                     "coefficients" = NA)
@@ -154,18 +158,18 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-cross.validation <- list(N.subsets = 5, # No. of folds. If 1:, no cross-validation.
+cross.validation <- list(N.subsets = 1, # No. of folds. If 1:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
 ## NO. OF FINTE NEWTON MOVE FOR EACH PARAMETERS
-nNewtonSteps <- list("knots" = 3,
+nNewtonSteps <- list("knots" = NA,
                     "shrinkages" = 3,
                     "covariance" = NA, # random MH
                     "coefficients" = NA) # integrated out
 
 ## THE DF. FOR A MULTIVARIATE T-PROPOSAL IN MH ALGORITHM.
-MH.prop.df <- list("knots" = 10,
+MH.prop.df <- list("knots" = NA,
                    "shrinkages" = 10,
                    "covariance" = NA,
                    "coefficients" = NA)
