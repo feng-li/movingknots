@@ -246,8 +246,8 @@ for(iRep in 1:totalRep)
   ## "identity". Write a general function to handle this.
 
   ## Regression
-  knots.by.kmeans <- make.knots(x = x, method = "k-means", splineArgs)
-  X.init <- d.matrix(x, knots = knots.by.kmeans, splineArgs)
+  knots.location.gen <- make.knots(x = x, method = "k-means", splineArgs)
+  X.init <- d.matrix(x, knots = knots.location.gen, splineArgs)
   lm.init <- lm(Y~0+X.init)
   S0.init <- matrix(var(lm.init$residual), p, p)
   q <- dim(X.init)[2]
@@ -267,7 +267,7 @@ for(iRep in 1:totalRep)
 
   ## PRIOR FOR KNOTS
   knots.priType <- "mvnorm"
-  knots.mu0 <- knots.list2mat(knots.by.kmeans) # mean from
+  knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
                                         # k-means
   knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came
                                         # from x'x
@@ -314,7 +314,7 @@ for(iRep in 1:totalRep)
   ## linkages if it is not "identity"
 
   ## INITIAL KNOTS LOCATIONS, "list"
-  INIT.knots <- knots.by.kmeans
+  INIT.knots <- knots.location.gen
 
   ## INITIAL SHRINKAGE FOR MODEL COVARIANCE "matrix"
   INIT.shrinkages <- shrinkages.mu0
