@@ -31,16 +31,16 @@ RandomWalkMetropolis <- function(
     ## No need further transformation
 
     ## Random walk proposal
-    nprop <- length(param.curr.prop)
+    nprop <- length(param.cur)
     error.prop.mean <- matrix(0, nrow = 1, ncol = nprop)
-    error.prop.sigma <- diag(0.1, nrow = nprop, ncol = ncol) # diag() is slow
+    error.prop.sigma <- diag(0.2, nrow = nprop, ncol = nprop) # diag() is slow
                                         # prop sd is hard coded. use a better
                                         # strategy
 
     error.prop <- rmvnorm(n = 1, mean = error.prop.mean,
-                          sigma = error.prop.sigma)
+                          sigma = error.prop.sigma) # 1-by-nprop
 
-    param.cur.prop <- param.cur + error.prop
+    param.prop <- param.cur + matrix(error.prop)
 
     ## The jump densities
     ## Symmetric with random walk case
