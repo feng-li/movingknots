@@ -327,7 +327,7 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##----------------------------------------------------------------------------------------
 ## MovingKnots MCMC
 ##----------------------------------------------------------------------------------------
-Running.data <- Sys.time()
+Running.date <- Sys.time()
 MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Params,
                  Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs, priorArgs, MH.prop.df,
                  Params_Transform, propMethods, crossvalid.struc, OUT.Params,
@@ -336,7 +336,7 @@ MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Param
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
 ##----------------------------------------------------------------------------------------
-save.all(save.output, ModelDescription, Running.data)
+save.all(save.output, ModelDescription, Running.date)
 
 cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
 ##########################################################################################

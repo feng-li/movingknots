@@ -63,7 +63,6 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
                                   splineArgs = splineArgs,
                                   priorArgs = priorArgs,
                                   Params_Transform = Params_Transform)
-
     }
   else
     {

@@ -2,22 +2,22 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                              Params, Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs,
                              priorArgs, MH.prop.df, Params_Transform, propMethods,
                              crossvalid.struc, OUT.Params, OUT.accept.probs, burn.in,
-                             LPDS.sampleProp, track.MCMC) 
+                             LPDS.sampleProp, track.MCMC)
   {
 ##----------------------------------------------------------------------------------------
     ## Update Knots locations (subsets),  shrinkage and covariance jointly
 ##----------------------------------------------------------------------------------------
     Running.date <- Sys.time() # The stating time
     Start.Time <- proc.time() # The CPU time
-    
+
     cat("Updating Knots Shrinkages and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-    
+
     for(iCross in 1:nCross) # loop over subsets of data. TODO: Parallel Computing?
       {
         ## Training sample
         Y.iCross <- Y[crossvalid.struc$training[[iCross]], , drop = FALSE]
         x.iCross <- x[crossvalid.struc$training[[iCross]], , drop = FALSE]
-        
+
         for(iIter in 1:nIter) # loop nIter times
           {
            ## a <- proc.time()
@@ -39,7 +39,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                                                splineArgs = splineArgs, priorArgs =
                                                priorArgs, prop.df = MH.prop.df[[iPar]],
                                                Params_Transform = Params_Transform,
-                                               propMethod = propMethods[[iPar]])     
+                                               propMethod = propMethods[[iPar]])
                         ## Update the parameters in the parameters list.
                         Params[[iPar]][Sub4iPar] <- out.iSub$param.out
                         ## Save the acceptance probability
@@ -67,7 +67,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                                    splineArgs, priorArgs, Params_Transform)
 
 ##----------------------------------------------------------------------------------------
-    ## Compute the predictive density and LPDS  
+    ## Compute the predictive density and LPDS
 ##----------------------------------------------------------------------------------------
 
     ## Update the LPDS
@@ -77,30 +77,31 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                              priorArgs = priorArgs, OUT.Params = OUT.Params, Params_Transform
                              = Params_Transform, burn.in = burn.in, LPDS.sampleProp = LPDS.sampleProp)
     cat("LPDS:", round(OUT.LPDS$LPDS, 2), "( n.se:", round(OUT.LPDS$nseLPDS, 2), ")",
-        "\n\n")   
+        "\n\n")
 
     Finish.Time <- proc.time()
 
 ##########################################################################################
-    ##                                 Post Analysis                                       
+    ##                                 Post Analysis
 ##########################################################################################
 
 ##----------------------------------------------------------------------------------------
     ## Computing posterior modes
 ##----------------------------------------------------------------------------------------
-    
+
     ## Drop the burn-in
     num.burn.in <- floor(nIter*burn.in)
 
     OUT.Params.mode <- lapply(OUT.Params,
                               function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                                c(1, 2, 4), mean))  
+                                                c(1, 2, 4), mean))
     OUT.Params.sd <- lapply(OUT.Params,
                             function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                              c(1, 2, 4), sd))  
+                                              c(1, 2, 4), sd))
     OUT.accept.probs.mean <- lapply(OUT.accept.probs,
                                     function(x) apply(x[, (num.burn.in+1):nIter, ,drop =
-                                                        FALSE],c(1, 3), mean))       
+                                                        FALSE],c(1, 3), mean))
+    OUT.ineff <- ???
 
 ##----------------------------------------------------------------------------------------
     ## Collecting system information
@@ -112,15 +113,15 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
 
 ##########################################################################################
     ##                                Save output
-##########################################################################################    
+##########################################################################################
     ## save important output to global environment. "<<-"
     OUT.Params <<- OUT.Params
     OUT.Params.mode <<- OUT.Params.mode
     OUT.Params.sd <<- OUT.Params.sd
-    
+
     OUT.accept.probs <<- OUT.accept.probs
     OUT.accept.probs.mean <<- OUT.accept.probs.mean
 
     OUT.LPDS <<- OUT.LPDS
-    SYS.INFO <<- SYS.INFO 
+    SYS.INFO <<- SYS.INFO
   }
