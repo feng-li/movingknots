@@ -57,7 +57,7 @@ PParams.sub.struc291,12224
 OOUT.accept.probs302,12686
 IINIT.knots.mat306,12867
 OOUT.Params308,12913
-RRunning.data330,14252
+RRunning.date330,14252
 
 ./examples/rajan_pri_eqspace_var2n_s_moving_20_plus_a_moving_4.R,1363
 ppath.lib42,2022
@@ -117,7 +117,7 @@ PParams.sub.struc291,12222
 OOUT.accept.probs302,12684
 IINIT.knots.mat306,12865
 OOUT.Params308,12911
-RRunning.data330,14250
+RRunning.date330,14250
 
 ./examples/rajan_pri_eqspace_varn_s_moving_20_plus_a_moving_4.R,1363
 ppath.lib42,2022
@@ -177,7 +177,7 @@ PParams.sub.struc291,12219
 OOUT.accept.probs302,12681
 IINIT.knots.mat306,12862
 OOUT.Params308,12908
-RRunning.data330,14247
+RRunning.date330,14247
 
 ./examples/rajan_pri_kmeans_var10n_s_moving_20_plus_a_moving_4.R,1363
 ppath.lib42,2022
@@ -237,7 +237,7 @@ PParams.sub.struc291,12218
 OOUT.accept.probs302,12680
 IINIT.knots.mat306,12861
 OOUT.Params308,12907
-RRunning.data330,14246
+RRunning.date330,14246
 
 ./examples/rajan_pri_kmeans_var2n_s_moving_20_plus_a_moving_4.R,1363
 ppath.lib42,2022
@@ -297,7 +297,7 @@ PParams.sub.struc291,12216
 OOUT.accept.probs302,12678
 IINIT.knots.mat306,12859
 OOUT.Params308,12905
-RRunning.data330,14244
+RRunning.date330,14244
 
 ./examples/rajan_pri_random_var10n_s_moving_20_plus_a_moving_4.R,1383
 ppath.lib42,2022
@@ -358,7 +358,7 @@ PParams.sub.struc295,12442
 OOUT.accept.probs306,12904
 IINIT.knots.mat310,13085
 OOUT.Params312,13131
-RRunning.data334,14470
+RRunning.date334,14470
 
 ./examples/rajan_pri_random_var2n_s_moving_20_plus_a_moving_4.R,1383
 ppath.lib42,2022
@@ -419,7 +419,7 @@ PParams.sub.struc295,12440
 OOUT.accept.probs306,12902
 IINIT.knots.mat310,13083
 OOUT.Params312,13129
-RRunning.data334,14468
+RRunning.date334,14468
 
 ./examples/rajan_pri_random_varn_s_moving_20_plus_a_moving_4.R,1383
 ppath.lib42,2022
@@ -480,7 +480,7 @@ PParams.sub.struc295,12437
 OOUT.accept.probs306,12899
 IINIT.knots.mat310,13080
 OOUT.Params312,13126
-RRunning.data334,14465
+RRunning.date334,14465
 
 ./examples/rajan_profile_s_moving_20_plus_a_moving_4.R,1490
 ppath.lib43,1993
@@ -548,7 +548,129 @@ mmyfun2331,13877
 tt0342,14255
 tt1350,14559
 ttout352,14578
-RRunning.data368,15337
+RRunning.date368,15337
+
+./examples/rajan_s_moving_20_batchbase4_kstep.R,1381
+ppath.lib42,1986
+ssave.output45,2026
+ttrack.MCMC56,2456
+xx74,2977
+nn77,3038
+pp80,3075
+mm83,3121
+MModelDescription90,3371
+MModel_Name93,3437
+ssplineArgs96,3486
+PParams4Gibbs105,4064
+PParams_Fixed109,4230
+BBatchBase116,4652
+PParams_subsetsArgs117,4667
+PParams_Transform130,5404
+hhessMethods136,5624
+ppropMethods142,5828
+nnIter152,6280
+bburn.in155,6305
+LLPDS.sampleProp158,6379
+ccross.validation161,6482
+nnNewtonSteps166,6770
+MMH.prop.df172,7010
+kknots.by.kmeans184,7513
+XX.init185,7582
+llm.init186,7641
+SS0.init187,7667
+qq188,7714
+PP.type192,7832
+ccovariance.priType195,7929
+ccovariance.df0196,7969
+ccovariance.S0197,7990
+ccoefficients.priType200,8069
+ccoefficients.mu0201,8102
+kknots.priType204,8205
+kknots.mu0205,8231
+kknots.Sigma0207,8338
+kknots.c208,8432
+mmodel.comp.len211,8486
+sshrinkages.pri.trans213,8654
+sshrinkages.priType216,8895
+sshrinkages.mu0217,8926
+sshrinkages.Sigma0220,9155
+sshrinkages.c222,9316
+ppriorArgs225,9377
+IINIT.knots251,10530
+IINIT.shrinkages254,10612
+IINIT.covariance257,10678
+ggradhess.fun.name267,11179
+llogpost.fun.name270,11282
+ccrossvalid.struc279,11769
+nnCross282,11872
+nnTraining285,11962
+PParams288,12036
+PParams.sub.struc294,12277
+OOUT.accept.probs305,12739
+IINIT.knots.mat309,12920
+OOUT.Params311,12966
+RRunning.date333,14305
+
+./examples/rajan_s_moving_20_batchbase4_randomwalk.R,1381
+ppath.lib42,1986
+ssave.output45,2026
+ttrack.MCMC56,2456
+xx74,2977
+nn77,3038
+pp80,3075
+mm83,3121
+MModelDescription90,3371
+MModel_Name93,3448
+ssplineArgs96,3497
+PParams4Gibbs105,4076
+PParams_Fixed109,4242
+BBatchBase116,4664
+PParams_subsetsArgs117,4680
+PParams_Transform130,5417
+hhessMethods136,5637
+ppropMethods142,5841
+nnIter152,6293
+bburn.in155,6318
+LLPDS.sampleProp158,6392
+ccross.validation161,6495
+nnNewtonSteps166,6783
+MMH.prop.df172,7023
+kknots.by.kmeans184,7526
+XX.init185,7595
+llm.init186,7654
+SS0.init187,7680
+qq188,7727
+PP.type192,7845
+ccovariance.priType195,7942
+ccovariance.df0196,7982
+ccovariance.S0197,8003
+ccoefficients.priType200,8082
+ccoefficients.mu0201,8115
+kknots.priType204,8218
+kknots.mu0205,8244
+kknots.Sigma0207,8351
+kknots.c208,8445
+mmodel.comp.len211,8499
+sshrinkages.pri.trans213,8667
+sshrinkages.priType216,8908
+sshrinkages.mu0217,8939
+sshrinkages.Sigma0220,9168
+sshrinkages.c222,9329
+ppriorArgs225,9390
+IINIT.knots251,10543
+IINIT.shrinkages254,10625
+IINIT.covariance257,10691
+ggradhess.fun.name267,11192
+llogpost.fun.name270,11295
+ccrossvalid.struc279,11782
+nnCross282,11885
+nnTraining285,11975
+PParams288,12049
+PParams.sub.struc294,12290
+OOUT.accept.probs305,12752
+IINIT.knots.mat309,12933
+OOUT.Params311,12979
+RRunning.date333,14318
 
 ./examples/rajan_s_moving_2_plus_a_moving_2.R,1360
 ppath.lib40,1943
@@ -608,7 +730,7 @@ PParams.sub.struc287,12081
 OOUT.accept.probs298,12543
 IINIT.knots.mat302,12724
 OOUT.Params304,12770
-RRunning.data326,14109
+RRunning.date326,14109
 
 ./examples/rajan_s_moving_40.R,1360
 ppath.lib42,1986
@@ -668,7 +790,38 @@ PParams.sub.struc290,12127
 OOUT.accept.probs301,12589
 IINIT.knots.mat305,12770
 OOUT.Params307,12816
-RRunning.data329,14155
+RRunning.date329,14155
+
+./examples/simul_10cov_25knots_2p_1000n_s.R,616
+ppath.lib42,1986
+ssave.output45,2026
+ttrack.MCMC55,2411
+nn62,2662
+pp65,2694
+qq.o79,2886
+qq.s_gen82,2930
+qq.moving_seq85,2975
+qq.fixed_seq88,3038
+nnRep92,3123
+nnPred95,3177
+ssplineArgs.gen98,3225
+ssplineArgs.ctrl101,3436
+RRunning.date105,3664
+MModelDescription111,3925
+MModel_Name114,3993
+OOUT.q.s_seq117,4047
+ooneRep.len120,4115
+OOUT.fixed_seq123,4180
+LLOSS.tmp127,4296
+CCompTim.tmp130,4368
+ttotalRep133,4433
+OOUT.Data.gen136,4476
+OOUT.NolinFct139,4536
+OOUT.Data.testing142,4592
+OOUT.Data.pred145,4642
+iidx4Data147,4667
+OOUT.LOSS438,17561
+OOUT.time440,17603
 
 ./examples/simul_10cov_5knots_1p_200n_s.R,615
 ppath.lib40,1943
@@ -709,28 +862,28 @@ nn62,2662
 pp65,2694
 qq.o79,2886
 qq.s_gen82,2930
-qq.moving_seq85,2974
-qq.fixed_seq88,3025
+qq.moving_seq86,3006
+qq.fixed_seq89,3068
 nnRep92,3110
-nnPred95,3165
-ssplineArgs.gen98,3213
-ssplineArgs.ctrl101,3424
-RRunning.date105,3652
-MModelDescription111,3913
-MModel_Name114,3980
-OOUT.q.s_seq117,4034
-ooneRep.len120,4102
-OOUT.fixed_seq123,4167
-LLOSS.tmp127,4283
-CCompTim.tmp130,4355
-ttotalRep133,4420
-OOUT.Data.gen136,4463
-OOUT.NolinFct139,4523
-OOUT.Data.testing142,4579
-OOUT.Data.pred145,4629
-iidx4Data147,4654
-OOUT.LOSS438,17563
-OOUT.time440,17605
+nnPred95,3164
+ssplineArgs.gen98,3212
+ssplineArgs.ctrl101,3423
+RRunning.date105,3651
+MModelDescription111,3912
+MModel_Name114,3979
+OOUT.q.s_seq117,4033
+ooneRep.len120,4101
+OOUT.fixed_seq123,4166
+LLOSS.tmp127,4282
+CCompTim.tmp130,4354
+ttotalRep133,4419
+OOUT.Data.gen136,4462
+OOUT.NolinFct139,4522
+OOUT.Data.testing142,4578
+OOUT.Data.pred145,4628
+iidx4Data147,4653
+OOUT.LOSS438,17547
+OOUT.time440,17589
 
 ./examples/simul_10cov_5knots_2p_200n_s.R,615
 ppath.lib40,2607
@@ -1261,6 +1414,9 @@ hhessian_approx24,1039
 ./stable/I.Kron.R,13
 II.Kron1,0
 
+./stable/ineff.R,15
+iineff11,372
+
 ./stable/knots.check.boundary.R,30
 kknots.check.boundary21,807
 
@@ -1287,7 +1443,7 @@ mmake.knots29,1197
 MMCMC.trajectory12,252
 
 ./stable/MHPropMain.R,20
-MMHPropMain24,566
+MMHPropMain24,549
 
 ./stable/MHPropWithIWishart.R,28
 MMHPropWithIWishart21,522
@@ -1316,11 +1472,14 @@ EEvalResid12,326
 ./stable/progressbar.R,21
 pprogressbar12,342
 
+./stable/RandomWalkMetropolis.R,30
+RRandomWalkMetropolis19,496
+
 ./stable/rmixnorm.R,18
 rrmixnorm17,664
 
 ./stable/save.all.R,18
-ssave.all12,256
+ssave.all12,301
 
 ./stable/set.crossvalid.R,24
 sset.crossvalid11,247
@@ -1683,7 +1842,7 @@ mmseq12,438
 mmvgamma17,704
 
 ./utils/others/rdist.R,15
-rrdist14,352
+rrdist14,345
 
 ./utils/others/size.R,14
 ssize13,332
