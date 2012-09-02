@@ -121,6 +121,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
     OUT.Params <<- OUT.Params
     OUT.Params.mode <<- OUT.Params.mode
     OUT.Params.sd <<- OUT.Params.sd
+    OUT.Params.ineff <<- OUT.Params.ineff
 
     OUT.accept.probs <<- OUT.accept.probs
     OUT.accept.probs.mean <<- OUT.accept.probs.mean
