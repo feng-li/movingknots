@@ -87,16 +87,16 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_s_moving_20_batchbase1_randomwalk"
+ModelDescription <- "rajan_s_moving_20_plus_a_moving_4_batchbase1_randomwalk"
 
 ## MODEL NAME
 Model_Name <- "linear"
 
 ## ARGUMENTS FOR SPLINES
-splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s"), # the
+splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"), # the
                                         # components of the design matrix.
                    thinplate.s.dim = c(20, m), # the dimension of the knots for surface.
-                   thinplate.a.locate = c(0, 0, 0, 0)) # no. of knots used in each
+                   thinplate.a.locate = c(4, 4, 4, 4)) # no. of knots used in each
                                         # covariates for the additive part. zero means no
                                         # knots for that covariates
 
@@ -113,14 +113,22 @@ Params_Fixed <- list("knots" = list(thinplate.s = 0, thinplate.a = 0), # which k
                      "coefficients" = 0)
 
 ## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
-BatchBase <- 1
+## The split argument is only used when surface and additive subsets are of the
+## same length
 Params_subsetsArgs <- list("knots" = list(
-                             N.subsets = splineArgs$thinplate.s.dim[1]/BatchBase,
-                             partiMethod = "systematic",
+                             thinplate.s = list(
+                               N.subsets = 20,
+                               partiMethod = "systematic"),
+
+                             thinplate.a = list(
+                               N.subsets = 4,
+                               partiMethod = "systematic"),
                              split = FALSE),
+
                            "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
                            "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
                            "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
+
 
 ##----------------------------------------------------------------------------------------
 ## Parameters settings
@@ -164,7 +172,7 @@ cross.validation <- list(N.subsets = 1, # No. of folds. If 1:, no cross-validati
 
 ## NO. OF FINTE NEWTON MOVE FOR EACH PARAMETERS
 nNewtonSteps <- list("knots" = NA,
-                    "shrinkages" = 3,
+                    "shrinkages" = 1,
                     "covariance" = NA, # random MH
                     "coefficients" = NA) # integrated out
 

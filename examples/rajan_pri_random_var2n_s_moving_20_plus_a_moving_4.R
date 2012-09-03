@@ -112,7 +112,18 @@ Params_Fixed <- list("knots" = list(thinplate.s = 0, thinplate.a = 0), # which k
                      "coefficients" = 0)
 
 ## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
-Params_subsetsArgs <- list("knots" = list(N.subsets = 1, partiMethod = "systematic", split = FALSE),
+## The split argument is only used when surface and additive subsets are of the
+## same length
+Params_subsetsArgs <- list("knots" = list(
+                             thinplate.s = list(
+                               N.subsets = 1,
+                               partiMethod = "systematic"),
+
+                             thinplate.a = list(
+                               N.subsets = 1,
+                               partiMethod = "systematic"),
+                             split = FALSE),
+
                            "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
                            "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
                            "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
