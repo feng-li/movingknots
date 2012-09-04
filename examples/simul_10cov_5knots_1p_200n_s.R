@@ -186,11 +186,22 @@ for(iRep in 1:totalRep)
                        "covariance"  = 0,   # zero means all are updated
                        "coefficients" = 0)
 
-  ## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
-  Params_subsetsArgs <- list("knots" = list(N.subsets = 1, partiMethod = "systematic", split = FALSE),
-                             "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
-                             "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
-                             "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
+## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
+## The split argument is only used when surface and additive subsets are of the
+## same length
+Params_subsetsArgs <- list("knots" = list(
+                             thinplate.s = list(
+                               N.subsets = 1,
+                               partiMethod = "systematic"),
+
+                             thinplate.a = list(
+                               N.subsets = 1,
+                               partiMethod = "systematic"),
+                             split = FALSE),
+
+                           "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
+                           "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
+                           "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
 
 ##----------------------------------------------------------------------------------------
 ## Parameters settings
