@@ -25,16 +25,38 @@
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
 ##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
 ##' DEPENDS: mvtnorm
-DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
+DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA),  PlotData)
 {
   ## Get user supplied seed.
   ## If the seed is set, use it when random variable is used. Otherwise, no seed set.
   seed <- otherArgs$seed
   seed.const <- 0.24
 
+  ## The original Hwang five examples are only bivariate-covariate (q = 2).
+  ## We extend it into multivariate-covariate by allowing Euclidean distance
+  ## within the covariates.
+
   ## n uniform draws on the unit square.
   if(!is.na(seed)) set.seed(seed)
-  X.orig <- matrix(runif(n*2), n, 2) # [0, 1]
+  X.orig <- matrix(runif(n*q), n, q) # [0, 1]
+  X.orig1 <- X.orig[ ,  1:floor(q/2), drop = FALSE]
+  X.orig2 <- X.orig[ , (floor(q/2)+1):q, drop = FALSE]
+
+  ## Euclidean norm to reduce to the Hwang
+  enorm <- function(x) sqrt(sum(x^2))
+  X.rd1 <- apply(X.orig1, 1, enorm)
+  X.rd2 <- apply(X.orig2, 1, enorm)
+  X.rd0 <- cbind(X.rd1, X.rd2)
+
+  ## Reduce to [0, 1]
+  x201 <- function(x)
+    {
+      xmax <- max(x)
+      xmin <- min(x)
+      out <- (x -xmin)/(xmax-xmin)
+      return(out)
+    }
+  X.rd <- apply(X.rd0, 2, x201)
 
   ## Make the grid values for printing out the surface.
   ## FIXME: maybe replace this with expand.grid().
@@ -46,7 +68,7 @@ DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
   ## X1.mesh <- rep(X1.grid, each = n.grid) # n*n-by-1
   ## X2.mesh <- rep(X2.grid, times = n.grid) # n*n-by-1
   ## X.mesh <- cbind(X1.mesh, X2.mesh) # n*n-by-2
-  X <- rbind(X.orig, X.mesh) # (n + n*n)-by-2
+  X <- rbind(X.rd, X.mesh) # (n + n*n)-by-2
   p <- dim(Sigma)[1]
 
   ## Generate errors
@@ -54,7 +76,7 @@ DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
   if(!is.na(seed)) set.seed(seed+seed.const)
   Errors <- rmvnorm(n = n, mean = rep(0, p), sigma = Sigma)
 
-  SurfaceMean <- surface(model = model, X = X)
+  SurfaceMean <- surface.hwang(model = model, X = X)
 
   ## The final response variable
   SurfaceMean.orig <- SurfaceMean[1:n, , drop = FALSE]
@@ -70,7 +92,7 @@ DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
 
   ## Print the data out if p  = 1 and q = 2
   ## FIXME: use try command to avoid error when the display is not available.
-  if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(X.orig)[2] == 2)
+  if(PlotData == TRUE && dim(y.orig)[2] == 1 && dim(X.rd)[2] == 2)
     {
       y.grid <- matrix(SurfaceMean[(n+1):(n+n.grid^2),], n.grid, n.grid)
 
@@ -80,15 +102,15 @@ DGP.hwang <- function(n, Sigma, model, otherArgs = list(seed = NA),  PlotData)
 
       ## The 3D scatter plot
       require(rgl)
-      plot3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, col = "red",
+      plot3d(x = X.rd[, 1], y = X.rd[, 2], z = y.orig, col = "red",
              xlab = "X1", ylab = "X2", zlab = "y")
 
       ## Put the surface on
       ## FIXME: merge the two figures
       rgl.open()
-      ## rgl.points(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, radius = 0.01)
+      ## rgl.points(x = X.rd[, 1], y = X.rd[, 2], z = y.orig, radius = 0.01)
       rgl.surface(X1.grid, X2.grid, y.grid, front = "lines", color="#CCCCFF", alpha = .8)
-      ##      spheres3d(x = X.orig[, 1], y = X.orig[, 2], z = y.orig, radius = 0.01)
+      ##      spheres3d(x = X.rd[, 1], y = X.rd[, 2], z = y.orig, radius = 0.01)
     }
 
   out <- list(Y = y.orig, x  = X.orig, SurfaceMean = SurfaceMean.orig,
