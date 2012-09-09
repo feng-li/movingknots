@@ -97,7 +97,9 @@ Params.subsets <- function(p, splineArgs, Params_Fixed, Params_subsetsArgs)
     knots.split <- Params_subsetsArgs[["knots"]]$split
     no.subsets <- unlist(lapply(knots.subsets, length))
 
-    if(no.subsets[1] == no.subsets[2] && knots.split == FALSE) # merge
+    if(length(no.subsets) == 2 &&
+       no.subsets[1] == no.subsets[2] &&
+       knots.split == FALSE) # merge
       {
 
         knots.N.subsets <- no.subsets[1]

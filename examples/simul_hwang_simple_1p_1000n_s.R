@@ -57,7 +57,6 @@ track.MCMC = TRUE
 ##----------------------------------------------------------------------------------------
 ## Data input and summary
 ##----------------------------------------------------------------------------------------
-
 ## no. of observations
 n <- 1000
 
@@ -76,12 +75,12 @@ else
   }}
 
 ## no. of knots in the estimation
-q.moving_seq <- c(5, 10, 15)
+q.moving_seq <- c(10, 20, 40)
 
-q.fixed_seq <- c(5, 10, 15, 20, 25, 50)
+q.fixed_seq <- c(10, 20, 40, 60, 80, 100)
 
 ## no. of replications.
-nRep <- 10
+nRep <- 5
 
 ## no. covariates simulate for predictions
 nPred <- n
@@ -101,6 +100,9 @@ Model_Name <- "linear"
 ## DGP MODEL
 ## "simple" "radial", "harmonic", "additive", "interaction"
 DGP.model <- c("simple")
+
+## DGP COVARIATES
+DGP.q <- 2
 
 ## Simulations with different
 OUT.q.s_seq <- c(q.moving_seq, q.fixed_seq)
@@ -142,7 +144,7 @@ for(iRep in 1:totalRep)
       idx4Data <- idx4Data + 1
 
       ## Generate new dataset
-      Data.gen <- DGP.hwang(n = n, Sigma = Sigma.gen, model = DGP.model, PlotData = FALSE)
+      Data.gen <- DGP.hwang(n = n, q= DGP.q, Sigma = Sigma.gen, model = DGP.model, PlotData = FALSE)
 
       OUT.Data.gen[[idx4Data]] <- Data.gen
       OUT.NolinFct[[idx4Data]] <- Data.gen$NonlinFactor
@@ -282,7 +284,7 @@ Params_subsetsArgs <- list("knots" = list(
                                         # k-means
   knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came
                                         # from x'x
-  knots.c <- n # The shrinkage
+  knots.c <- n/10 # The shrinkage
 
   ## PRIOR FOR SHRINKAGES
   model.comp.len <- length(splineArgs[["comp"]][ "intercept" != splineArgs[["comp"]] ])
@@ -424,7 +426,7 @@ Params_subsetsArgs <- list("knots" = list(
 ##----------------------------------------------------------------------------------------
 ## Posterior analyses
 ##----------------------------------------------------------------------------------------
-  MovingKnots_Dignosis <- FitDiagnosis.hwang(x = x.testing, Y = NA, OUT.Params, Data.gen,
+  MovingKnots_Dignosis <- FitDiagnosis.hwang(x.lst = x.testing, Y = NA, OUT.Params, Data.gen,
                                              logpost.fun.name, splineArgs,
                                              Params_Transform, crossvalid.struc, burn.in,
                                              criterion = c("LOSS"), hwang.model = DGP.model)
