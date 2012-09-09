@@ -25,7 +25,7 @@
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
 ##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
 ##' DEPENDS: mvtnorm
-DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA),  PlotData)
+DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA, nTesting = NA),  PlotData)
 {
   ## Get user supplied seed.
   ## If the seed is set, use it when random variable is used. Otherwise, no seed set.
@@ -37,16 +37,21 @@ DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA),  PlotData
   ## within the covariates.
 
   ## n uniform draws on the unit square.
+  ## The testing sample is also drawn if otherArgs$nTesting is not NULL
+
+  nTesting <- otherArgs$nTesting
+
+  nTotalGen <- n + nTesting
   if(!is.na(seed)) set.seed(seed)
-  X.orig <- matrix(runif(n*q), n, q) # [0, 1]
-  X.orig1 <- X.orig[ ,  1:floor(q/2), drop = FALSE]
-  X.orig2 <- X.orig[ , (floor(q/2)+1):q, drop = FALSE]
+  X.origTotal <- matrix(runif(nTotalGen*q), nTotalGen, q) # [0, 1]
+  X.orig1 <- X.origTotal[ ,  1:floor(q/2), drop = FALSE]
+  X.orig2 <- X.origTotal[ , (floor(q/2)+1):q, drop = FALSE]
 
   ## Euclidean norm to reduce to the Hwang
   enorm <- function(x) sqrt(sum(x^2))
   X.rd1 <- apply(X.orig1, 1, enorm)
   X.rd2 <- apply(X.orig2, 1, enorm)
-  X.rd0 <- cbind(X.rd1, X.rd2)
+  X.rdTotal0 <- cbind(X.rd1, X.rd2)
 
   ## Reduce to [0, 1]
   x201 <- function(x)
@@ -56,7 +61,23 @@ DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA),  PlotData
       out <- (x -xmin)/(xmax-xmin)
       return(out)
     }
-  X.rd <- apply(X.rd0, 2, x201)
+  X.rdTotal <- apply(X.rdTotal0, 2, x201)
+
+
+  ## Split out the testing data
+  X.orig <- X.origTotal[1:n, ] ## The training set
+  X.rd <- X.rdTotal[1:n, ]
+
+  if(!is.na(nTesting))
+    {
+      seqTesting <- (n+1):(n+nTesting)
+      xTesting.lst <- list(xTesting = X.origTotal[seqTesting, ],
+                           x.rd = X.rdTotal[seqTesting, ])
+    }
+  else
+    {
+      xTesting <- list()
+    }
 
   ## Make the grid values for printing out the surface.
   ## FIXME: maybe replace this with expand.grid().
@@ -114,6 +135,7 @@ DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA),  PlotData
     }
 
   out <- list(Y = y.orig, x  = X.orig, SurfaceMean = SurfaceMean.orig,
-              Sigma = Sigma, NonlinFactor = NonlinFactor)
+              Sigma = Sigma, NonlinFactor = NonlinFactor,
+              xTesting.lst = xTesting.lst)
   return(out)
 }

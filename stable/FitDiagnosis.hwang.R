@@ -9,12 +9,15 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Aug 07 16:55:03 CEST 2012;
 ##'       Current: Tue Aug 07 16:54:52 CEST 2012.
-FitDiagnosis.hwang <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArgs,
+FitDiagnosis.hwang <- function(x.lst, Y, OUT.Params, Data.gen, logpost.fun.name, splineArgs,
                                Params_Transform, crossvalid.struc, burn.in,
                                criterion = c("LOSS", "KL", "L2"), hwang.model)
   {
     cat("Fit of Goodness Diagnoses >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
     out <- list()
+
+    ## The testing sample
+    x <- x.lst$xTesting
 
     ## Assume no cross validation TODO: Maybe will change later
     if(length(crossvalid.struc$training)>1)
@@ -33,7 +36,10 @@ FitDiagnosis.hwang <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, spl
 
     sampleIdx.len <- length(sampleIdx)
 
-    SurfaceMean.gen <- surface(X = x, model = hwang.model)
+
+    ## Hwang example only accept two dimensional inputs of x
+    SurfaceMean.gen <- surface.hwang(X = x.lst$x.rd, model = hwang.model)
+
     p <- dim(SurfaceMean.gen)[2]
 
     ## The Storage of Surface mean
