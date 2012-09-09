@@ -92,7 +92,7 @@ Running.date <- Sys.time()
 ## Model configurations
 ##----------------------------------------------------------------------------------------
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "simul_hwang_radio_1p_1000n"
+ModelDescription <- "simul_hwang_radial_1p_1000n"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -144,7 +144,10 @@ for(iRep in 1:totalRep)
       idx4Data <- idx4Data + 1
 
       ## Generate new dataset
-      Data.gen <- DGP.hwang(n = n, q= DGP.q, Sigma = Sigma.gen, model = DGP.model, PlotData = FALSE)
+      Data.gen <- DGP.hwang(n = n, q = DGP.q, Sigma = Sigma.gen,
+                            model = DGP.model,
+                            otherArgs = list(seed = NA, nTesting = nPred),
+                            PlotData = FALSE)
 
       OUT.Data.gen[[idx4Data]] <- Data.gen
       OUT.NolinFct[[idx4Data]] <- Data.gen$NonlinFactor
@@ -154,7 +157,8 @@ for(iRep in 1:totalRep)
 
       ## Generate new x for out-of-sample predictions
       ## TODO: Use Ellpses (Mardia 39)
-      x.testing <- matrix(runif(nPred*q.o, min(x), max(x)), nPred)
+      ## x.testing <- matrix(runif(nPred*q.o, min(x), max(x)), nPred)
+      ## x.testing <- Data.gen$xTesting.lst
     }
   ## Which model should run
   which.model <- iRep %% oneRep.len
