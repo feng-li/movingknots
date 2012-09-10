@@ -158,9 +158,8 @@ for(iRep in 1:totalRep)
       ## Generate new x for out-of-sample predictions
       ## TODO: Use Ellpses (Mardia 39)
       ## x.testing <- matrix(runif(nPred*q.o, min(x), max(x)), nPred)
-      ## x.testing <- Data.gen$xTesting.lst
-    }
-  ## Which model should run
+      x.testing <- Data.gen$xTesting.lst
+    }  ## Which model should run
   which.model <- iRep %% oneRep.len
   if(which.model == 0)
     {which.model <- oneRep.len}
