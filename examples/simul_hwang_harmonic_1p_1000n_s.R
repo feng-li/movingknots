@@ -100,7 +100,7 @@ Model_Name <- "linear"
 
 ## DGP MODEL
 ## "simple" "radial", "harmonic", "additive", "interaction"
-DGP.model <- c("harmonic")
+DGP.model <- c("Harmonic")
 
 ## DGP COVARIATES
 DGP.q <- 2

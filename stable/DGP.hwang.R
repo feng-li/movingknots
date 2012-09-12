@@ -118,8 +118,17 @@ DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA, nTesting =
       y.grid <- matrix(SurfaceMean[(n+1):(n+n.grid^2),], n.grid, n.grid)
 
       image(X1.grid, X2.grid, y.grid, xlab = "X1", ylab = "X2")
-      filled.contour(X1.grid, X2.grid, y.grid)
-      title(toupper(model))
+      filled.contour(X1.grid, X2.grid, y.grid,
+                     xlab = expression(bold(x[1])),
+                     ylab  = expression(bold(x[2])),
+                     main = model,
+                     plot.axes = {
+                       contour(X1.grid, X2.grid, y.grid,
+                               add = TRUE, col = "black",
+                               lwd = 0.8, lty = "solid")
+                     }
+                     )
+      ## title(toupper(model))
 
       ## The 3D scatter plot
       require(rgl)
