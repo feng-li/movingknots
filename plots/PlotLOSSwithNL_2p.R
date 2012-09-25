@@ -1,5 +1,6 @@
 ## Plot for loss function with nonlinear factor
 ## LOSS <- read.table("LOSS_200n_2p.csv", header = TRUE)
+
 LOSS <- read.table("LOSS_1000n_2p.csv", header = TRUE)
 NL <- sort(LOSS[, 10])
 NLorder <- order(LOSS[, 10])
