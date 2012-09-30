@@ -1,28 +1,28 @@
 ##' Description
 ##'
 ##' Details.
-##' @name 
-##' @title 
-##' @param n.obs 
+##' @name
+##' @title
+##' @param n.obs
 ##' @param args list N: no. of subsets,  method: how to partition
-##' @return 
-##' @references 
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Mon Sep 20 21:08:01 CEST 2010;
 ##'       Current:       Mon Sep 20 21:08:11 CEST 2010.
-data.partition <- function(n.obs, args) 
+data.partition <- function(n.obs, args)
 {
 
-  if(n.obs < args$N.subsets) # Observation smaller than subsets. 
+  if(n.obs < args$N.subsets) # Observation smaller than subsets.
     {  stop("No. of subsets should be equal or smaller than no. of obs.") }
-  
+
   obs.label <- 1:n.obs
   options(warn = -1) # disable warnings when ata length is not a multiple of split
                                         # variable which is what I want.
   length.out <- split(obs.label, 1:args$N.subsets) # split the knots in a smart way. e.g. split
                                         # 20 knots into 3 folds
   options(warn = 0) # set it back
-  
+
   if(tolower(args$partiMethod) == "systematic")
     { out <- length.out }
   else if(tolower(args$partiMethod) == "random")
@@ -45,7 +45,7 @@ data.partition <- function(n.obs, args)
           start <- out[[i]][length(out[[i]])] +1
         }
     }
-  
+
   names(out) <- NULL # remove the name. I don't like it.
   return(out)
 }

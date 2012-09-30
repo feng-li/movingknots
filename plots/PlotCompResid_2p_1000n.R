@@ -7,21 +7,21 @@ NData <- nrow(LOSS)
 DataUsed <- c(3, round(NData/2), NData-2)
 
 ## Index for the moving knots model used in each lap
-idxM <- 1
-qsmovingPlot <- 10 # the no. of free knots model to plot
+idxM <- 3
+## qsmovingPlot <- 10 # the no. of free knots model to plot
 
 ## Index for the fixed knots model used each lap
-idxF <- 6
-qsfixedPlot <- 20 # the no. of fixed knots model to plot
+idxF <- 8
+## qsfixedPlot <- 20 # the no. of fixed knots model to plot
 
 ## No. of models for each dataset
 nRunPerDat <- 9 ## 3 fixed + 6 free
 
-## Order by Move(5)
-LOSSM <- order(LOSS[, idxM], decreasing=TRUE)[DataUsed]
+## Order by Moving knots
+LOSSM <- order(LOSS[, idxM], decreasing=FALSE)[DataUsed]
 
-## Order by Fixed(15)
-LOSSF <- order(LOSS[, idxF], decreasing=TRUE)[DataUsed]
+## Order by Fixed knots
+LOSSF <- order(LOSS[, idxF], decreasing=FALSE)[DataUsed]
 
 ## The data are plotted in column-wise
 par(mfcol = c(3, 2), mar = c(2.5, 2, 2, 1),
@@ -64,7 +64,7 @@ uiFixed1 <-  (sqrt(rowSums(uiFixed^2))- meanMoving0)/sdMoving0
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ##ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-60, 60)
+ylim0 <- c(-40, 80)
 xlim0 = c(0.8, 1.6)
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0, ylim = ylim0, main =
      "Ranking w.r.t. fixed knots model \n\n 3rd best", axes = FALSE, lwd = 2)
@@ -76,10 +76,10 @@ axis(2,  at = atCurr, labels = abs(atCurr), lwd = 0.5)
 
 axis(1, lwd = 0.5)
 legend("top", col = "gray", lwd = 2,
-       legend = expression(paste("Fixed knots model (", q[s] == 15, ")")),
+       legend = expression(paste("Fixed knots model (", q[s] == 25, ")")),
        cex = 0.8, box.lty = 0, box.lwd = 0)
 legend("bottom",  col = "red", lwd = 2,
-       legend = expression(paste("Free knots model (", q[s] == 5, ")", sep = "")),
+       legend = expression(paste("Free knots model (", q[s] == 15, ")", sep = "")),
        cex = 0.8, box.lty = 0, box.lwd = 0)
 title(ylab = expression(paste(paste("||", tilde(bold(epsilon)), "||"), "              ",
     paste("||", tilde(bold(epsilon)), "||"))), xpd = NA)
@@ -115,13 +115,13 @@ uiFixed0 <-  sqrt(rowSums(uiFixed^2))
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ##ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-45, 45)
+ylim0 <- c(-40, 80)
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0, ylim = ylim0, main
      = "median", axes = FALSE, lwd = 2)
 points(x.testing2cntr, uiMoving0, type = "h", col = "red", lwd = 2)
 grid2(y.at = 0, lty = "solid", lwd = 0.5)
 
-atCurr <- seq(ylim0[1], ylim0[2], 15)
+atCurr <- seq(ylim0[1], ylim0[2], 20)
 axis(2,  at = atCurr, labels = abs(atCurr), lwd = 0.5)
 
 axis(1, lwd = 0.5)
@@ -150,13 +150,13 @@ uiFixed0 <-  sqrt(rowSums(uiFixed^2))
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-30, 30)
+ylim0 <- c(-40, 160)
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0, ylim = ylim0, main
      = "3rd worst", axes = FALSE, lwd = 2)
 points(x.testing2cntr, uiMoving0, type = "h", col = "red", lwd = 2)
 grid2(y.at = 0, lty = "solid", lwd = 0.5)
 
-atCurr <- seq(ylim0[1], ylim0[2], 10)
+atCurr <- seq(ylim0[1], ylim0[2], 40)
 axis(2,  at = atCurr, labels = abs(atCurr), lwd = 0.5)
 
 axis(1, lwd = 0.5)
@@ -201,13 +201,13 @@ uiFixed1 <-  (sqrt(rowSums(uiFixed^2))- meanMoving0)/sdMoving0
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ##ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-45, 45)
+ylim0 <- c(-40, 80)
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0,
      ylim = ylim0, main = "Ranking w.r.t. free knots model \n\n 3rd best", axes = FALSE, lwd = 2)
 points(x.testing2cntr, uiMoving0, type = "h", col = "red", lwd = 2)
 grid2(y.at = 0, lty = "solid", lwd = 0.5)
 
-atCurr <- seq(ylim0[1], ylim0[2], 15)
+atCurr <- seq(ylim0[1], ylim0[2], 20)
 axis(2,  at = atCurr, labels = abs(atCurr), lwd = 0.5)
 
 axis(1, lwd = 0.5)
@@ -239,7 +239,7 @@ uiFixed0 <-  sqrt(rowSums(uiFixed^2))
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ## ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-60, 60)
+ylim0 <- c(-40, 80)
 
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0, ylim = ylim0, main = "median", axes = FALSE, lwd = 2)
 points(x.testing2cntr, uiMoving0, type = "h", col = "red", lwd = 2)
@@ -277,13 +277,13 @@ uiFixed0 <-  sqrt(rowSums(uiFixed^2))
 ymax0 <- max(uiFixed0, abs(uiMoving0))
 ymin0 <- -ymax0
 ##ylim0 <- c(ymin0, ymax0)
-ylim0 <- c(-30, 30)
+ylim0 <- c(-40, 80)
 plot(x.testing2cntr, uiFixed0, type = "h", col = "gray", xlim = xlim0, ylim = ylim0, main
      = "3rd worst", axes = FALSE, lwd = 2)
 points(x.testing2cntr, uiMoving0, type = "h", col = "red", lwd = 2)
 grid2(y.at = 0, lty = "solid", lwd = 0.5)
 
-atCurr <- seq(ylim0[1], ylim0[2], 10)
+atCurr <- seq(ylim0[1], ylim0[2], 20)
 axis(2,  at = atCurr, labels = abs(atCurr), lwd = 0.5)
 
 axis(1, lwd = 0.5)

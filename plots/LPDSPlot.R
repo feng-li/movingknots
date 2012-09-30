@@ -1,14 +1,19 @@
 lpds <- read.csv("LPDS_Rajan.csv", header = TRUE)
 lpds0 <- 0
-ylim0 <- c(-1390, -1230)
-xlim0 <- c(0, 40)
+ylim0 <- c(-1390, -1220)
+xlim0 <- c(0, 60)
 at2 <- seq(-1400, -1220, 10)
-at1 <- seq(0, 40, 5)
-par(mfrow = c(1, 2), mar = c(0.5, 0.1, 0.5, 0.5), oma = c(3.5, 3.8, 0.5, 0), las = 1, ps = 10, cex = 1, cex.main = 1, cex.lab = 1, cex.axis = 1)
-grid.x <- seq(0, 40, 5)
+at1 <- seq(0, 60, 5)
+par(mfrow = c(1, 2),
+    mar = c(0.5, 0.1, 0.5, 0.5),
+    oma = c(3.5, 3.8, 0.5, 0),
+    las = 1, ps = 10, cex = 1, cex.main = 1,
+    cex.lab = 1, cex.axis = 1)
+grid.x <- seq(0, 60, 5)
 grid.y <- seq(-1400, -1220, 10)
 
-plot(lpds$Knots, lpds$s_fixed-lpds0, type = "l",  lwd = 1.5, col = "blue", xlim = xlim0,
+plot(lpds$Knots, lpds$s_fixed-lpds0, type = "l",
+     lwd = 1.5, col = "blue", xlim = xlim0,
      ylim = ylim0, axes=FALSE, xlab = "")
 title(xlab = "No. of surface knots", ylab = "LPDS",  main =
      "Surface component model", xpd = NA)
@@ -27,7 +32,7 @@ title(xlab = "No. of additive knots",  main =
 lines(lpds$Knots, lpds$a_moving-lpds0, type = "o", col = "red", pch = 1)
 abline(h = grid.y, v = grid.x, col = "black", lty="dotted", lwd = 0.5)
 axis(1, at = at1, lwd = 0.5)
-legend(-26, -1370, c("Free knots", "Fixed knots"), lty = c(1, 1), pch = c(1, NA),
+legend(-30, -1370, c("Free knots", "Fixed knots"), lty = c(1, 1), pch = c(1, NA),
        col = c("red", "blue"), lwd = c(1.5, 1.5), box.lwd = 0.5, bg = "white", xpd = NA, ncol = 2)
 
 
@@ -41,7 +46,9 @@ maxknots <- 60
 xlim0 <- c(0, maxknots)
 at2 <- seq(-1320, -1210, 10)
 at1 <- seq(0, maxknots, 5)
-par(mfrow = c(3, 2), mar = c(1.5, 0.2, 0.8, 0.2), oma = c(6, 3.7, 0.1, 0.1), las = 1, ps = 10, cex = 1,
+par(mfrow = c(3, 2),
+    mar = c(1.5, 0.2, 0.8, 0.2),
+    oma = c(6, 3.7, 0.1, 0.1), las = 1, ps = 10, cex = 1,
     cex.main = 1, cex.lab = 1, cex.axis = 1)
 grid.x <- seq(0, maxknots, 5)
 grid.y <- seq(-1320, -1210, 10)
