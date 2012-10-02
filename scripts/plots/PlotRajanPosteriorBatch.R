@@ -66,10 +66,10 @@ for(i in rdfiles)
 
 ## Load the plot mesh
 
-setwd("~/running/prioreval/Results/plot")
-PlotRDfiles <- dir()[6]
+setwd("~/running/prioreval/Results/plots")
+PlotRDfiles <- dir()
 for(i in PlotRDfiles)
   {
     load(i)
-    source("~/workspace/MovingKnots/R/plots/PlotRajanPosterior.R")
+    source("~/workspace/MovingKnots/R/scripts/plots/PlotRajanPosterior.R")
   }

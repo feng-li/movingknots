@@ -48,13 +48,14 @@ cont.y <- hist2d(x = fake.x, y = knots.y, show = FALSE, nbins=nbinsy0)
 init.knots.s <- (INIT.knots[["thinplate.s"]]*sdRaw.s[1:q.s, , drop = FALSE] +
                  meanRaw.s[1:q.s, , drop = FALSE])
 init.knots.a <- (matrix(INIT.knots[["thinplate.a"]], q.a1, 2)*
-                 sdRaw.s[1:q.a1, , drop = FALSE] +
-                 meanRaw.s[1:q.a1, , drop = FALSE])
+                 sdRaw.a[1:q.a1, , drop = FALSE] +
+                 meanRaw.a[1:q.a1, , drop = FALSE])
 
 nlev <- 14
 color0 <- terrain.colors(nlev+1)[15:1]
 
 dev.new()
+contourLines <- FALSE
 par(ps = 10, cex = 1, cex.main = 1, cex.sub = 1, cex.axis = 1, bty = "o")
 filled.contour2(market2book, profit, cnt, xlim = xlim0, ylim = ylim0, col = color0,
                levels = seq(0, 0.07, length.out = nlev+1), axes = TRUE, las = 1,
@@ -63,9 +64,13 @@ filled.contour2(market2book, profit, cnt, xlim = xlim0, ylim = ylim0, col = colo
                plot.axes = {axis(1, at = x.at)
                             axis(2, at = y.at)
                             points(init.knots.s, pch = 19, col = "blue", cex = 0.6)
-                            contour(market2book, profit, cnt, xlim = xlim0,
-                                    ylim = ylim0, add = TRUE, col = "black",
-                                    lwd = 0.8, lty = "solid")
+
+                            if(contourLines)
+                              {
+                                contour(market2book, profit, cnt, xlim = xlim0,
+                                        ylim = ylim0, add = TRUE, col = "black",
+                                        lwd = 0.8, lty = "solid")
+                              }
                             image(cont.x$x, cont.x$y,
                                   matrix(rowSums(cont.x$counts), nbinsx0,
                                          nbinsy0), col = color0,add = TRUE, axes
