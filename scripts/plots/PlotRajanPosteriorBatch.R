@@ -5,7 +5,7 @@
 ## Load the raw MCMC results
 setwd("~/running/prioreval/Results/new")
 
-rdfiles <- dir()
+rdfiles <- dir(pattern = "rajan_pri")
 for(i in rdfiles)
   {
     load(i)
@@ -67,9 +67,10 @@ for(i in rdfiles)
 ## Load the plot mesh
 
 setwd("~/running/prioreval/Results/plots")
-PlotRDfiles <- dir()
+PlotRDfiles <- dir(pattern = "Plot_rajan_pri_kmeans")
 for(i in PlotRDfiles)
   {
     load(i)
+    load("knots.Rdata")
     source("~/workspace/MovingKnots/R/scripts/plots/PlotRajanPosterior.R")
   }
