@@ -9,7 +9,7 @@ setwd("/home/fli/running/alt-update/Results")
 
 RdataFiles <- dir(pattern = "rajan_s_moving_20_plus_a_moving_4")
 
-nTest <- n
+nTest <- 1000
 ## x.testing <- matrix(rnorm(n = nTest*ncol(x), mean = 0, sd = 1), nTest)
 x.testing <- x[sample(1:n, nTest), ]
 ## Which cross validation fold used
