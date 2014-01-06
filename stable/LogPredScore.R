@@ -124,7 +124,9 @@ LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, pr
       expPredMatrix.tmp[expPredMatrix.tmp>1e100] <- NA # numerically stable
       predVar <- apply(expPredMatrix.tmp, 2, var, na.rm = TRUE)
 
-      var.MeanexpPredMatrix <- predVar/nUsed*(1+2*ACFxx)
+      ## var.MeanexpPredMatrix <- predVar/nUsed*(1+2*ACFxx)
+      var.MeanexpPredMatrix <- predVar/nSample*(1+2*ACFxx)
+
       nvarLPDS <- 1/nFold^2*sum(1/(expPredMean)^2*var.MeanexpPredMatrix)
       nseLPDS <- sqrt(nvarLPDS)
     }

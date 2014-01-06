@@ -1,4 +1,4 @@
-lpds <- read.csv("LPDS_Rajan.csv", header = TRUE)
+lpds <- read.csv("/home/fli/running/Projects/Results_Plots/LPDS_Rajan.csv", header = TRUE)
 lpds0 <- 0
 ylim0 <- c(-1390, -1220)
 xlim0 <- c(0, 60)
