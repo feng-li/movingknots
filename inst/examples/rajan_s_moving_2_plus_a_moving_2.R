@@ -37,14 +37,14 @@ gc()
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "../"
+path.lib <- "~/workspace/code/movingknots"
 
 ## SAVE OUTPUT PATH
 save.output <- "Results" # "save.output = FALSE" will not save anything
 
 ## Load sourceDir() function
-sys.source(file.path(path.lib, "utils/sourceDir.R"), envir = attach(NULL, name =
-                                                       "sourceDir"))
+sys.source(file.path(path.lib, "utils/sourceDir.R"),
+           envir = attach(NULL, name = "sourceDir"))
 
 ## Load user defined functions
 sourceDir(file.path(path.lib, c("utils", "stable", "models/linear")), byte.compile=TRUE)
@@ -66,6 +66,7 @@ track.MCMC = TRUE
 ## "X.name"    m      character
 ## "Y.name"    p      character
 load(file.path(path.lib, "data/Rajan.Rdata"))
+
 
 ## STANDARDIZED THE DATA (OPTIONAL)
 x <- StdData(X, method = "norm-0-1")
@@ -153,7 +154,7 @@ propMethods <- list("knots" = "KStepNewton",
 ##----------------------------------------------------------------------------------------
 
 ## NO. OF ITERATIONS
-nIter <- 5000
+nIter <- 100
 
 ## BURN-IN
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
@@ -162,7 +163,7 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-cross.validation <- list(N.subsets = 5, # No. of folds. If 1:, no cross-validation.
+cross.validation <- list(N.subsets = 1, # No. of folds. If 1:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
