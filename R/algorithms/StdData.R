@@ -21,7 +21,7 @@
 ##   A matrix or a vector depends on the input X
 
 ## Author:
-##   Feng Li <Feng.Li@stat.su.se>, Dept. of Statistics, Stockholm University, Sweden.
+##   Feng Li <feng.li@cufe.edu.cn>, Dept. of Statistics, Stockholm University, Sweden.
 
 ## Version:
 ##   First:       Thu Mar  4 13:50:30 CET 2010
