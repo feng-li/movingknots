@@ -37,17 +37,25 @@ gc()
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "~/workspace/code/movingknots"
+path.lib <- "~/code/movingknots"
 
 ## SAVE OUTPUT PATH
-save.output <- "Results" # "save.output = FALSE" will not save anything
+save.output <- "~/running" # "save.output = FALSE" will not save anything
 
 ## Load sourceDir() function
-sys.source(file.path(path.lib, "utils/sourceDir.R"),
-           envir = attach(NULL, name = "sourceDir"))
+sys.source(file.path("~/code/flutils/R/systools/sourceDir.R"),
+           envir = .GlobalEnv)
+
+sourceDir("~/code/flutils/R", recursive = TRUE)
 
 ## Load user defined functions
-sourceDir(file.path(path.lib, c("utils", "stable", "models/linear")), byte.compile=TRUE)
+sourceDir(file.path(path.lib, "R", c("algorithms", "models/linear")),
+          recursive = TRUE)
+
+
+## sourceDir(file.path(path.lib, "R", c("utils", "algorithms", "models/linear")),
+##           recursive = TRUE)
+
 
 ## MCMC TRAJECTORY
 track.MCMC = TRUE
@@ -91,41 +99,38 @@ ModelDescription <- "rajan_s_moving_2_plus_a_moving_2"
 Model_Name <- "linear"
 
 ## ARGUMENTS FOR SPLINES
-splineArgs <- list(comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"), # the
-                                        # components of the design matrix.
-                   thinplate.s.dim = c(2, m), # the dimension of the knots for surface.
-                   thinplate.a.locate = c(2, 2, 2, 2)) # no. of knots used in each
-                                        # covariates for the additive part. zero means no
-                                        # knots for that covariates
+splineArgs <- list(
+    ## the components of the design matrix.
+    comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
+    ## the dimension of the knots for surface.
+    thinplate.s.dim = c(2, m),
+    ## no. of knots used in each covariates for the additive part. zero means no knots for
+    ## that covariates
+    thinplate.a.locate = c(2, 2, 2, 2))
 
 ## PARAMETERS UPDATED USING GIBBS
-## You have to change this when "splineArgs$comp" has changed
-Params4Gibbs <- c("knots", "shrinkages", "covariance") # Coefficients are updated by
-                                        # directly sampling
+## You have to change this when "splineArgs$comp" has
+## changed. Coefficients are updated by directly sampling
+Params4Gibbs <- c("knots", "shrinkages", "covariance")
 
 ## FIXED PARAMETERS
-Params_Fixed <- list("knots" = list(thinplate.s = 0, thinplate.a = 0), # which knots
-                                        # from which part of model are not updated.
-                     "shrinkages" = 1:p, # the shrinkages for covariates not updated
-                     "covariance"  = 0,   # zero means all are updated
-                     "coefficients" = 0)
+Params_Fixed <- list(
+    ## which knots from which part of model are not updated.
+    "knots" = list(thinplate.s = 0, thinplate.a = 0),
+    "shrinkages" = 1:p, # the shrinkages for covariates not updated
+    "covariance"  = 0,   # zero means all are updated
+    "coefficients" = 0)
 
 ## ARGUMENTS FOR PARTITION PARAMETERS (BATCHES UPDATE)
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
-Params_subsetsArgs <- list("knots" = list(
-                             thinplate.s = list(
-                               N.subsets = 1,
-                               partiMethod = "systematic"),
+Params_subsetsArgs <- list(
+    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
 
-                             thinplate.a = list(
-                               N.subsets = 1,
-                               partiMethod = "systematic"),
-                             split = FALSE),
-
-                           "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
-                           "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
-                           "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
+    "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
+    "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
+    "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
 
 ##----------------------------------------------------------------------------------------
 ## Parameters settings
