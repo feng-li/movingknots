@@ -156,7 +156,7 @@ propMethods <- list("knots" = "KStepNewton",
 ##----------------------------------------------------------------------------------------
 
 ## NO. OF ITERATIONS
-nIter <- 5000
+nIter <- 50
 
 ## BURN-IN
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
