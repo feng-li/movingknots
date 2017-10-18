@@ -34,6 +34,7 @@ rm(list = ls())
 gc()
 
 ## LOAD DEPENDENCES
+require("methods")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
@@ -73,11 +74,21 @@ track.MCMC = TRUE
 ## "Y":        n-by-p matrix
 ## "X.name"    m      character
 ## "Y.name"    p      character
-load(file.path(path.lib, "data/Rajan.Rdata"))
 
+## load(file.path(path.lib, "data/Rajan.Rdata"))
+
+load("~/code/dgp/data/simulated.monthly.features.Rdata")
+load("~/code/dgp/data/simulated.monthly.MASEout.Rdata")
+
+X <- simulated.monthly.features[1:100, -13] # remove "Period"
+X.name <- colnames(X)
+
+Y <- simulated.monthly.MASEout[1:100, 1, drop = FALSE]
+Y.name <- "MAS"
 
 ## STANDARDIZED THE DATA (OPTIONAL)
-x <- StdData(X, method = "norm-0-1")
+data <- StdData(X, method = "norm-0-1")
+x <- data[["data"]]
 
 ## no. of observations
 n <- dim(Y)[1]
@@ -93,7 +104,7 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "rajan_s_moving_2_plus_a_moving_2"
+ModelDescription <- "tsfeature_s_moving_2_plus_a_moving_2"
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -103,10 +114,10 @@ splineArgs <- list(
     ## the components of the design matrix.
     comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
     ## the dimension of the knots for surface.
-    thinplate.s.dim = c(2, m),
+    thinplate.s.dim = c(10, m),
     ## no. of knots used in each covariates for the additive part. zero means no knots for
     ## that covariates
-    thinplate.a.locate = c(2, 2, 2, 2))
+    thinplate.a.locate = rep(2, m))
 
 ## PARAMETERS UPDATED USING GIBBS
 ## You have to change this when "splineArgs$comp" has
@@ -168,7 +179,7 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-cross.validation <- list(N.subsets = 1, # No. of folds. If 1:, no cross-validation.
+cross.validation <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
@@ -192,6 +203,7 @@ MH.prop.df <- list("knots" = 10,
 
 ## Regression
 knots.location.gen <- make.knots(x = x, method = "k-means", splineArgs)
+
 X.init <- d.matrix(x, knots = knots.location.gen, splineArgs)
 lm.init <- lm(Y~0+X.init)
 S0.init <- matrix(var(lm.init$residual), p, p)
@@ -212,10 +224,9 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 
 ## PRIOR FOR KNOTS
 knots.priType <- "mvnorm"
-knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
-                                        # k-means
+knots.mu0 <- knots.list2mat(knots.location.gen) # mean from k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- n # The shrinkage
+knots.c <- 1 # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
 model.comp.len <- length(splineArgs[["comp"]][ "intercept" != splineArgs[["comp"]] ])
@@ -286,7 +297,7 @@ logpost.fun.name <-  tolower(paste(Model_Name, "logpost", sep = "_"))
 ## The training($training) and testing($testing) structure.
 ## If no cross-validation, $training is also $testing.
 ## If full run is required, the last list in $training and $testing is for a full run.
-crossvalid.struc <- set.crossvalid(n.obs = n, crossvalidArgs = cross.validation)
+crossvalid.struc <- set.crossvalid(nObs = n, crossValidArgs = cross.validation)
 
 ## No. of total runs
 nCross <- length(crossvalid.struc$training)
@@ -349,7 +360,7 @@ MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Param
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
 ##----------------------------------------------------------------------------------------
-save.all(save.output, ModelDescription, Running.date)
+save.all(save.output, ModelDescription)
 
 cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
 ##########################################################################################

@@ -283,7 +283,7 @@ logpost.fun.name <-  tolower(paste(Model_Name, "logpost", sep = "_"))
 ## The training($training) and testing($testing) structure.
 ## If no cross-validation, $training is also $testing.
 ## If full run is required, the last list in $training and $testing is for a full run.
-crossvalid.struc <- set.crossvalid(n.obs = n, crossvalidArgs = cross.validation)
+crossvalid.struc <- set.crossvalid(nObs = n, crossValidArgs = cross.validation)
 
 ## No. of total runs
 nCross <- length(crossvalid.struc$training)

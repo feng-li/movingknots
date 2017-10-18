@@ -238,7 +238,7 @@ Params_subsetsArgs <- list("knots" = list(
   LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
   ## CROSS-VALIDATION
-  cross.validation <- list(N.subsets = 1, # No. of folds. If 1:, no cross-validation.
+  cross.validation <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validation.
                            partiMethod = "systematic", # How to partition the data
                            full.run = FALSE)     # Also include a full run.
 
@@ -357,7 +357,7 @@ Params_subsetsArgs <- list("knots" = list(
   ## The training($training) and testing($testing) structure.
   ## If no cross-validation, $training is also $testing.
   ## If full run is required, the last list in $training and $testing is for a full run.
-  crossvalid.struc <- set.crossvalid(n.obs = n, crossvalidArgs = cross.validation)
+  crossvalid.struc <- set.crossvalid(nObs = n, crossValidArgs = cross.validation)
 
   ## No. of total runs
   nCross <- length(crossvalid.struc$training)
