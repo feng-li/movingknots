@@ -42,54 +42,56 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
                             priorArgs, Params_Transform)
 {
 
-  ## Don't have to consider the linkage. It was taken care of out before calling this function
+    ## Don't have to consider the linkage. It was taken care of out before calling this function
 
-  ## K step to approach the mode plus one more step to update the gradient and hessian at
-  ## K:th step.
-  for(k in 1:(KStep+1))
+    ## K step to approach the mode plus one more step to update the gradient and hessian at
+    ## K:th step.
+    for(k in 1:(KStep+1))
     {
-      # Update the parameter with current updated results.
-      # The first update of course is the initial value.
-      Params[[callParam$id]][callParam$subset] <- param.cur
+        ## Update the parameter with current updated results. The first update of course
+        ## is the initial value.
+        Params[[callParam$id]][callParam$subset] <- param.cur
 
-      caller <- call(gradhess.fun.name, Params = Params, hessMethod = hessMethod, Y = Y, x
-                     = x, callParam = callParam, splineArgs = splineArgs, priorArgs =
-                     priorArgs, Params_Transform = Params_Transform)  # Creat the gradien object. Will be passed to eval().
-      gradhess <- eval(caller) # Calculate the hessian at current draw. If the parameters
-                               # are good enough,  do one more update the gradient and
-                               # return.
+        caller <- call(gradhess.fun.name, Params = Params, hessMethod = hessMethod, Y = Y, x
+                       = x, callParam = callParam, splineArgs = splineArgs,
+                       priorArgs = priorArgs, Params_Transform = Params_Transform)  # Creat the gradien object. Will be passed to eval().
+        gradhess <- eval(caller) # Calculate the hessian at current draw. If the parameters
+                                        # are good enough,  do one more update the gradient and
+                                        # return.
 
-      gradObs.cur <- gradhess$gradObs
-      hessObs.cur <- gradhess$hessObs
-      invHessObs.cur <- try(solve(hessObs.cur), silent = TRUE)
+        gradObs.cur <- gradhess$gradObs
+        hessObs.cur <- gradhess$hessObs
+        invHessObs.cur <- try(solve(hessObs.cur), silent = TRUE)
 
-      ## Check if Hessian is bad
+        ## Check if Hessian is bad
         if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) |
            is(invHessObs.cur, "try-error")) # bad, return NaN and quit, this draw will be
-                                            # discarded in MH step
+                                        # discarded in MH step
         {
-          out <- list(gradObs.cur = NaN, hessObs.cur = NaN, invHessObs.cur = NaN,
-                      param.cur = NaN)
+            out <- list(gradObs.cur = NaN, hessObs.cur = NaN, invHessObs.cur = NaN,
+                        param.cur = NaN)
         }
-      else # good, do k-step newton
+        else # good, do k-step newton
         {
-          if((k <= KStep)) # if need to update newton steps
-          {
-              ## cat(k, "step:", param.cur, "\n")
-              ## cat(k, "step:", gradObs.cur, "\n")
-              ## cat(k, "step:", -invHessObs.cur, "\n")
-              ## if (is.na(gradObs.cur)) browser()
-              param.cur <- param.cur-invHessObs.cur%*%gradObs.cur # update the parameters
-            }
-          else if(k == (KStep+1)) # The parameters at (K+1):th step. Fine enough to make a output
+            if((k <= KStep)) # if need to update newton steps
             {
-              param.out <- param.cur # let last update be the final out put
-              out <- list(gradObs.cur = gradObs.cur, hessObs.cur = hessObs.cur, invHessObs.cur =
-                          invHessObs.cur, param.cur = param.out)
+                ## cat(k, "step:", param.cur, "\n")
+                ## cat(k, "step:", gradObs.cur, "\n")
+                ## cat(k, "step:", -invHessObs.cur, "\n")
+                ## if (is.na(gradObs.cur)) browser()
+                param.cur <- param.cur-invHessObs.cur%*%gradObs.cur # update the parameters
+            }
+            else if(k == (KStep+1)) # The parameters at (K+1):th step. Fine enough to make a output
+            {
+                param.out <- param.cur # let last update be the final out put
+                out <- list(gradObs.cur = gradObs.cur,
+                            hessObs.cur = hessObs.cur,
+                            invHessObs.cur = invHessObs.cur,
+                            param.cur = param.out)
             }
         }
     }
-  return(out)
+    return(out)
 }
 
 ## don't put return within for loop,  it will make an error,  see this example
