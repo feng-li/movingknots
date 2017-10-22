@@ -146,8 +146,7 @@ Params.subsets <- function(p, splineArgs, Params_Fixed, Params_subsetsArgs)
 
         for(i in 1:length(shrinkages.parti.idx))
           {
-            out.shrinkages[[i]] <-
-              shrinkages.idx[as.vector(shrinkages.remain)][as.vector(shrinkages.parti.idx[[i]])]
+            out.shrinkages[[i]] <- shrinkages.idx[as.vector(shrinkages.remain)][as.vector(shrinkages.parti.idx[[i]])]
           }
         out[["shrinkages"]] <- out.shrinkages
       }

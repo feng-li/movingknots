@@ -1,4 +1,4 @@
-#! /usr/bin/Rscript
+#! /usr/bin/env Rscript
 ##########################################################################################
 ##                            INTRODUCTION AND HELP
 ##
@@ -116,8 +116,8 @@ Model_Name <- "linear"
 ## ARGUMENTS FOR SPLINES
 splineArgs <- list(
     ## the components of the design matrix.
-    ## comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
-    comp = c("intercept", "covariates", "thinplate.a"),
+    comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
+    ## comp = c("intercept", "covariates", "thinplate.a"),
     ## the dimension of the knots for surface.
     thinplate.s.dim = c(2, m),
     ## no. of knots used in each covariates for the additive part. zero means no knots for
@@ -144,7 +144,7 @@ Params_subsetsArgs <- list(
     "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
                    thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
 
-    "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
+    "shrinkages" = list(N.subsets = 3, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
     "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
 
