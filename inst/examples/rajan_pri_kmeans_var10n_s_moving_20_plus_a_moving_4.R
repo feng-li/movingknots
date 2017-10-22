@@ -225,7 +225,7 @@ shrinkages.priType <- "mvnorm"
 shrinkages.mu0 <- matrix(rep(shrinkages.pri.trans[1], p*model.comp.len)) # The mean of
                                         # shrinkage,  "n" is unit information
                                         # prior. (n*(X'X)^(-1))
-shrinkages.Sigma0 <- diag(rep(shrinkages.pri.trans[2], p), model.comp.len) # The variance
+shrinkages.Sigma0 <- diag(rep(shrinkages.pri.trans[2], p), p*model.comp.len) # The variance
                                         # for the shrinkage parameter.
 shrinkages.c <- 1 # The shrinkage
 
@@ -340,7 +340,7 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##----------------------------------------------------------------------------------------
 Running.date <- Sys.time()
 MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Params,
-                 Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs, priorArgs, MH.prop.df,
+                 Params4Gibbs, Params.sub.struc, hessMethods, Y, x0, splineArgs, priorArgs, MH.prop.df,
                  Params_Transform, propMethods, crossvalid.struc, OUT.Params,
                  OUT.accept.probs, burn.in, LPDS.sampleProp, track.MCMC)
 

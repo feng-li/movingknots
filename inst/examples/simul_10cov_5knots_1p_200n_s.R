@@ -418,7 +418,7 @@ Params_subsetsArgs <- list("knots" = list(
             sep = ""))
 
   MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Params,
-                   Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs, priorArgs,
+                   Params4Gibbs, Params.sub.struc, hessMethods, Y, x0, splineArgs, priorArgs,
                    MH.prop.df, Params_Transform, propMethods, crossvalid.struc, OUT.Params,
                    OUT.accept.probs, burn.in, LPDS.sampleProp, track.MCMC)
   finish.time <- proc.time()
