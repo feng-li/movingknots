@@ -106,8 +106,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                                                  c(1, 2, 4), ineff))
 
     OUT.accept.probs.mean <- lapply(OUT.accept.probs,
-                                    function(x) apply(x[, (num.burn.in+1):nIter, ,drop =
-                                                                                      FALSE],c(1, 3), mean))
+                                    function(x) apply(x[, (num.burn.in+1):nIter, ,drop = FALSE],c(1, 3), mean))
 
     ##----------------------------------------------------------------------------------------
     ## Collecting system information

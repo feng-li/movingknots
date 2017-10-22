@@ -1,3 +1,4 @@
+#! /usr/bin/Rscript
 ##########################################################################################
 ##                            INTRODUCTION AND HELP
 ##
@@ -35,6 +36,7 @@ gc()
 
 ## LOAD DEPENDENCES
 require("methods")
+require("MASS")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
@@ -80,11 +82,11 @@ track.MCMC = TRUE
 load("~/code/dgp/data/simulated.monthly.features.Rdata")
 load("~/code/dgp/data/simulated.monthly.MASEout.Rdata")
 
-X <- simulated.monthly.features[1:100, -13] # remove "Period"
+X <- simulated.monthly.features[, c(1:10, 12, 14, 16:20)] # remove "Period" -13
 X.name <- colnames(X)
 
-Y <- simulated.monthly.MASEout[1:100, 1, drop = FALSE]
-Y.name <- "MAS"
+Y <- simulated.monthly.MASEout
+Y.name <- paste("MASE", 1:(dim(Y)[2]), sep = "")
 
 ## STANDARDIZED THE DATA (OPTIONAL)
 data <- StdData(X, method = "norm-0-1")
@@ -102,9 +104,11 @@ m <- dim(x)[2]
 ##----------------------------------------------------------------------------------------
 ## Model configurations
 ##----------------------------------------------------------------------------------------
+Starting.time <- Sys.time()
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- "tsfeature_s_moving_2_plus_a_moving_2"
+ModelDescription <- paste("tsfeature_s_moving_2_plus_a_moving_2", "+",
+                          format(Starting.time, "%Y%m%d@%H.%M"), ".", rhex(6), sep = "")
 
 ## MODEL NAME
 Model_Name <- "linear"
@@ -112,9 +116,10 @@ Model_Name <- "linear"
 ## ARGUMENTS FOR SPLINES
 splineArgs <- list(
     ## the components of the design matrix.
-    comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
+    ## comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
+    comp = c("intercept", "covariates", "thinplate.a"),
     ## the dimension of the knots for surface.
-    thinplate.s.dim = c(10, m),
+    thinplate.s.dim = c(2, m),
     ## no. of knots used in each covariates for the additive part. zero means no knots for
     ## that covariates
     thinplate.a.locate = rep(2, m))
@@ -136,8 +141,8 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
 
     "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
@@ -184,14 +189,14 @@ cross.validation <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validati
                          full.run = FALSE)     # Also include a full run.
 
 ## NO. OF FINTE NEWTON MOVE FOR EACH PARAMETERS
-nNewtonSteps <- list("knots" = 3,
-                    "shrinkages" = 3,
-                    "covariance" = NA, # random MH
-                    "coefficients" = NA) # integrated out
+nNewtonSteps <- list("knots" = 1,
+                     "shrinkages" = 1,
+                     "covariance" = NA, # random MH
+                     "coefficients" = NA) # integrated out
 
 ## THE DF. FOR A MULTIVARIATE T-PROPOSAL IN MH ALGORITHM.
-MH.prop.df <- list("knots" = 10,
-                   "shrinkages" = 10,
+MH.prop.df <- list("knots" = 5,
+                   "shrinkages" = 5,
                    "covariance" = NA,
                    "coefficients" = NA)
 ##----------------------------------------------------------------------------------------
@@ -210,8 +215,8 @@ S0.init <- matrix(var(lm.init$residual), p, p)
 q <- dim(X.init)[2]
 
 ## P MATRIX TYPE
-## P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
-P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
+P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
+## P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
 
 ## PRIOR FOR COVARIANCE
 covariance.priType <- "Inverse-Wishart"
@@ -226,19 +231,21 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 knots.priType <- "mvnorm"
 knots.mu0 <- knots.list2mat(knots.location.gen) # mean from k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- 1 # The shrinkage
+knots.c <- n # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
+
+## how many components does the model have
 model.comp.len <- length(splineArgs[["comp"]][ "intercept" != splineArgs[["comp"]] ])
-                                        # how many components does the model have
-shrinkages.pri.trans <- convert.densParams(mean = n/2, var = (n/2)^2, linkage =
-                                           Params_Transform[["shrinkages"]]) # assume
-                                            # normal prior with "mean" and "var"
+
+shrinkages.pri.trans <- convert.densParams(mean = n/2, var = (n/2)^2,
+                                           linkage = Params_Transform[["shrinkages"]]) # assume
+                                        # normal prior with "mean" and "var"
 shrinkages.priType <- "mvnorm"
 shrinkages.mu0 <- matrix(rep(shrinkages.pri.trans[1], p*model.comp.len)) # The mean of
                                         # shrinkage,  "n" is unit information
                                         # prior. (n*(X'X)^(-1))
-shrinkages.Sigma0 <- diag(rep(shrinkages.pri.trans[2], p), model.comp.len) # The variance
+shrinkages.Sigma0 <- diag(rep(shrinkages.pri.trans[2], p), p*model.comp.len) # The variance
                                         # for the shrinkage parameter.
 shrinkages.c <- 1 # The shrinkage
 
@@ -351,11 +358,27 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##----------------------------------------------------------------------------------------
 ## MovingKnots MCMC
 ##----------------------------------------------------------------------------------------
-Running.date <- Sys.time()
-MovingKnots_MCMC(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter, Params,
-                 Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs, priorArgs, MH.prop.df,
-                 Params_Transform, propMethods, crossvalid.struc, OUT.Params,
-                 OUT.accept.probs, burn.in, LPDS.sampleProp, track.MCMC)
+OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
+                               logpost.fun.name =  logpost.fun.name,
+                               nNewtonSteps =  nNewtonSteps,
+                               nIter = nIter,
+                               Params = Params,
+                               Params4Gibbs = Params4Gibbs,
+                               Params.sub.struc =  Params.sub.struc,
+                               hessMethods = hessMethods,
+                               Y = Y,
+                               x0 = x,
+                               splineArgs = splineArgs,
+                               priorArgs = priorArgs,
+                               MH.prop.df = MH.prop.df,
+                               Params_Transform = Params_Transform,
+                               propMethods = propMethods,
+                               crossvalid.struc = crossvalid.struc,
+                               OUT.Params = OUT.Params,
+                               OUT.accept.probs = OUT.accept.probs,
+                               burn.in = burn.in,
+                               LPDS.sampleProp = LPDS.sampleProp,
+                               track.MCMC = track.MCMC)
 
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
