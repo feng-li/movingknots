@@ -33,7 +33,7 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
     {
       ## The Metropolis-Hastings with inverse Wishart proposal
       out <- MHPropWithIWishart(param.cur = param.cur, logpost.fun.name =
-                                logpost.fun.name, Params = Params, Y = Y.iCross, x =
+                                logpost.fun.name, Params = Params, Y = Y.iCross, x0 =
                                 x.iCross, callParam = callParam,
                                 splineArgs = splineArgs, priorArgs = priorArgs,
                                 Params_Transform = Params_Transform)
@@ -45,7 +45,7 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
                                    gradhess.fun.name, logpost.fun.name =
                                    logpost.fun.name, nNewtonStep =
                                    nNewtonStep, Params = Params, hessMethod =
-                                   hessMethod, Y = Y.iCross, x = x.iCross,
+                                   hessMethod, Y = Y.iCross, x0 = x.iCross,
                                    callParam = callParam,
                                    splineArgs = splineArgs, priorArgs = priorArgs,
                                    prop.df = prop.df, Params_Transform =
@@ -57,8 +57,8 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
       out <- RandomWalkMetropolis(param.cur = param.cur,
                                   logpost.fun.name = logpost.fun.name,
                                   Params = Params,
-                                  Y = Y,
-                                  x = x,
+                                  Y = Y.iCross,
+                                  x0 = x.iCross,
                                   callParam = callParam,
                                   splineArgs = splineArgs,
                                   priorArgs = priorArgs,

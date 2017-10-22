@@ -38,7 +38,7 @@
 ##'       Think about how to add shrinkage in.
 ##'       And variable selection
 KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
-                            hessMethod, Y, x, callParam, splineArgs,
+                            hessMethod, Y, x0, callParam, splineArgs,
                             priorArgs, Params_Transform)
 {
 
@@ -51,9 +51,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         ## Update the parameter with current updated results. The first update of course
         ## is the initial value.
         Params[[callParam$id]][callParam$subset] <- param.cur
-
-        caller <- call(gradhess.fun.name, Params = Params, hessMethod = hessMethod, Y = Y, x
-                       = x, callParam = callParam, splineArgs = splineArgs,
+        caller <- call(gradhess.fun.name, Params = Params, hessMethod = hessMethod, Y = Y, x0
+                       = x0, callParam = callParam, splineArgs = splineArgs,
                        priorArgs = priorArgs, Params_Transform = Params_Transform)  # Creat the gradien object. Will be passed to eval().
         gradhess <- eval(caller) # Calculate the hessian at current draw. If the parameters
                                         # are good enough,  do one more update the gradient and
@@ -61,7 +60,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
 
         gradObs.cur <- gradhess$gradObs
         hessObs.cur <- gradhess$hessObs
-        invHessObs.cur <- try(solve(hessObs.cur), silent = TRUE)
+        require("MASS")
+        invHessObs.cur <- try(ginv(hessObs.cur), silent = TRUE)
 
         ## Check if Hessian is bad
         if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) |

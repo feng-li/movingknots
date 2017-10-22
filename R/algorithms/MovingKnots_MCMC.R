@@ -1,5 +1,5 @@
 MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter,
-                             Params, Params4Gibbs, Params.sub.struc, hessMethods, Y, x, splineArgs,
+                             Params, Params4Gibbs, Params.sub.struc, hessMethods, Y, x0, splineArgs,
                              priorArgs, MH.prop.df, Params_Transform, propMethods,
                              crossvalid.struc, OUT.Params, OUT.accept.probs, burn.in,
                              LPDS.sampleProp, track.MCMC)
@@ -16,7 +16,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
     {
         ## Training sample
         Y.iCross <- Y[crossvalid.struc$training[[iCross]], , drop = FALSE]
-        x.iCross <- x[crossvalid.struc$training[[iCross]], , drop = FALSE]
+        x.iCross <- x0[crossvalid.struc$training[[iCross]], , drop = FALSE]
 
         for(iIter in 1:nIter) # loop nIter times
         {
@@ -75,7 +75,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
 
     ## Update the LPDS
     cat("Updating LPDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-    OUT.LPDS <- LogPredScore(Y = Y, x = x, logpost.fun.name = logpost.fun.name,
+    OUT.LPDS <- LogPredScore(Y = Y, x = x0, logpost.fun.name = logpost.fun.name,
                              crossvaid.struc = crossvaid.struc, splineArgs = splineArgs,
                              priorArgs = priorArgs, OUT.Params = OUT.Params, Params_Transform
                              = Params_Transform, burn.in = burn.in, LPDS.sampleProp = LPDS.sampleProp)
@@ -121,14 +121,17 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
     ##                                Save output
 ##########################################################################################
     ## save important output to global environment. "<<-"
-    OUT.Params <<- OUT.Params
-    OUT.Params.mode <<- OUT.Params.mode
-    OUT.Params.sd <<- OUT.Params.sd
-    OUT.Params.ineff <<- OUT.Params.ineff
+    OUT <- list()
+    OUT[["Params"]] <- OUT.Params
+    OUT[["Params.mode"]] <- OUT.Params.mode
+    OUT[["Params.sd"]] <- OUT.Params.sd
+    OUT[["Params.ineff"]] <- OUT.Params.ineff
 
-    OUT.accept.probs <<- OUT.accept.probs
-    OUT.accept.probs.mean <<- OUT.accept.probs.mean
+    OUT[["accept.probs"]] <- OUT.accept.probs
+    OUT[["accept.probs.mean"]] <- OUT.accept.probs.mean
 
-    OUT.LPDS <<- OUT.LPDS
-    SYS.INFO <<- SYS.INFO
+    OUT[["LPDS"]] <- OUT.LPDS
+    OUT[["SYS.INFO"]] <- SYS.INFO
+
+    return(OUT)
 }

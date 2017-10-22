@@ -56,7 +56,7 @@
 ##'
 ##' DEPENDS:
 ##'
-linear_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorArgs,
+linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, priorArgs,
                             Params_Transform)
 {
 
@@ -79,15 +79,17 @@ linear_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, pri
   knots.list <- knots.mat2list(knots.mat, splineArgs)
 
   ## Pre-compute essential parts
-  X <- d.matrix(x,knots.list,splineArgs) # The design matrix.
+  X <- d.matrix(x0,knots.list,splineArgs) # The design matrix.
 
-  dim.x <- dim(x)
-  n <- dim.x[1] # no. of obs
+  dim.x0 <- dim(x0)
+  n <- dim.x0[1] # no. of obs
   p <- dim(Y)[2] # multivariate if p > 1
   q <- dim(X)[2] # no. of covs including knots and intercept.
 
   diag.K.list <- lapply(apply(matrix(diag.K, p), 2, list), unlist)
-  Sigma.inv <- solve(Sigma) # inverse of Sigma
+
+  require("MASS")
+  Sigma.inv <- ginv(Sigma) # inverse of Sigma
   P4X <- crossprod(X) # X'X where X is the design matrix
 
   q.knots <- sapply(knots.list, nrow) # no. of knots used for surface, and additive
@@ -101,7 +103,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, pri
   P.type <- priorArgs$P.type # The type of P matrices of the prior
 
   mu <- priorArgs$coefficients.mu0 # for B
-    ## browser()
+  ## browser()
   ## Boundary check
   ## if(knots.check.boundary(P4X, method = "singular") == "bad")
   ## {
@@ -134,12 +136,13 @@ linear_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, pri
                                         # components
       Sigma4beta.inv <- Sigma4betaFun(diag.K, Sigma, P.mats, inverse = TRUE)
       Sigma4beta.tilde.inv <- Sigma.inv %x% P4X + Sigma4beta.inv
-      if(is.singular(Sigma4beta.tilde.inv))
-        {
-          out <- list(gradObs = NaN, hessObs = NaN)
-          return(out)
-        }
-      Sigma4beta.tilde <- solve(Sigma4beta.tilde.inv)
+      ## if(is.singular(Sigma4beta.tilde.inv))
+      ##   {
+      ##     out <- list(gradObs = NaN, hessObs = NaN)
+      ##     return(out)
+      ##   }
+      ## Sigma4beta.tilde <- solve(Sigma4beta.tilde.inv)
+      Sigma4beta.tilde <- ginv(Sigma4beta.tilde.inv)
 
       Y.Sigma.inv <- Y %*% Sigma.inv
       XT.Y.Sigma.inv <- crossprod(X, Y.Sigma.inv)

@@ -24,7 +24,7 @@
 ##' DEPENDS: mvtnorm
 ##' TODO: replace the old multivariate t functions to mvtnorm functions
 MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name,
-                                  nNewtonStep, Params, hessMethod, Y, x, callParam,
+                                  nNewtonStep, Params, hessMethod, Y, x0, callParam,
                                   splineArgs, priorArgs, prop.df, Params_Transform)
 {
     ## All the propose are made at the level of transformed stage. No need further
@@ -37,7 +37,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
                                     Params = Params,
                                     hessMethod = hessMethod,
                                     Y = Y,
-                                    x = x,
+                                    x0 = x0,
                                     callParam = callParam,
                                     splineArgs = splineArgs,
                                     priorArgs = priorArgs,
@@ -72,7 +72,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
                                         KStep =nNewtonStep,
                                         Params = Params,
                                         hessMethod = hessMethod,
-                                        Y = Y, x = x,
+                                        Y = Y, x0 = x0,
                                         callParam = callParam,
                                         splineArgs = splineArgs,
                                         priorArgs = priorArgs,
