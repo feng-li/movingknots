@@ -30,7 +30,7 @@ MHPropWithIWishart <- function(param.cur, logpost.fun.name, Params, Y, x0, callP
   Sigma.cur <- vech2m(param.cur.TB) # symmetric form
 
   ## Calculate the posterior V and df given current parameters.
-  par.cur.list <- linear_IWishart(Params, Y, x, splineArgs, priorArgs, Params_Transform)
+  par.cur.list <- linear_IWishart(Params, Y, x0, splineArgs, priorArgs, Params_Transform)
 
   ## browser()
   V.cur.prop <- par.cur.list[["V"]]

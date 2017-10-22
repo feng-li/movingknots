@@ -17,7 +17,7 @@
 ##' @note First version: Fri Mar 04 20:21:33 CET 2011;
 ##'       Current:       Fri Mar 04 20:21:41 CET 2011.
 ##' TODO: Use apply?
-linear_post4coef <- function(Y, x, OUT.Params, crossvalid.struc, nCross, nIter,
+linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
                              splineArgs, priorArgs, Params_Transform)
 {
 
@@ -50,7 +50,7 @@ linear_post4coef <- function(Y, x, OUT.Params, crossvalid.struc, nCross, nIter,
           q <- sum(q.i)
           p <- dim(Sigma)[1]
 
-          X <- d.matrix(x,knots.list,splineArgs)
+          X <- d.matrix(x0,knots.list,splineArgs)
           P4X <- crossprod(X)
           P.mats.all <- P.matrix(X, q.i, priorArgs) # The P matrices and X matrices, list
           P.mats <- P.mats.all[["P"]]
