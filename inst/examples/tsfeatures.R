@@ -26,6 +26,7 @@
 ##########################################################################################
 ##                                   User settings
 ##########################################################################################
+Rprof(memory.profiling = TRUE)
 
 ##----------------------------------------------------------------------------------------
 ## Initialize R environment
@@ -49,11 +50,11 @@ save.output <- "~/running" # "save.output = FALSE" will not save anything
 sys.source(file.path("~/code/flutils/R/systools/sourceDir.R"),
            envir = .GlobalEnv)
 
-sourceDir("~/code/flutils/R", recursive = TRUE)
+sourceDir("~/code/flutils/R", recursive = TRUE, byte.compile = 1)
 
 ## Load user defined functions
 sourceDir(file.path(path.lib, "R", c("algorithms", "models/linear")),
-          recursive = TRUE)
+          recursive = TRUE, byte.compile = 1)
 
 
 ## sourceDir(file.path(path.lib, "R", c("utils", "algorithms", "models/linear")),
@@ -119,10 +120,10 @@ splineArgs <- list(
     comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
     ## comp = c("intercept", "covariates", "thinplate.a"),
     ## the dimension of the knots for surface.
-    thinplate.s.dim = c(2, m),
+    thinplate.s.dim = c(4, m),
     ## no. of knots used in each covariates for the additive part. zero means no knots for
     ## that covariates
-    thinplate.a.locate = rep(2, m))
+    thinplate.a.locate = rep(4, m))
 
 ## PARAMETERS UPDATED USING GIBBS
 ## You have to change this when "splineArgs$comp" has
@@ -141,8 +142,8 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 4, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 4, partiMethod = "systematic"), split = FALSE),
 
     "shrinkages" = list(N.subsets = 3, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
@@ -231,7 +232,7 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 knots.priType <- "mvnorm"
 knots.mu0 <- knots.list2mat(knots.location.gen) # mean from k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- n # The shrinkage
+knots.c <- 10*n # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
 
@@ -386,6 +387,8 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
 save.all(save.output, ModelDescription)
 
 cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
+Rprof(NULL)
+summaryRprof()
 ##########################################################################################
 ##                                     THE END
 ##########################################################################################
