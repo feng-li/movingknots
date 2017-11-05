@@ -4,7 +4,7 @@
 ### INPUTS
 ###----------------------------------------------------------------------------
 
-FITTED.file <- "~/running/JOB5447.tsfeature_s_moving_2_plus_a_moving_2+20171022@17.30.bc1e91.Rdata"
+FITTED.file <- "~/running/JOB5463.tsfeature_s_moving_2_plus_a_moving_2+20171022@20.44.8744e8.Rdata"
 TESTING.file <- "~/code/dgp/data/M3.features.Rdata"
 
 load(FITTED.file)
@@ -54,5 +54,5 @@ for (i in 1: length(M3.fm)){
 
 out <- rbind(c(mean(M3MASEOpt.monthly), apply(M3MASEoutReal, 2, mean)),
              c(median(M3MASEOpt.monthly), apply(M3MASEoutReal, 2, median)))
-colnames(out) <- c("mixture", colnames(M3MASEoutReal))
+dimnames(out) <- list(c("mean", "median"), c("mixture", colnames(M3MASEoutReal)))
 out
