@@ -10,7 +10,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
     Running.date <- Sys.time() # The stating time
     Start.Time <- proc.time() # The CPU time
 
-    cat("Updating Knots Shrinkages and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
+    cat("Updating Knots, Shrinkages, and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
     for(iCross in 1:nCross) # loop over subsets of data. TODO: Parallel Computing?
     {
@@ -55,6 +55,14 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
             ## Track the iterations
             if(track.MCMC)
             {
+                if(nIter>1000)
+                {
+                    interval = 0.20
+                }
+                else
+                {
+                    interval = 2/nIter
+                }
                 MCMC.trajectory(iIter, nIter, iCross, OUT.accept.probs, interval = .10)
             }
             ## print(proc.time()-a)

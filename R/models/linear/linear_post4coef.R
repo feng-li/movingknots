@@ -41,7 +41,7 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
                                     Params_Transform[["covariance"]])
 
           Sigma <- vech2m(Sigma.TB)
-          require("MASS")
+
           Sigma.inv <- ginv(Sigma)
           knots.list <- knots.mat2list(knots.mat, splineArgs)
 
@@ -63,8 +63,7 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
           Sigma4beta.inv <- Sigma4betaFun(diag.K.TB, Sigma, P.mats, inverse = TRUE)
           Sigma4beta.tilde.inv <- Sigma.inv %x% P4X + Sigma4beta.inv
 
-
-          Sigma4beta.tilde <- ginv(Sigma4beta.tilde.inv)
+          Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
 
 
           Y.Sigma.inv <- Y %*% Sigma.inv

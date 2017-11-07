@@ -26,11 +26,13 @@ Sigma4betaFun <- function(diag.K, Sigma, P.mats, inverse = FALSE)
   p1 <- p*q.n
   k.init.idx <- seq(1, p1, by = p)
 
-  out4b <- matrix(0, p*q, p*q) # the size of the output matrix Sigma4b
+
+  out4b <- Matrix(0, p*q, p*q) # the size of the output matrix Sigma4b
 
   if(inverse  == FALSE) # variance
-    {
-      P.mats.inv <- lapply(P.mats, solve)
+  {
+
+      P.mats.inv <- lapply(P.mats, ginv)
       for(i in 1:q.n) # TODO: Avoid the loop
         {
           idx0 <- k.init.idx[i]:(k.init.idx[i]+p-1) # index for K matrix
@@ -51,12 +53,14 @@ Sigma4betaFun <- function(diag.K, Sigma, P.mats, inverse = FALSE)
           diag.K.inv2 <- 1/sqrt(diag.K[idx0])
           ## browser()
           ## K.inv2 <- diag(diag.K.inv2, ncol = length(diag.K.inv2))
-          require("MASS")
+
           Sigma.inv <- ginv(Sigma)
           Sigma.P.inv <- (diag.K.inv2 %d*d% Sigma.inv) %x% P.mats[[i]]
+
           out4b[idx, idx] <- Sigma.P.inv
         }
     }
+
 
   ## Sigma4b -> Sigma4beta
   idxb2beta <- as.vector(idx.b2beta(p, q, q.i))

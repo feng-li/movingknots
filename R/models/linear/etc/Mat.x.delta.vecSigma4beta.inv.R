@@ -1,12 +1,12 @@
 ##' Compute a matrix to pre-multiply the gradient for vec beta's inverse variance
 ##'
 ##' <details>
-##' @title 
-##' @param Mat 
-##' @param delta4K.list 
+##' @title
+##' @param Mat
+##' @param delta4K.list
 ##' @param args "list" args$subset: subset of the shrinkage
-##' @return 
-##' @references 
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Wed Jan 19 16:37:25 CET 2011;
 ##'       Current:       Wed Jan 19 16:37:34 CET 2011.
@@ -20,7 +20,7 @@ Mat.x.delta.vecSigma4beta.inv <- function(Mat, delta4K.list, p, q, q.i)
 
     ## Reorder the Mat matrix
     Mat <- Mat[, as.vector(idx4Sigmab), drop = FALSE]
-    
+
     ## p <- dim(delta4K.list[[1]])[2]
     nb0 <- length(delta4K.list) #. number of blocks used
     q0 <- sqrt(sapply(delta4K.list, nrow)/p^2) # no. row/col of the P matrices
@@ -28,23 +28,23 @@ Mat.x.delta.vecSigma4beta.inv <- function(Mat, delta4K.list, p, q, q.i)
     pq0 <- p*q0 # no. of row/col for each block of the Sigma4beta matrix
     ## gap0 <- sum(pq0) - pq0 # The empty space between each dense blocks
     head0 <- c(0, cumsum(pq0)[1:(nb0-1)]) # how many empty space shoud be used ahead.
-    
+
     ## orgnize the output matrix
     out <- matrix(0, nrow(Mat), p*nb0)
-    
+
     idx1.end <- 0
     idx2.end <- 0
     for(i in 1:nb0) ## TODO: Use mapply? maybe a little faster. This part is very tricky.
-      ## Don't touch 
+      ## Don't touch
       ## it unless you know what you are doing
       {
-        idx0 <- mseq(init.seq = 1:(p*q0[i]), init.length = p*q, length.out = p*q0[i]) +
-          head0[i] 
+        idx0 <- (mseq(init.seq = 1:(p*q0[i]), init.length = p*q,
+                      length.out = p*q0[i]) + head0[i])
         ## partition the pre-multiply matrix
-        
+
         idx1 <- (idx1.end+1):(idx1.end + p^2*q*q0[i])
         idx1.end <- idx1[length(idx1)]
-        
+
         MatParti <- Mat[, idx1[idx0], drop = FALSE]
 
         ## output matrix

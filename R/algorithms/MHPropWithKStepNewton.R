@@ -125,7 +125,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
     log.r <- logpost.prop - logpost.cur + logjump.prop2cur - logjump.cur2prop
     r <- exp(log.r)
 
-    accept.prob <- min(1, r) # the acceptance probability.
+    accept.prob <- min(1, as.numeric(r)) # the acceptance probability.
 
     ## make decision to update or keep current draw.
     if(!is.na(accept.prob) && runif(1) < accept.prob)
