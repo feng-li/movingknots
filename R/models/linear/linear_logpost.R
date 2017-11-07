@@ -178,7 +178,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
     }
 
   ## The marginal posterior (without coefficients)
-  logpost[["margi"]] <- loglike.margi + sum(unlist(logprior))
+  logpost[["margi"]] <- as.numeric(loglike.margi + sum(unlist(logprior)))
 
   ## Conditional posterior for the coefficients
   if("coefficients" %in% callParam$id)
@@ -190,7 +190,9 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
       logpost[["coefficients"]] <- dmvnorm(x = beta, mean = beta.tilde, sigma =
                                            Norm.Sigma, log = TRUE)
     }
-  out <- sum(unlist(logpost))
+
+
+    out <- sum(unlist(logpost))
 
   return(out)
 }

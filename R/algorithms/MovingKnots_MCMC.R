@@ -61,7 +61,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                 }
                 else
                 {
-                    interval = 2/nIter
+                    interval = 1/nIter
                 }
                 MCMC.trajectory(iIter, nIter, iCross, OUT.accept.probs, interval = .10)
             }
