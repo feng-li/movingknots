@@ -79,7 +79,7 @@ track.MCMC = TRUE
 load(file.path(path.lib, "data/Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
-data <- StdData(X[, c(2, 4), drop = FALSE], method = "norm-0-1")
+data <- StdData(X[, , drop = FALSE], method = "norm-0-1")
 x <- data[["data"]]
 
 ## no. of observations
@@ -204,8 +204,8 @@ S0.init <- matrix(var(lm.init$residual), p, p)
 q <- dim(X.init)[2]
 
 ## P MATRIX TYPE
-P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
-## P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
+## P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
+P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
 
 ## PRIOR FOR COVARIANCE
 covariance.priType <- "Inverse-Wishart"
@@ -236,7 +236,7 @@ shrinkages.mu0 <- matrix(rep(shrinkages.pri.trans[1], p*model.comp.len)) # The m
                                         # prior. (n*(X'X)^(-1))
 shrinkages.Sigma0 <- diag(rep(shrinkages.pri.trans[2], p), p*model.comp.len) # The variance
                                         # for the shrinkage parameter.
-shrinkages.c <- 1 # The shrinkage
+shrinkages.c <- n # The shrinkage
 
 ## Organize the arguments
 priorArgs <- list(P.type = P.type,
