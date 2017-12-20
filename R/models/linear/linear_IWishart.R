@@ -34,7 +34,7 @@ linear_IWishart <- function(Params, Y, x0, splineArgs, priorArgs, Params_Transfo
   q <- dim(X)[2] # no. of covs including knots and intercept.
 
   diag.K.list <- lapply(apply(matrix(diag.K, p), 2, list), unlist)
-  require("MASS")
+
   Sigma.inv <- ginv(Sigma) # inverse of Sigma
   P4X <- crossprod(X) # X'X where X is the design matrix
 
@@ -62,7 +62,7 @@ linear_IWishart <- function(Params, Y, x0, splineArgs, priorArgs, Params_Transfo
       return(out)
     }
 
-  Sigma4beta.tilde <- ginv(Sigma4beta.tilde.inv)
+  Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
 
   beta.tilde <- Sigma4beta.tilde %*% (matrix(crossprod(X, Y) %*% Sigma.inv) +
                                       Sigma4beta.tilde.inv %*% mu)

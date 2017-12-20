@@ -36,6 +36,8 @@ gc()
 
 ## LOAD DEPENDENCES
 require("methods")
+require("MASS")
+require("Matrix")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY

@@ -60,8 +60,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
 
         gradObs.cur <- gradhess$gradObs
         hessObs.cur <- gradhess$hessObs
-        require("MASS")
-        invHessObs.cur <- try(ginv(hessObs.cur), silent = TRUE)
+
+        invHessObs.cur <- ginv(as.matrix(hessObs.cur)) # Convert Matrix class to matrix
 
         ## Check if Hessian is bad
         if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) |

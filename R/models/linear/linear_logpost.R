@@ -69,7 +69,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
   q <- dim(X)[2] # no. of covs including knots and intercept.
 
   diag.K.list <- lapply(apply(matrix(diag.K, p), 2, list), unlist)
-  require("MASS")
+
   Sigma.inv <- ginv(Sigma) # inverse of Sigma
   P4X <- crossprod(X) # X'X where X is the design matrix
 
@@ -112,7 +112,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
         }
 
       ## Not singular, continuous
-      Sigma4beta.tilde <- ginv(Sigma4beta.tilde.inv)
+      Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
 
       beta.tilde <- Sigma4beta.tilde %*% (matrix(crossprod(X, Y) %*% Sigma.inv) +
                                           Sigma4beta.inv %*% mu)
@@ -178,7 +178,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
     }
 
   ## The marginal posterior (without coefficients)
-  logpost[["margi"]] <- loglike.margi + sum(unlist(logprior))
+  logpost[["margi"]] <- as.numeric(loglike.margi + sum(unlist(logprior)))
 
   ## Conditional posterior for the coefficients
   if("coefficients" %in% callParam$id)
@@ -190,7 +190,9 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
       logpost[["coefficients"]] <- dmvnorm(x = beta, mean = beta.tilde, sigma =
                                            Norm.Sigma, log = TRUE)
     }
-  out <- sum(unlist(logpost))
+
+
+    out <- sum(unlist(logpost))
 
   return(out)
 }

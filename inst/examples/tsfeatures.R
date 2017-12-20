@@ -26,6 +26,7 @@
 ##########################################################################################
 ##                                   User settings
 ##########################################################################################
+## Rprof(memory.profiling = TRUE)
 
 ##----------------------------------------------------------------------------------------
 ## Initialize R environment
@@ -37,6 +38,7 @@ gc()
 ## LOAD DEPENDENCES
 require("methods")
 require("MASS")
+require("Matrix")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
@@ -49,11 +51,11 @@ save.output <- "~/running" # "save.output = FALSE" will not save anything
 sys.source(file.path("~/code/flutils/R/systools/sourceDir.R"),
            envir = .GlobalEnv)
 
-sourceDir("~/code/flutils/R", recursive = TRUE)
+sourceDir("~/code/flutils/R", recursive = TRUE, byte.compile = 1)
 
 ## Load user defined functions
 sourceDir(file.path(path.lib, "R", c("algorithms", "models/linear")),
-          recursive = TRUE)
+          recursive = TRUE, byte.compile = 1)
 
 
 ## sourceDir(file.path(path.lib, "R", c("utils", "algorithms", "models/linear")),
@@ -119,10 +121,10 @@ splineArgs <- list(
     comp = c("intercept", "covariates", "thinplate.s", "thinplate.a"),
     ## comp = c("intercept", "covariates", "thinplate.a"),
     ## the dimension of the knots for surface.
-    thinplate.s.dim = c(2, m),
+    thinplate.s.dim = c(4, m),
     ## no. of knots used in each covariates for the additive part. zero means no knots for
     ## that covariates
-    thinplate.a.locate = rep(2, m))
+    thinplate.a.locate = rep(4, m))
 
 ## PARAMETERS UPDATED USING GIBBS
 ## You have to change this when "splineArgs$comp" has
@@ -141,10 +143,10 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
 
-    "shrinkages" = list(N.subsets = 3, partiMethod = "systematic"),
+    "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
     "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
 
@@ -178,7 +180,7 @@ propMethods <- list("knots" = "KStepNewton",
 nIter <- 100
 
 ## BURN-IN
-burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
+burn.in <- 0.0  # [0, 1) If 0: use all MCMC results.
 
 ## LPDS SAMPLE SIZE
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
@@ -215,8 +217,8 @@ S0.init <- matrix(var(lm.init$residual), p, p)
 q <- dim(X.init)[2]
 
 ## P MATRIX TYPE
+## P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
 P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
-## P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
 
 ## PRIOR FOR COVARIANCE
 covariance.priType <- "Inverse-Wishart"
@@ -386,6 +388,8 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
 save.all(save.output, ModelDescription)
 
 cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
+## Rprof(NULL)
+## summaryRprof()
 ##########################################################################################
 ##                                     THE END
 ##########################################################################################
