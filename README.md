@@ -57,7 +57,7 @@ console. For example
 
 * And then just execute it like other bash scripts
 
-        ./"movingknots/inst/examples/rajan_s_moving_2_plus_a_moving2.R
+        ./movingknots/inst/examples/rajan_s_moving_2_plus_a_moving2.R
 
 Help and bug reports
 --------------------
