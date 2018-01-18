@@ -20,7 +20,7 @@ delta.sumlogdetP <- function(P.mats, q.i, Xmats.delta.knots.lst, priorArgs, n.pa
       {
         if(P.type[[i+1]] == "X'X")
           {
-           require("MASS")
+
            vecP.mats.inv <- matrix(ginv(P.mats[[i+1]]), 1)
             q0 <- q.i[i+1]
             out1 <- vecP.mats.inv + K.X(q0, q0, vecP.mats.inv, t = TRUE)

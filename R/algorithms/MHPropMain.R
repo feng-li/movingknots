@@ -28,7 +28,8 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
   ## This is the mail MH file,  It will call individual functions for each proposal
  # print("MH-Main \n")
  # browser("MH-Main")
-
+  require("MASS")
+  require("Matrix")
   if (tolower(propMethod) == "inverse-wishart")
     {
       ## The Metropolis-Hastings with inverse Wishart proposal

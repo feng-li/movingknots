@@ -26,7 +26,7 @@
 ##########################################################################################
 ##                                   User settings
 ##########################################################################################
-Rprof(memory.profiling = TRUE)
+## Rprof(memory.profiling = TRUE)
 
 ##----------------------------------------------------------------------------------------
 ## Initialize R environment
@@ -38,6 +38,7 @@ gc()
 ## LOAD DEPENDENCES
 require("methods")
 require("MASS")
+require("Matrix")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
@@ -142,10 +143,10 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 4, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 4, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
 
-    "shrinkages" = list(N.subsets = 3, partiMethod = "systematic"),
+    "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
     "coefficients" = list(N.subsets = 1, partiMethod = "systematic"))
 
@@ -179,7 +180,7 @@ propMethods <- list("knots" = "KStepNewton",
 nIter <- 100
 
 ## BURN-IN
-burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
+burn.in <- 0.0  # [0, 1) If 0: use all MCMC results.
 
 ## LPDS SAMPLE SIZE
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
@@ -216,8 +217,8 @@ S0.init <- matrix(var(lm.init$residual), p, p)
 q <- dim(X.init)[2]
 
 ## P MATRIX TYPE
+## P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
 P.type <- c("identity", "identity", "identity") # can be "identity" or "X'X"
-## P.type <- c("X'X", "identity", "identity") # can be "identity" or "X'X"
 
 ## PRIOR FOR COVARIANCE
 covariance.priType <- "Inverse-Wishart"
@@ -232,7 +233,7 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 knots.priType <- "mvnorm"
 knots.mu0 <- knots.list2mat(knots.location.gen) # mean from k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
-knots.c <- 10*n # The shrinkage
+knots.c <- n # The shrinkage
 
 ## PRIOR FOR SHRINKAGES
 
@@ -387,8 +388,8 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
 save.all(save.output, ModelDescription)
 
 cat(paste("Finished at", Sys.time(),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n"))
-Rprof(NULL)
-summaryRprof()
+## Rprof(NULL)
+## summaryRprof()
 ##########################################################################################
 ##                                     THE END
 ##########################################################################################

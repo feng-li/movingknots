@@ -35,7 +35,7 @@ deriv_prior <- function(B, priorArgs)
       mean <- priorArgs$mean
       covariance <- priorArgs$covariance
       shrinkage <- priorArgs$shrinkage
-      require("MASS")
+
       gradient.out <- (- 1/shrinkage * ginv(covariance) %*% (B-mean))  # TODO:
       ## if(is(gradient.out, "try-error")) browser()
       hessian.out <- - 1/shrinkage * ginv(covariance)

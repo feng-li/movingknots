@@ -68,7 +68,7 @@ glm_logpost <- function(Y, x, Params, callParam, splineArgs, priorArgs, Params_T
   q <- dim(X)[2] # no. of covs including knots and intercept.
 
   diag.K.list <- lapply(apply(matrix(diag.K, p), 2, list), unlist)
-  require("MASS")
+
   Sigma.inv <- ginv(Sigma) # inverse of Sigma
   P4X <- crossprod(X) # X'X where X is the design matrix
 
