@@ -41,16 +41,16 @@ require("Matrix")
 require("mvtnorm")
 
 ## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "~/code/movingknots"
+path.lib <- "~/git/movingknots"
 
 ## SAVE OUTPUT PATH
 save.output <- "~/running" # "save.output = FALSE" will not save anything
 
 ## Load sourceDir() function
-sys.source(file.path("~/code/flutils/R/systools/sourceDir.R"),
+sys.source(file.path("~/git/flutils/R/systools/sourceDir.R"),
            envir = .GlobalEnv)
 
-sourceDir("~/code/flutils/R", recursive = TRUE)
+sourceDir("~/git/flutils/R", recursive = TRUE)
 
 ## Load user defined functions
 sourceDir(file.path(path.lib, "R", c("algorithms", "models/linear")),
@@ -81,8 +81,8 @@ track.MCMC = TRUE
 load(file.path(path.lib, "data/Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
-data <- StdData(X[, , drop = FALSE], method = "norm-0-1")
-x <- data[["data"]]
+data <- StdData(X[, 3:5, drop = FALSE], method = "norm-0-1")
+x <- as.matrix(data[["data"]])
 
 ## no. of observations
 n <- dim(Y)[1]
