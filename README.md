@@ -1,7 +1,10 @@
 MovingKnots
 ===========
 
-Cite
+Efficient Bayesian multivariate surface regression that combines both additive splines and
+interactive splines, and a highly efficient Markov chain Monte Carlo algorithm to update
+all the knot locations jointly.
+
 
 The code is written in native R and should be compatible with R version >= 2.12
 
@@ -11,8 +14,8 @@ Copyright & Citation
 
 Use this entry to cite this work:
 
-Li & Villani, 2013, "Efficient Bayesian Multivariate Surface Regression", Scandinavian
-Journal of Statistics, 40(4), pp. 706-723.
+Li, F. & Villani, M. (2013), "Efficient Bayesian Multivariate Surface Regression",
+Scandinavian Journal of Statistics, 40(4), pp. 706-723.
 
 
 Speed up R (optional)
@@ -24,9 +27,9 @@ link with fast BLAS library whenever possible.
 Dependences
 -----------
 
-This package depends on Feng Li's `flutils` package
-<https://bitbucket.org/fli/flutils/>. Please follow the link to download the latest
-version and place it in a folder where the running template (see next session) can find.
+This package depends on Feng Li's [`flutils`](https://github.com/feng-li/flutils)
+package. Please follow the link to download the latest version and place it in a folder
+where the running template (see next session) can find.
 
 
 Run the code
@@ -62,6 +65,5 @@ console. For example
 Help and bug reports
 --------------------
 
-For further assistance, please contact the package author Feng Li <feng.li@cufe.edu.cn>.
-
-Sat Nov 04 16:52:18 CST 2017
+Please visit https://github.com/feng-li/movingknots/issues for bug reports. For further
+assistance, please contact the package author Feng Li <feng.li@cufe.edu.cn>.
