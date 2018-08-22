@@ -12,10 +12,28 @@ The code is written in native R and should be compatible with R version >= 2.12
 Copyright & Citation
 --------------------
 
-Use this entry to cite this work:
+This code is base on our published paper:
 
-Li, F. & Villani, M. (2013), "Efficient Bayesian Multivariate Surface Regression",
-Scandinavian Journal of Statistics, 40(4), pp. 706-723.
+* Li, F., & Villani, M. (2013). Efficient Bayesian multivariate surface
+  regression. _Scandinavian Journal of Statistics_, 40(4), 706-723.
+
+* Please use this BibTeX entry to cite our work:
+
+```
+@article{li2013efficient,
+  title={Efficient Bayesian multivariate surface regression},
+  author={Li, Feng and Villani, Mattias},
+  journal={Scandinavian Journal of Statistics},
+  volume={40},
+  number={4},
+  pages={706--723},
+  year={2013},
+  publisher={Wiley Online Library}
+}
+```
+
+
+
 
 
 Speed up R (optional)
