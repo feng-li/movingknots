@@ -53,7 +53,7 @@ where the running template (see next session) can find.
 Installation
 -------------
 
-The package could be installed as standard an R library by following the steps provided
+The package could be installed as a standard R library by following the steps, provided
 that `flutils` and `devtools` are installed. Assume the package folder is now cloned into
 folder `code/movingknots`. Now within R
 
