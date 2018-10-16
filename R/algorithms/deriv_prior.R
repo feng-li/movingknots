@@ -28,6 +28,7 @@
 ##' @note First version: Tue Mar 30 09:33:23 CEST 2010;
 ##'       Current:       Wed Sep 15 14:39:01 CEST 2010.
 ##' TODO:
+##' @export
 deriv_prior <- function(B, priorArgs)
 {
   if (tolower(priorArgs$prior_type) == "mvnorm") # vecB ~ N(mean, shrinkage*covariance)

@@ -9,6 +9,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Aug 07 16:55:03 CEST 2012;
 ##'       Current: Tue Aug 07 16:54:52 CEST 2012.
+##' @export
 FitDiagnosis <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArgs,
                          splineArgs.gen,  Params_Transform, crossvalid.struc, burn.in,
                          criterion = c("LOSS", "KL", "L2"))

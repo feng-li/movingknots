@@ -23,6 +23,7 @@
 ##'       Current:       Wed Feb 23 14:43:35 CET 2011.
 ##' DEPENDS: mvtnorm
 ##' TODO: replace the old multivariate t functions to mvtnorm functions
+##' @export
 MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name,
                                   nNewtonStep, Params, hessMethod, Y, x0, callParam,
                                   splineArgs, priorArgs, prop.df, Params_Transform)

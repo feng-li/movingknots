@@ -10,6 +10,7 @@
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
+##' @export
 Params.subsets <- function(p, splineArgs, Params_Fixed, Params_subsetsArgs)
   {
     out <- list()

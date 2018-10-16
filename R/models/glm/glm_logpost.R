@@ -34,6 +34,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Sat Nov 06 22:23:57 CET 2010;
 ##'       Current:       Wed Dec 29 15:55:51 CET 2010.
+##' @export
 glm_logpost <- function(Y, x, Params, callParam, splineArgs, priorArgs, Params_Transform)
 {
 

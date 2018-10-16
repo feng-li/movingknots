@@ -15,6 +15,7 @@
 ##' @param splineArgs
 ##' @param splineArgs.crl
 ##' @param sPlotDGP
+##' @export
 DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                         PlotDGP = FALSE)
   {

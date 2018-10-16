@@ -1,3 +1,4 @@
+##' @export
 PredSurface <- function(Y, x0, OUT.FITTED, jIter, iCross, splineArgs)
 {
     Params.j <- OUT.FITTED[["Params"]]

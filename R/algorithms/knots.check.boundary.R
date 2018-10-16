@@ -9,15 +9,16 @@
 ##' Description
 ##'
 ##' Details.
-##' @name 
-##' @title 
+##' @name
+##' @title
 ##' @param ... Input with respect to different methods.
 ##' @param method "character"
 ##' @return "character" "ok": the knots are at good position. "bad": bad knots locations.
-##' @references 
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Oct 12 22:15:18 CEST 2010;
 ##'       Current:       Tue Oct 12 22:15:35 CEST 2010.
+##' @export
 knots.check.boundary <- function(P4X, method = "singular")
   {
     ## Check if the design matrix is singular
@@ -46,6 +47,6 @@ knots.check.boundary <- function(P4X, method = "singular")
         ## Villani's Suggestion
         ## Time consuming
       }
-    
+
     return(out)
   }

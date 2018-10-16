@@ -18,6 +18,7 @@
 ##' @note First version: Mon Nov 15 18:23:37 CET 2010;
 ##'       Current:       Wed Feb 23 09:26:07 CET 2011.
 ##' DEPENDS:
+##' @export
 MHPropWithIWishart <- function(param.cur, logpost.fun.name, Params, Y, x0, callParam,
                                splineArgs, priorArgs, Params_Transform)
 {

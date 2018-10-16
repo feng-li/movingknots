@@ -16,6 +16,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note Created: Fri Aug 31 13:44:15 CEST 2012;
 ##'       Current: Fri Aug 31 13:44:21 CEST 2012.
+##' @export
 RandomWalkMetropolis <- function(
     param.cur,
     logpost.fun.name,

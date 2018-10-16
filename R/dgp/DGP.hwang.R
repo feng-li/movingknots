@@ -25,6 +25,7 @@
 ##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
 ##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
 ##' DEPENDS: mvtnorm
+##' @export
 DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA, nTesting = NA),  PlotData)
 {
   ## Get user supplied seed.

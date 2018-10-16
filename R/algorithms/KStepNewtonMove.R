@@ -37,6 +37,7 @@
 ##' TODO: Error handling when hessian is ill behaved.
 ##'       Think about how to add shrinkage in.
 ##'       And variable selection
+##' @export
 KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
                             hessMethod, Y, x0, callParam, splineArgs,
                             priorArgs, Params_Transform)

@@ -19,6 +19,7 @@
 ##'       Current:       Tue Nov 30 23:18:25 CET 2010.
 ##' TODO: Don't use the full draws when nIter is large.
 ##'       Still doubt the nseLPDS
+##' @export
 LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, priorArgs,
                  OUT.Params, Params_Transform, burn.in, LPDS.sampleProp)
 {

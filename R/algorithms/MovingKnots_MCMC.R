@@ -1,3 +1,4 @@
+##' @export
 MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter,
                              Params, Params4Gibbs, Params.sub.struc, hessMethods, Y, x0, splineArgs,
                              priorArgs, MH.prop.df, Params_Transform, propMethods,

@@ -9,6 +9,7 @@
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
+##' @export
 MCMC.trajectory <- function(iIter, nIter, iCross, OUT.accept.probs, interval = 0.1)
 {
   printIter <- c(1, seq(from = floor(nIter*interval), to = nIter, by =

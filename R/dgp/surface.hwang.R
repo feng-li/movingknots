@@ -1,3 +1,4 @@
+##' @export
 surface.hwang <- function(model, X, ...)
   {
     if(tolower(model) == "simple") ## only univariate response case

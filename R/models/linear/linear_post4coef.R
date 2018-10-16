@@ -17,6 +17,7 @@
 ##' @note First version: Fri Mar 04 20:21:33 CET 2011;
 ##'       Current:       Fri Mar 04 20:21:41 CET 2011.
 ##' TODO: Use apply?
+##' @export
 linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
                              splineArgs, priorArgs, Params_Transform)
 {

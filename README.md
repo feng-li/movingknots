@@ -50,15 +50,27 @@ package. Please follow the link to download the latest version and place it in a
 where the running template (see next session) can find.
 
 
+Installation
+-------------
+
+The package could be installed as standard an R library by following the steps provided
+that `flutils` and `devtools` are installed. Assume the package folder is now cloned into
+folder `code/movingknots`. Now within R
+
+    project.flatten <- flutils::package.flatten("code/movingknots")
+    devtools::document(project.flatten)
+    devtools::install_local(project.flatten)
+
 Run the code
 ------------
 
 Please take a look at the `example` folder which contains a few setup templates for
 configuring the model. You should edit the file to point the location of `flutils`.
 
-There are two ways to run the code:
 
 ### Run inside R
+
+You could run the code without installing it. There are two ways to run the code:
 
 * You only need to use the `source` function to source the setup template and it
 will run automatically and the summary of the results will be printed on the R

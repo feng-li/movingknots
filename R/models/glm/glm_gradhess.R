@@ -1,3 +1,4 @@
+##' @export
 glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorArgs,
                             Params_Transform)
 {

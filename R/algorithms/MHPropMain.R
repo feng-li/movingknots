@@ -21,6 +21,7 @@
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
+##' @export
 MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonStep,
                        Params, hessMethod, Y.iCross, x.iCross, callParam, splineArgs,
                        priorArgs, prop.df, Params_Transform, propMethod)

@@ -56,6 +56,7 @@
 ##'
 ##' DEPENDS:
 ##'
+##' @export
 linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, priorArgs,
                             Params_Transform)
 {

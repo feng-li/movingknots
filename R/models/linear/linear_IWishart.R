@@ -7,6 +7,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Feb 22 19:49:35 CET 2011;
 ##'       Current:       Tue Feb 22 19:49:42 CET 2011.
+##' @export
 linear_IWishart <- function(Params, Y, x0, splineArgs, priorArgs, Params_Transform)
 {
   ## Transform back when Params has been transformed.
