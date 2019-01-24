@@ -105,6 +105,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
 
 
       ## Check if the design matrix and the covariance matrix are singular
+
       if(is.singular(P4X) || is.singular(Sigma4beta.tilde.inv))
         {
           out <- NaN
@@ -112,7 +113,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
         }
 
       ## Not singular, continuous
-      Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
+      Sigma4beta.tilde <- Matrix::solve(Sigma4beta.tilde.inv)
 
       beta.tilde <- Sigma4beta.tilde %*% (matrix(crossprod(X, Y) %*% Sigma.inv) +
                                           Sigma4beta.inv %*% mu)
@@ -126,7 +127,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
       q.k <- rep(q.i, each = p)
       SumqlogDet.K <- sum(q.k*log(diag.K))
 
-      logDet.P <- sapply(P.mats, function(x) determinant(x)$modulus[1])
+      logDet.P <- sapply(P.mats, function(x) Matrix::determinant(x)$modulus[1])
       SumplogDet.P <- sum(p*logDet.P)
 
       out.margi.1 <- -(SumqlogDet.K - SumplogDet.P)/2
@@ -136,12 +137,12 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
 
       ## Part 3
       out.margi.3 <- -1/2*tr(Sigma.inv%*%(n0*S0 + n*S.tilde)) -
-        1/2*crossprod(d, Sigma4beta.inv) %*% d
+        1/2*Matrix::crossprod(d, Sigma4beta.inv) %*% d
 
       ## Part 4:
-      out.margi.4 <- -1/2*determinant(Sigma4beta.tilde.inv)$modulus[1]
+      out.margi.4 <- -1/2*Matrix::determinant(Sigma4beta.tilde.inv)$modulus[1]
 
-      loglike.margi <- out.margi.1 + out.margi.2 + out.margi.3 + out.margi.4
+      loglike.margi <- as.matrix(out.margi.1 + out.margi.2 + out.margi.3 + out.margi.4)
     }
 
   ## The priors w.r.t. differnt conditions

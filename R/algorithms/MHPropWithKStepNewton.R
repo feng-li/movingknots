@@ -56,12 +56,21 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
     }
     else
     {
-        param.prop <- RndMultiT(param.cur.prop, -invHessObs.cur.prop, prop.df) # propose a draw
+        # param.prop <- RndMultiT(param.cur.prop, -invHessObs.cur.prop, prop.df) # propose a draw
                                         # from multivariate t-distribution.
+        param.prop <- (param.cur.prop +
+                       t(rmvt(sigma = -invHessObs.cur.prop,
+                              n = 1, df = prop.df,
+                              method = "chol")))
 
-        logjump.cur2prop <- DensMultiT(param.prop, param.cur.prop, -HessObs.cur.prop, prop.df)
+        # logjump.cur2prop <- DensMultiT(param.prop, param.cur.prop, -HessObs.cur.prop, prop.df)
                                         # the jump density from current draw to propose
                                         # draw.
+        logjump.cur2prop = dmvt(x = matrix(param.cur.prop - param.prop, 1, ),
+                                sigma = -invHessObs.cur.prop,
+                                df = prop.df, log = TRUE)
+
+
     }
 
     if (any(is.na(param.prop))) # Previous proposal unsuccessful
@@ -93,9 +102,14 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
     else # all are right
     {
 
-        logjump.prop2cur <- DensMultiT(param.cur, param.prop.prop, -invHessObs.prop.prop,
-                                       prop.df) # the jump density from propose draw to current
+        ## logjump.prop2cur <- DensMultiT(param.cur, param.prop.prop, -invHessObs.prop.prop,
+        ##                                prop.df) # the jump density from propose draw to current
                                         # draw.
+        logjump.prop2cur = dmvt(x = matrix(param.prop.prop - param.cur, 1, ),
+                                sigma = -invHessObs.prop.prop,
+                                df = prop.df, log = TRUE)
+
+
         Params.prop <- Params
         Params.prop[[callParam$id]][callParam$subset] <- param.prop
         Params.cur <- Params

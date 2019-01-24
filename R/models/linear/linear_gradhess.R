@@ -204,7 +204,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
 
         ## gradObs.tmp2.4 <- (diag1(p) %x% E.tildeT.X) %*% gradObs.tmp2.beta.tilde
 
-        gradObs.tmp2.4 <- (Diagonal(p) %x% E.tildeT.X) %*% gradObs.tmp2.beta.tilde
+        gradObs.tmp2.4 <- (Diagonal(p) %x% E.tildeT.X) %*% gradObs.tmp2.beta.tilde # dgeMatrix
 
 
         gradObs.tmp2.5.1 <- (t(B.tilde) %x% t(E.tilde))
@@ -215,12 +215,12 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
 
         gradObs.tmp2.nS.tilde <- - gradObs.tmp2.6 - K.X(p, p, gradObs.tmp2.6, t = FALSE)
 
-        gradObs.tmp2 <- -1/2*crossprod(matrix(Sigma.inv),  gradObs.tmp2.nS.tilde)
+        gradObs.tmp2 <- -1/2*Matrix::crossprod(matrix(Sigma.inv),  gradObs.tmp2.nS.tilde)
 
         ## Part 3:
-        gradObs.tmp3.1 <- 2*crossprod(d, Sigma4beta.inv) %*% gradObs.tmp2.beta.tilde
+        gradObs.tmp3.1 <- 2*Matrix::crossprod(d, Sigma4beta.inv) %*% gradObs.tmp2.beta.tilde
 
-        ddT0 <- matrix(tcrossprod(d), 1) # row vector
+        ddT0 <- matrix(Matrix::tcrossprod(d), 1) # row vector
         Sigma4beta.tilde0 <- matrix(Sigma4beta.tilde, 1)
 
         aTfor3 <- ddT0 + Sigma4beta.tilde0 # merged from Part 4.
@@ -246,7 +246,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
                                             Params_Transform[["knots"]])
 
         ## Final gradient for marginal part.
-        gradObs.margi <- t(gradObs.margi0) # transform to a col
+        gradObs.margi <- as.matrix(Matrix::t(gradObs.margi0)) # transform to a col
 
 
         ##----------------------------------------------------------------------------------------
@@ -364,12 +364,12 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         gradObs.tmp2 <- -1/2*matrix(Sigma.inv, 1)  %*% gradObs.tmp2.nS.tilde
 
         ## Part 3:
-        gradObs.tmp3.1 <- 2*crossprod(d, Sigma4beta.inv) %*% delta4K.beta.tilde # notice:
+        gradObs.tmp3.1 <- 2*Matrix::crossprod(d, Sigma4beta.inv) %*% delta4K.beta.tilde # notice:
                                         # second part merged to Part 4
         gradObs.tmp3 <- -1/2*gradObs.tmp3.1
 
         ## Part 4:
-        Mat4.tmp <- tcrossprod(d) + Sigma4beta.tilde
+        Mat4.tmp <- Matrix::tcrossprod(d) + Sigma4beta.tilde
         Mat4 <- matrix(Mat4.tmp, 1)
 
         gradObs.tmp4.1 <- Mat.x.delta.vecSigma4beta.inv(Mat4, delta4K.list, p, q, q.i)
@@ -389,7 +389,8 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
                                             Params_Transform[["shrinkages"]])
 
         ## Final gradient for marginal part.
-        gradObs.margi <- t(gradObs.margi0) # transform to a col
+        gradObs.margi <- as.matrix(Matrix::t(gradObs.margi0)) # transform to a col
+                                        # traditional dense matrix.
 
         ##----------------------------------------------------------------------------------------
         ## gradient and hessian for the prior

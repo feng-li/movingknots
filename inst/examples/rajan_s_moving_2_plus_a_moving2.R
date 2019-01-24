@@ -83,7 +83,7 @@ m <- dim(x)[2]
 Starting.time <- Sys.time()
 
 ## SHORT MODEL DESCRIPTION
-ModelDescription <- paste("tsfeature_s_moving_2_plus_a_moving_2", "+",
+ModelDescription <- paste("Rajan_s_moving_2_plus_a_moving_2", "+",
                           format(Starting.time, "%Y%m%d@%H.%M"), ".", rhex(6), sep = "")
 
 ## MODEL NAME
