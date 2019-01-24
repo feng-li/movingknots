@@ -37,20 +37,12 @@ gc()
 
 ## LOAD DEPENDENCES
 require("mvtnorm")
+require("flutils")
+require("movingknots")
 
-## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "."
 
 ## SAVE OUTPUT PATH
 save.output <- "Results" # "save.output = FALSE" will not save anything
-
-## Load sourceDir() function
-sys.source(file.path(path.lib, "R/utils/sourceDir.R"), envir = attach(NULL, name =
-                                                       "sourceDir"))
-
-## Load user defined functions
-sourceDir(file.path(path.lib, c("R/utils", "R/algorithms", "R/models/linear")),
-          byte.compile = FALSE, recursive = TRUE, silent = FALSE, ignore.error = FALSE)
 
 ## MCMC TRAJECTORY
 track.MCMC = TRUE

@@ -39,27 +39,11 @@ require("methods")
 require("MASS")
 require("Matrix")
 require("mvtnorm")
-
-## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "~/git/movingknots"
+require("flutils")
+require("movingknots")
 
 ## SAVE OUTPUT PATH
 save.output <- "~/running" # "save.output = FALSE" will not save anything
-
-## Load sourceDir() function
-sys.source(file.path("~/git/flutils/R/systools/sourceDir.R"),
-           envir = .GlobalEnv)
-
-sourceDir("~/git/flutils/R", recursive = TRUE)
-
-## Load user defined functions
-sourceDir(file.path(path.lib, "R", c("algorithms", "models/linear")),
-          recursive = TRUE)
-
-
-## sourceDir(file.path(path.lib, "R", c("utils", "algorithms", "models/linear")),
-##           recursive = TRUE)
-
 
 ## MCMC TRAJECTORY
 track.MCMC = TRUE

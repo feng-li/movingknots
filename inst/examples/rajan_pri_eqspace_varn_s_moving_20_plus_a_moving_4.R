@@ -37,19 +37,12 @@ gc()
 ## LOAD DEPENDENCES
 require("mvtnorm")
 require("methods") ## No loaded by default with Rscript
-
-## PATH FOR THE MOVING KNOTS LIBRARY
-path.lib <- "../R"
+require("flutils")
+require("movingknots")
 
 ## SAVE OUTPUT PATH
 save.output <- "Results" # "save.output = FALSE" will not save anything
 
-## Load sourceDir() function
-sys.source(file.path(path.lib, "utils/sourceDir.R"), envir = attach(NULL, name =
-                                                       "sourceDir"))
-
-## Load user defined functions
-sourceDir(file.path(path.lib, c("utils", "stable", "models/linear")), byte.compile=TRUE)
 
 ## MCMC TRAJECTORY
 track.MCMC = TRUE
