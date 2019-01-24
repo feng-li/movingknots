@@ -62,7 +62,7 @@ track.MCMC = TRUE
 ## "X.name"    m      character
 ## "Y.name"    p      character
 
-load(file.path(path.lib, "data/Rajan.Rdata"))
+load(file.path(path.package("movingknots"),"data", "Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
 data <- StdData(X[, 3:5, drop = FALSE], method = "norm-0-1")

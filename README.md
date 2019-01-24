@@ -70,15 +70,11 @@ configuring the model. You should edit the file to point the location of `flutil
 
 ### Run inside R
 
-You could run the code without installing it. There are two ways to run the code:
-
-* You only need to use the `source` function to source the setup template and it
-will run automatically and the summary of the results will be printed on the R
+* You only need to use the `source` function to source the model template and the
+algorithm run automatically and the summary of the results will be printed on the R
 console. For example
 
-
-        R> source("movingknots/inst/examples/rajan_s_moving_2_plus_a_moving2.R")
-
+        R> source(file.path(path.package("movingknots"),"examples","rajan_s_moving_2_plus_a_moving2.R"))
 
 ### Run with Rscript (with Linux)
 

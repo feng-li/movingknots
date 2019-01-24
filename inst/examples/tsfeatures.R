@@ -64,7 +64,7 @@ track.MCMC = TRUE
 ## "X.name"    m      character
 ## "Y.name"    p      character
 
-## load(file.path(path.lib, "data/Rajan.Rdata"))
+## load(file.path(path.package("movingknots"),"data", "Rajan.Rdata"))
 
 load("~/code/dgp/data/simulated.monthly.features.Rdata")
 load("~/code/dgp/data/simulated.monthly.MASEout.Rdata")

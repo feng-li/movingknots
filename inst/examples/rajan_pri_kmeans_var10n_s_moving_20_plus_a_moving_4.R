@@ -61,7 +61,7 @@ track.MCMC = TRUE
 ## "Y":        n-by-p matrix
 ## "X.name"    m      character
 ## "Y.name"    p      character
-load(file.path(path.lib, "data/Rajan.Rdata"))
+load(file.path(path.package("movingknots"),"data", "Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
 x <- StdData(X[, c(2, 4), drop = FALSE], method = "norm-0-1")
