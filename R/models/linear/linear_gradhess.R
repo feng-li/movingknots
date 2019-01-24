@@ -77,7 +77,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
     Sigma <- vech2m(ParamsTB[["covariance"]])
     B <- ParamsTB[["coefficients"]]
     knots.mat <- ParamsTB[["knots"]]
-    knots.list <- knots.mat2list(knots.mat, splineArgs)
+    knots.list <- knots_mat2list(knots.mat, splineArgs)
 
     ## Pre-compute essential parts
     X <- d.matrix(x0,knots.list,splineArgs) # The design matrix.
@@ -106,7 +106,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
     mu <- priorArgs$coefficients.mu0 # for B
     ## browser()
     ## Boundary check
-    ## if(knots.check.boundary(P4X, method = "singular") == "bad")
+    ## if(knots_check_boundary(P4X, method = "singular") == "bad")
     ## {
     ##     ## bad boundary, return NaN and quit
     ##     out <- list(gradObs = NaN, hessObs = NaN)

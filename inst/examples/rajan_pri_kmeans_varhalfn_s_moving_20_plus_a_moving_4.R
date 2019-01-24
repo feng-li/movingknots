@@ -203,7 +203,7 @@ coefficients.mu0 <- matrix(0, q*p, 1)  # mean of B|Sigma, assume no covariates i
 
 ## PRIOR FOR KNOTS
 knots.priType <- "mvnorm"
-knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
+knots.mu0 <- knots_list2mat(knots.location.gen) # mean from
                                         # k-means
 knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came from x'x
 knots.c <- n/2 # The shrinkage
@@ -286,7 +286,7 @@ nCross <- length(crossvalid.struc$training)
 nTraining <- unlist(lapply(crossvalid.struc$training, length))
 
 ## Params
-Params <- list("knots" = knots.list2mat(INIT.knots),
+Params <- list("knots" = knots_list2mat(INIT.knots),
                "shrinkages" = INIT.shrinkages,
                "covariance" = vech(INIT.covariance),
                "coefficients" = matrix(NA, q, p))
@@ -307,7 +307,7 @@ OUT.accept.probs <- mapply(function(x) array(NA, c(length(x), nIter, nCross)),
                            Params.sub.struc, SIMPLIFY = FALSE)
 
 ## Parameters updates in each MH step
-INIT.knots.mat <- knots.list2mat(INIT.knots)
+INIT.knots.mat <- knots_list2mat(INIT.knots)
 
 OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, nIter, nCross)),
                    "shrinkages" = array(INIT.shrinkages, c(p*model.comp.len, 1, nIter, nCross)),

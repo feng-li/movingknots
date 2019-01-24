@@ -12,6 +12,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Feb 08 09:26:58 CET 2011;
 ##'       Current:       Thu Feb 24 12:50:04 CET 2011.
+##' @export
 Sigma4betaFun <- function(diag.K, Sigma, P.mats, inverse = FALSE)
 {
   ## Step1: calculate Sigma4b,

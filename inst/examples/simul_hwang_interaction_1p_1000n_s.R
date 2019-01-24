@@ -279,7 +279,7 @@ Params_subsetsArgs <- list("knots" = list(
 
   ## PRIOR FOR KNOTS
   knots.priType <- "mvnorm"
-  knots.mu0 <- knots.list2mat(knots.location.gen) # mean from
+  knots.mu0 <- knots_list2mat(knots.location.gen) # mean from
                                         # k-means
   knots.Sigma0 <- make.knotsPriVar(x, splineArgs) # the covariance for each knots came
                                         # from x'x
@@ -363,7 +363,7 @@ Params_subsetsArgs <- list("knots" = list(
   nTraining <- unlist(lapply(crossvalid.struc$training, length))
 
   ## Params
-  Params <- list("knots" = knots.list2mat(INIT.knots),
+  Params <- list("knots" = knots_list2mat(INIT.knots),
                  "shrinkages" = INIT.shrinkages,
                  "covariance" = vech(INIT.covariance),
                  "coefficients" = matrix(NA, q, p))
@@ -384,7 +384,7 @@ Params_subsetsArgs <- list("knots" = list(
                              Params.sub.struc, SIMPLIFY = FALSE)
 
   ## Parameters updates in each MH step
-  INIT.knots.mat <- knots.list2mat(INIT.knots)
+  INIT.knots.mat <- knots_list2mat(INIT.knots)
 
   OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, nIter,
                        nCross)) ,

@@ -38,7 +38,7 @@ for(i in rdfiles)
                                         # additive knots are not the same
     for(i in 1:nIter)
       {
-        knots.ilst <- knots.mat2list(OUT.Params[["knots"]][, , i, ], splineArgs)
+        knots.ilst <- knots_mat2list(OUT.Params[["knots"]][, , i, ], splineArgs)
         knots.s.mat[(1+q.s*(i-1)):(i*q.s), ] <- knots.ilst[["thinplate.s"]]
         knots.a.mat[(1+q.a1*(i-1)):(i*q.a1), ] <- matrix(knots.ilst[["thinplate.a"]], q.a1, 2)
 

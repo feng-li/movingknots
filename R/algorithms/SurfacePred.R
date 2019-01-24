@@ -9,7 +9,7 @@ PredSurface <- function(Y, x0, OUT.FITTED, jIter, iCross, splineArgs)
     ## Sigma <- vech2m(Params.j[["covariance"]]) #???Error
     B <- Params.j[["coefficients"]][, , jIter, iCross]
     knots.mat <- Params.j[["knots"]]
-    knots.list <- knots.mat2list(knots.mat[, , jIter, iCross], splineArgs)
+    knots.list <- knots_mat2list(knots.mat[, , jIter, iCross], splineArgs)
 
     X.pred <- d.matrix(x = x0, knots = knots.list, splineArgs)
 

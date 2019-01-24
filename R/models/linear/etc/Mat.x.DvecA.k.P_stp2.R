@@ -10,6 +10,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Fri Jan 28 11:30:57 CET 2011;
 ##'       Current:       Fri Jan 28 11:31:06 CET 2011.
+##' @export
 Mat.x.DvecA.k.P_stp2 <- function(Mat, Xmats.delta.knots.i, p, q, q_i)
   {
     dim.Mat <- dim(Mat)

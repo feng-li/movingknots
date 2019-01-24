@@ -10,6 +10,7 @@
 ##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
+##' @export
 delta.sumlogdetP <- function(P.mats, q.i, Xmats.delta.knots.lst, priorArgs, n.par4knots)
   {
     knots.comp <- names(Xmats.delta.knots.lst)

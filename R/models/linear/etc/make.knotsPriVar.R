@@ -9,6 +9,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Thu Feb 17 10:22:12 CET 2011;
 ##'       Current:       Thu Feb 17 10:22:19 CET 2011.
+##' @export
 make.knotsPriVar <- function(x, splineArgs)
 {
     comp <- splineArgs$comp

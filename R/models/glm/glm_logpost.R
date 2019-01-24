@@ -51,7 +51,7 @@ glm_logpost <- function(Y, x, Params, callParam, splineArgs, priorArgs, Params_T
   Sigma <- vech2m(ParamsTB[["covariance"]])
   B <- ParamsTB[["coefficients"]]
   knots<- ParamsTB[["knots"]]
-  knots.list <- knots.mat2list(ParamsTB[["knots"]], splineArgs)
+  knots.list <- knots_mat2list(ParamsTB[["knots"]], splineArgs)
 
   ## Pre-compute essential parts
   X <- d.matrix(x = x,knots = knots.list,splineArgs = splineArgs) # The design matrix.

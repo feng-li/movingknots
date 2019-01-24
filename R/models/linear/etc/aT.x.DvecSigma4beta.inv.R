@@ -14,6 +14,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Feb 01 10:25:02 CET 2011;
 ##'       Current:       Tue Feb 01 10:25:08 CET 2011.
+##' @export
 aT.x.DvecSigma4beta.inv <- function(aT, Sigma.inv, diag.K.list, Xmats.delta.knots, P.type,
                                     p, q, q.i, n.par4knots)
 {

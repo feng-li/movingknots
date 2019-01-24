@@ -11,6 +11,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Sun Jan 02 15:50:01 CET 2011;
 ##'       Current:       Sun Jan 02 15:50:09 CET 2011.
+##' @export
 P.matrix <- function(X, q.i, priorArgs)
 {
     P.type <- priorArgs$P.type

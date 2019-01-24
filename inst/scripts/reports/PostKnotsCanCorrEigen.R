@@ -27,7 +27,7 @@ options(width = 100)
 load(Rdatafile)
 
 
-knotsCur <- knots.mat2list(knots.mat = OUT.Params.mode$knots[, , foldCur],
+knotsCur <- knots_mat2list(knots.mat = OUT.Params.mode$knots[, , foldCur],
                            splineArgs = splineArgs)
 xPost <- d.matrix(x = x,
                   knots = knotsCur,

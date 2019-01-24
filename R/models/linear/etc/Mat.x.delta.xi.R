@@ -1,27 +1,28 @@
 ##' <description>
 ##'
 ##' <details>
-##' @title 
-##' @param Mat 
-##' @param delta.knots 
-##' @param n 
-##' @param p 
-##' @param q.i 
-##' @return 
-##' @references 
+##' @title
+##' @param Mat
+##' @param delta.knots
+##' @param n
+##' @param p
+##' @param q.i
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
+##' @export
 Mat.delta.xi <- function(Mat, delta.knots, n, p, q.i)
 {
   knots.comp.name <- names(delta.knots)
   knots.comp.len <- length(delta.knots)
- 
+
   ## Remove the first n*q1 cols
   Mat2 <- Mat[, -(1:(n*q.i[1])), drop = FALSE]
 
   Mat2.ary <- array(Mat2, c(p^2, n, sum(q.i[-1])))
   Mat2.lst <- array2list(Mat2.ary, 3)
-  
+
   ## Convert into a list
   delta.lst <- list()
   for(i in 1:knots.comp.len)
@@ -35,7 +36,7 @@ Mat.delta.xi <- function(Mat, delta.knots, n, p, q.i)
   ## the product
   out.lst <- mapply("%*%", Mat2.lst, delta.knots.lst, SIMPLIFY = FALSE)
 
-  ## Unlist and organize the output 
+  ## Unlist and organize the output
   out.mat <- matrix(unlist(out.lst), p^2)
 
 ##----------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Mat.delta.xi <- function(Mat, delta.knots, n, p, q.i)
   ## xgrad[(n*q.i[1]+1):(n*sum(q.i[1:2])), ] <- block.diag(list(delta.knots[[1]][, 1:4],
   ##                                                            delta.knots[[1]][, 5:8]))
   ## browser()
-  
-##----------------------------------------------------------------------------------------  
+
+##----------------------------------------------------------------------------------------
   return(out.mat)
 }

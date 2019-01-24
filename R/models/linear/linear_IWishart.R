@@ -24,7 +24,7 @@ linear_IWishart <- function(Params, Y, x0, splineArgs, priorArgs, Params_Transfo
   Sigma <- vech2m(ParamsTB[["covariance"]])
   ## B <- ParamsTB[["coefficients"]]
   knots.mat <- ParamsTB[["knots"]]
-  knots.list <- knots.mat2list(knots.mat, splineArgs)
+  knots.list <- knots_mat2list(knots.mat, splineArgs)
 
   ## Pre-compute essential parts
   X <- d.matrix(x0,knots.list,splineArgs) # The design matrix.

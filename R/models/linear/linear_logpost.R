@@ -34,7 +34,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Sat Nov 06 22:23:57 CET 2010;
 ##'       Current:       Wed Dec 29 15:55:51 CET 2010.
-
+##' @export
 linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Params_Transform)
 {
 
@@ -51,7 +51,7 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
   Sigma <- vech2m(ParamsTB[["covariance"]])
   B <- ParamsTB[["coefficients"]]
   knots<- ParamsTB[["knots"]]
-  knots.list <- knots.mat2list(ParamsTB[["knots"]], splineArgs)
+  knots.list <- knots_mat2list(ParamsTB[["knots"]], splineArgs)
 
   ## Pre-compute essential parts
   X <- d.matrix(x0,knots.list,splineArgs) # The design matrix.

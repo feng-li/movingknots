@@ -44,7 +44,7 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
           Sigma <- vech2m(Sigma.TB)
 
           Sigma.inv <- ginv(Sigma)
-          knots.list <- knots.mat2list(knots.mat, splineArgs)
+          knots.list <- knots_mat2list(knots.mat, splineArgs)
 
           q.knots <- sapply(knots.list, nrow)
           q.i <- c(q - sum(q.knots), q.knots)

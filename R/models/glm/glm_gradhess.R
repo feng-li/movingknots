@@ -18,7 +18,7 @@ glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorA
   Sigma <- vech2m(ParamsTB[["covariance"]])
   B <- ParamsTB[["coefficients"]]
   knots.mat <- ParamsTB[["knots"]]
-  knots.list <- knots.mat2list(knots.mat, splineArgs)
+  knots.list <- knots_mat2list(knots.mat, splineArgs)
 
   ## Pre-compute essential parts
   X <- d.matrix(x,knots.list,splineArgs) # The design matrix.
@@ -45,7 +45,7 @@ glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorA
   mu <- priorArgs$coefficients.mu0 # for B
 
   ## Boundary check
-  if(knots.check.boundary(P4X, method = "singular") == "bad") # bad boundary, return NaN
+  if(knots_check_boundary(P4X, method = "singular") == "bad") # bad boundary, return NaN
                                         # and quit
     {
       out <- list(gradObs = NaN, hessObs = NaN)
@@ -171,7 +171,7 @@ glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorA
 ## Gradient w.r.t. vecB
 ## Be aware that this will give a q--by--1 matrix
 ## Fri Mar 26 13:38:51 CET 2010
-
+##' @export
 gradient_vecB <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.vecB)
   {
 
@@ -194,6 +194,7 @@ gradient_vecB <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.vecB)
 ## Mon Mar 29 09:17:32 CEST 2010
 ## p--by--1 matrix
 
+##' @export
 grad_vech_Sigma <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.Sigma)
 {
   p <-dim(Sigma)[1]
@@ -214,6 +215,7 @@ grad_vech_Sigma <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.Sigma)
 
 
 ## gradient w.r.t. xi
+##' @export
 gradient_xi <- function(Y,x,xi,l0,l,n0,S0,B,ka,gradient.prior.xi)
   {
 
@@ -275,6 +277,7 @@ gradient_xi <- function(Y,x,xi,l0,l,n0,S0,B,ka,gradient.prior.xi)
 ## Gradient w.r.t xi (conditional method)
 ## Be aware that this will give k--by-1 matrix
 ## Fri Mar 26 15:39:01 CET 2010
+##' @export
 gradient_xi_condi <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.xi)
 {
   p <-dim(Sigma)[1]

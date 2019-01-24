@@ -12,6 +12,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Tue Feb 01 10:25:02 CET 2011;
 ##'       Current:       Tue Feb 01 10:25:08 CET 2011.
+##' @export
 Mat.x.DvecSigma.inv.k.XTX <- function(Mat, Sigma.inv, X.delta.knots.lst, p,
                                       q, q.i)
 {

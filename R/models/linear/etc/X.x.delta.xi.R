@@ -1,18 +1,19 @@
 ##' Preform X multiply Dev xi
-##'  
+##'
 ##' <details>
-##' @title 
-##' @return 
-##' @references 
+##' @title
+##' @return
+##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Thu Feb 10 11:09:46 CET 2011;
 ##'       Current:       Thu Feb 10 11:09:53 CET 2011.
-X.x.delta.xi <- function(X, delta.knots, q.i) 
+##' @export
+X.x.delta.xi <- function(X, delta.knots, q.i)
 {
   knots.comp <- names(delta.knots)
   knots.comp.len <- length(knots.comp)
   q <- sum(q.i)
-  
+
   out <- list()
   for(i in 1:knots.comp.len)
     {
@@ -21,10 +22,10 @@ X.x.delta.xi <- function(X, delta.knots, q.i)
       out.lst <- array2list(out.ary, 3)
       out[[i]] <- out.lst
     }
-  
+
   names(out) <- knots.comp
- 
-  return(out) 
+
+  return(out)
 }
 
 ##----------------------------------------------------------------------------------------
@@ -32,4 +33,3 @@ X.x.delta.xi <- function(X, delta.knots, q.i)
 ##----------------------------------------------------------------------------------------
 
 ## system.time(X.x.delta.xi(X.mats, delta.knots) )
-

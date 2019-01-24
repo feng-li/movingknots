@@ -24,7 +24,7 @@ Params.subsets <- function(p, splineArgs, Params_Fixed, Params_subsetsArgs)
                                         # maybe used
 
     ## The index matrix
-    knots.idx <- knots.mat2list(1:knots.maxlen, splineArgs)
+    knots.idx <- knots_mat2list(1:knots.maxlen, splineArgs)
     knots.comp <- names(knots.idx)
 
     knots.subsets <- list()

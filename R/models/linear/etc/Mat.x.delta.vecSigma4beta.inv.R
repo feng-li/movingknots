@@ -10,6 +10,7 @@
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Wed Jan 19 16:37:25 CET 2011;
 ##'       Current:       Wed Jan 19 16:37:34 CET 2011.
+##' @export
 Mat.x.delta.vecSigma4beta.inv <- function(Mat, delta4K.list, p, q, q.i)
   {
 

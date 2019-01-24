@@ -14,7 +14,7 @@
 ##' @note First version: Sat Oct 02 15:51:01 CEST 2010;
 ##'       Current:       Sat Oct 02 15:51:10 CEST 2010.
 ##' @export
-knots.subsets.idx <- function(knots.subsets, k, m)
+knots_subsetsIdx <- function(knots.subsets, k, m)
   {
     knots.matrix.idx <- matrix(1:(k*m), k, m)
     list.out <- list()
