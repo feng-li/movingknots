@@ -6,7 +6,7 @@
 ##' @param logpost.fun.name
 ##' @param Params
 ##' @param Y
-##' @param x
+##' @param x0
 ##' @param callParam
 ##' @param splineArgs
 ##' @param priorArgs
@@ -22,7 +22,7 @@ RandomWalkMetropolis <- function(
     logpost.fun.name,
     Params,
     Y,
-    x,
+    x0,
     callParam,
     splineArgs,
     priorArgs,
