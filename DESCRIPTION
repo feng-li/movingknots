@@ -1,7 +1,7 @@
 Package: movingknots
 Type: Package
 Title: Efficient Bayesian multivariate surface regression
-Version: 0.1
+Version: 0.2.1
 Date: 2019-01-01
 Author: Feng Li
 Maintainer: Feng Li <feng.li@cufe.edu.cn>
