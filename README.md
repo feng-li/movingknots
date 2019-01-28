@@ -46,8 +46,7 @@ Dependences
 -----------
 
 This package depends on Feng Li's [`flutils`](https://github.com/feng-li/flutils)
-package. Please follow the link to download the latest version and place it in a folder
-where the running template (see next session) can find.
+package. Please follow the link to download the latest version and install it.
 
 
 Installation
@@ -55,7 +54,7 @@ Installation
 
 The package could be installed as a standard R library by following the steps, provided
 that `flutils` and `devtools` are installed. Assume the package folder is now cloned into
-folder `code/movingknots`. Now within R
+folder `code/movingknots` in your computer. Now within R
 
     project.flatten <- flutils::package.flatten("code/movingknots")
     devtools::document(project.flatten)
@@ -64,7 +63,7 @@ folder `code/movingknots`. Now within R
 Run the code
 ------------
 
-Please take a look at the `example` folder which contains a few setup templates for
+Please take a look at the `inst/examples` folder which contains a few setup templates for
 configuring the model. You should edit the file to point the location of `flutils`.
 
 
