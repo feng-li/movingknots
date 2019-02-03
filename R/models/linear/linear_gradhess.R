@@ -259,30 +259,41 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         pri.covariance <- priorArgs$knots.Sigma0
         pri.shrinkage <- priorArgs$knots.c
 
-        gradHessObsPri <- deriv_prior(Params[["knots"]], priorArgs = list(mean = pri.mean,
-                                                                          covariance = pri.covariance,
-                                                                          shrinkage = pri.shrinkage,
-                                                                          prior_type = pri.type))
+        gradHessObsPri <- deriv_prior(
+            Params[["knots"]],
+            priorArgs = list(mean = pri.mean,
+                             covariance = pri.covariance,
+                             shrinkage = pri.shrinkage,
+                             prior_type = pri.type),
+            hessMethod = hessMethod)
 
         ## Pick gradient and hessian part for the knots (subset)
+        ## Pick gradient and hessian part for the knots (subset)
         gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
-        hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+        gradObs = gradObs.margi + gradObs.pri
         ##----------------------------------------------------------------------------------------
-        ## Hessian matrix for marginal part
+        ## Hessian (prior + marginal likelihood)
         ##----------------------------------------------------------------------------------------
         if(hessMethod == "exact") # Use the exact Hessian
         {
-            hessObs <- "Write the exact hessian here"
+            ## hessObs <- "Write the exact hessian here"
+            stop("Write the exact Hessian here.")
         }
         else # call the approximation of Hessian
         {
-            hessObs.margi <- hessian_approx(gradient = gradObs.margi, method = hessMethod)
+            ## hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+            hessObs <- hessian_approx(gradient = gradObs, method = hessMethod)
+        }
+
+        ## Check if hessian is good.
+        if(is.singular(hessObs))
+        {
+            hessObs = diag(1, nrow = length(gradObs))
+            warning("Singular Hessian matrix ocurred. Repace with identity Hessian.")
         }
         ##----------------------------------------------------------------------------------------
         ## The final gradient and Hessian
         ##----------------------------------------------------------------------------------------
-        gradObs = gradObs.margi + gradObs.pri
-        hessObs = hessObs.margi + hessObs.pri
         out <- list(gradObs = gradObs, hessObs = hessObs)
         return(out)
     }
@@ -402,12 +413,13 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         pri.covariance <- priorArgs$shrinkages.Sigma0
         pri.shrinkage <- priorArgs$shrinkages.c
 
-        gradHessObsPri <- deriv_prior(Params[["shrinkages"]],
-                                      priorArgs = list(mean = pri.mean,
-                                                       covariance = pri.covariance,
-                                                       shrinkage = pri.shrinkage,
-                                                       prior_type = pri.type),
-                                      hessMethod = "outer")
+        gradHessObsPri <- deriv_prior(
+            Params[["shrinkages"]],
+            priorArgs = list(mean = pri.mean,
+                             covariance = pri.covariance,
+                             shrinkage = pri.shrinkage,
+                             prior_type = pri.type),
+            hessMethod =  hessMethod)
 
         ## Pick gradient and hessian part for the knots (subset)
         gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
