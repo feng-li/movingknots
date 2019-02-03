@@ -29,7 +29,7 @@
 ##'       Current:       Wed Sep 15 14:39:01 CEST 2010.
 ##' TODO:
 ##' @export
-deriv_prior <- function(B, priorArgs)
+deriv_prior <- function(B, priorArgs, hessMethod)
 {
   if (tolower(priorArgs$prior_type) == "mvnorm") # vecB ~ N(mean, shrinkage*covariance)
     {
@@ -39,7 +39,15 @@ deriv_prior <- function(B, priorArgs)
 
       gradient.out <- (- 1/shrinkage * ginv(covariance) %*% (B-mean))  # TODO:
       ## if(is(gradient.out, "try-error")) browser()
-      hessian.out <- - 1/shrinkage * ginv(covariance)
+      if(tolower(hessMethod) == "exact")
+      {
+          hessian.out <- - 1/shrinkage * ginv(covariance)
+      }
+      else
+        {
+            hessian.out = NA
+        }
+
     }#
 
   out <- list(gradObsPri = gradient.out, hessObsPri = hessian.out)

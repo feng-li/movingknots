@@ -406,28 +406,35 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
                                       priorArgs = list(mean = pri.mean,
                                                        covariance = pri.covariance,
                                                        shrinkage = pri.shrinkage,
-                                                       prior_type = pri.type))
+                                                       prior_type = pri.type),
+                                      hessMethod = "outer")
 
         ## Pick gradient and hessian part for the knots (subset)
         gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
-        hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+        gradObs = gradObs.margi + gradObs.pri
         ##----------------------------------------------------------------------------------------
         ## Hessian (prior + marginal likelihood)
         ##----------------------------------------------------------------------------------------
         if(hessMethod == "exact") # Use the exact Hessian
         {
-            hessObs <- "Write the exact hessian here"
+            ## hessObs <- "Write the exact hessian here"
+            stop("Write the exact Hessian here.")
         }
         else # call the approximation of Hessian
         {
-            hessObs.margi <- hessian_approx(gradient = gradObs.margi, method = hessMethod)
+            ## hessObs.pri <- sub.hessian(gradHessObsPri[["hessObsPri"]], subset.idx)
+            hessObs <- hessian_approx(gradient = gradObs, method = hessMethod)
         }
 
+        ## Check if hessian is good.
+        if(is.singular(hessObs))
+        {
+            hessObs = diag(1, nrow = length(gradObs))
+            warning("Singular Hessian matrix ocurred. Repace with identity Hessian.")
+        }
         ##----------------------------------------------------------------------------------------
         ## The final output
         ##----------------------------------------------------------------------------------------
-        gradObs = gradObs.margi + gradObs.pri
-        hessObs = hessObs.margi + hessObs.pri
         ## cat("hessObs.marig", hessObs.margi, "hessObs.pri", hessObs.pri, "\n")
 
         out <- list(gradObs = gradObs, hessObs = hessObs)

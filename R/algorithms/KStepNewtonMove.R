@@ -55,9 +55,9 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         caller <- call(gradhess.fun.name, Params = Params, hessMethod = hessMethod, Y = Y, x0
                        = x0, callParam = callParam, splineArgs = splineArgs,
                        priorArgs = priorArgs, Params_Transform = Params_Transform)  # Creat the gradien object. Will be passed to eval().
-        gradhess <- eval(caller) # Calculate the hessian at current draw. If the parameters
-                                        # are good enough,  do one more update the gradient and
-                                        # return.
+        gradhess <- eval(caller) # Calculate the hessian at current draw. If the
+                                 # parameters are good enough, do one more update the
+                                 # gradient and return.
 
         gradObs.cur <- gradhess$gradObs
         hessObs.cur <- gradhess$hessObs
@@ -65,8 +65,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         invHessObs.cur <- ginv(as.matrix(hessObs.cur)) # Convert Matrix class to matrix
 
         ## Check if Hessian is bad
-        if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) |
-           is(invHessObs.cur, "try-error")) # bad, return NaN and quit, this draw will be
+        if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) ||
+           is.singular(invHessObs.cur)) # bad, return NaN and quit, this draw will be
                                         # discarded in MH step
         {
             out <- list(gradObs.cur = NaN, hessObs.cur = NaN, invHessObs.cur = NaN,

@@ -136,8 +136,8 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
       out.margi.2 <- -(n+n0+p+q+1)/2*determinant(Sigma)$modulus[1]
 
       ## Part 3
-      out.margi.3 <- -1/2*tr(Sigma.inv%*%(n0*S0 + n*S.tilde)) -
-        1/2*Matrix::crossprod(d, Sigma4beta.inv) %*% d
+      out.margi.3 <- (-1/2*tr(Sigma.inv%*%(n0*S0 + n*S.tilde)) -
+                      1/2*Matrix::crossprod(d, Sigma4beta.inv) %*% d)
 
       ## Part 4:
       out.margi.4 <- -1/2*Matrix::determinant(Sigma4beta.tilde.inv)$modulus[1]
