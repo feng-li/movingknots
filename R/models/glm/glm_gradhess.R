@@ -237,7 +237,7 @@ gradient_xi <- function(Y,x,xi,l0,l,n0,S0,B,ka,gradient.prior.xi)
     S_tilde_S0 <- n0*S0+n*S_tilde+ka*t(B_tilde_M)%*%P%*%B_tilde_M #
 
     # grad.tmp0 <- t(delta.xi(x,xi,l0,l))
-    grad.tmp0 <- t(delta.xi(x,splineArgs))
+    grad.tmp0 <- t(delta.xi(x0,splineArgs))
 
     grad.tmp1 <- matrix(XP_1,ncol=1) # vec
     grad.tmp2 <- matrix(solve(S_tilde_S0),ncol=1) # vec
@@ -295,6 +295,6 @@ gradient_xi_condi <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.xi)
   grad.xi.out <- -1/2*matrix(diag(p), nrow = 1) %*% (diag(p) %x% (Sigma_1 %*% residual_t) +
                                           K.X(p,p,Sigma_1%x%residual_t,t=FALSE)) %*%
                                             delta.link(X,B,link) %*% (t(B)%x% diag(n)) %*%
-                                              delta.xi(x,splineArgs) + gradient.prior.xi
+                                              delta.xi(x0,splineArgs) + gradient.prior.xi
     return(t(grad.xi.out))
 }

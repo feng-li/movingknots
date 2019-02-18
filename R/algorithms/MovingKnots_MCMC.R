@@ -13,6 +13,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
 
     cat("Updating Knots, Shrinkages, and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
+    nCross <- length(crossvalid.struc$training)
     for(iCross in 1:nCross) # loop over subsets of data. TODO: Parallel Computing?
     {
         ## Training sample

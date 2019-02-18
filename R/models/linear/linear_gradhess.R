@@ -17,7 +17,7 @@
 ##'         Method to be used in the Hessian approximation.
 ##' @param Y "matrix".
 ##'         The response matrix, we consider the multivariate case.
-##' @param x "matrix".
+##' @param x0 "matrix".
 ##'         The covaritates, you should *NOT* provide the intercept.
 ##'         It will be added automatically if necessary.
 ##' @param callParam
@@ -130,7 +130,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         ## included but one part is fixed. Don't waste time to calculate the gradient for
         ## this part since it is not used at all.
 
-        delta.knots <- delta.xi(x, knots.list, splineArgs)
+        delta.knots <- delta.xi(x0, knots.list, splineArgs)
         Xmats.delta.knots.lst <- Xmats.x.delta.xi(X.mats, delta.knots, q.i, P.type)
         X.delta.knots.lst <- X.x.delta.xi(X, delta.knots, q.i)
         n.par4knots <- sapply(delta.knots, function(x) dim(x)[2]) # no. of knots in each
