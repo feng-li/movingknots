@@ -116,8 +116,8 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
 
     "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
@@ -135,7 +135,7 @@ Params_Transform <- list("knots" = "identity",
 
 ## HESSIAN METHODS
 hessMethods <- list("knots" = "outer",
-                    "shrinkages" = "outer",
+                    "shrinkages"= "outer",
                     "covariance" = NA,
                     "coefficients" = NA)
 

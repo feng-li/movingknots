@@ -76,9 +76,9 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         {
             if((k <= KStep)) # if need to update newton steps
             {
-                ## cat(k, "step:", param.cur, "\n")
-                ## cat(k, "step:", gradObs.cur, "\n")
-                ## cat(k, "step:", -invHessObs.cur, "\n")
+                ## cat(k, "step: param.cur: ", param.cur, "\n")
+                ## cat(k, "step: gradObs.cur", gradObs.cur, "\n")
+                ## cat(k, "step: -invHessObs.cur", -invHessObs.cur, "\n")
                 ## if (is.na(gradObs.cur)) browser()
                 param.cur <- param.cur-invHessObs.cur%*%gradObs.cur # update the parameters
             }

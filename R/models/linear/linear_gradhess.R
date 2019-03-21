@@ -288,7 +288,9 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         ## Check if hessian is good.
         if(is.singular(hessObs))
         {
-            hessObs = diag(1, nrow = length(gradObs))
+
+            hessObs <- hessian_approx(gradient = gradObs, method = "identity")
+            # hessObs = -diag(1, nrow = length(gradObs))
             warning("Singular Hessian matrix ocurred. Repace with identity Hessian.")
         }
         ##----------------------------------------------------------------------------------------
@@ -441,7 +443,8 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         ## Check if hessian is good.
         if(is.singular(hessObs))
         {
-            hessObs = diag(1, nrow = length(gradObs))
+            hessObs <- hessian_approx(gradient = gradObs, method = "identity")
+            # hessObs = diag(1, nrow = length(gradObs))
             warning("Singular Hessian matrix ocurred. Repace with identity Hessian.")
         }
         ##----------------------------------------------------------------------------------------
