@@ -66,6 +66,19 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
                                   priorArgs = priorArgs,
                                   Params_Transform = Params_Transform)
     }
+  else if ((tolower(propMethod) == "sgld"))
+    {
+      out <- SGLD(param.cur = param.cur,
+                  logpost.fun.name = logpost.fun.name,
+                  Params = Params,
+                  Y = Y.iCross,
+                  x0 = x.iCross,
+                  callParam = callParam,
+                  splineArgs = splineArgs,
+                  priorArgs = priorArgs,
+                  Params_Transform = Params_Transform,
+                  algArgs=algArgs)
+    }
   else
     {
       stop("Wrong argument for propDensity!")
