@@ -39,9 +39,19 @@ require("methods")
 require("MASS")
 require("Matrix")
 require("mvtnorm")
-require("flutils")
-require("movingknots")
 
+dev = TRUE
+if(dev == TRUE)
+{
+    unloadNamespace("flutils")
+    unloadNamespace("movingknots")
+    source("~/code/flutils/R/systools/sourceDir.R")
+    sourceDir("~/code/flutils/R", "~/code/movingknots/R", recursive = TRUE)
+} else
+{
+    require("flutils")
+    require("movingknots")
+}
 ## SAVE OUTPUT PATH
 save.output <- "~/running" # "save.output = FALSE" will not save anything
 
@@ -62,7 +72,7 @@ track.MCMC = TRUE
 ## "X.name"    m      character
 ## "Y.name"    p      character
 
-load(file.path(path.package("movingknots"),"data", "Rajan.Rdata"))
+load(file.path(system.file(package = "movingknots"),"data", "Rajan.Rdata"))
 
 ## STANDARDIZED THE DATA (OPTIONAL)
 data <- StdData(X[, , drop = FALSE], method = "norm-0-1")
