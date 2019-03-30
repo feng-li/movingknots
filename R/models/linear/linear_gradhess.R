@@ -242,11 +242,11 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         gradObs.orig.sub <- gradObs.full[, subset.idx, drop = FALSE]
         Param.sub <- knots.list[subset.idx]
 
-        gradObs.margi0 <- grad.x.deriv_link(gradObs.orig.sub, Param.sub,
+        gradObs.logLik0 <- grad.x.deriv_link(gradObs.orig.sub, Param.sub,
                                             Params_Transform[["knots"]])
 
         ## Final gradient for marginal part.
-        gradObs.margi <- as.matrix(Matrix::t(gradObs.margi0)) # transform to a col
+        gradObs.logLik <- as.matrix(Matrix::t(gradObs.loglike0)) # transform to a col
 
 
         ##----------------------------------------------------------------------------------------
@@ -269,8 +269,8 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
 
         ## Pick gradient and hessian part for the knots (subset)
         ## Pick gradient and hessian part for the knots (subset)
-        gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
-        gradObs = gradObs.margi + gradObs.pri
+        gradObs.logPri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
+        gradObs = gradObs.logLik + gradObs.logPri
         ##----------------------------------------------------------------------------------------
         ## Hessian (prior + marginal likelihood)
         ##----------------------------------------------------------------------------------------
@@ -296,7 +296,10 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         ##----------------------------------------------------------------------------------------
         ## The final gradient and Hessian
         ##----------------------------------------------------------------------------------------
-        out <- list(gradObs = gradObs, hessObs = hessObs)
+        out <- list(gradObs = gradObs,
+                    hessObs = hessObs,
+                    gradObs.logLik = gradObs.logLik,
+                    gradObs.logPri = gradObs.logPri)
         return(out)
     }
     else if("shrinkages" %in% callParam$id) ## gradient for shrinkage K.
@@ -398,11 +401,11 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         gradObs.orig.sub <- gradObs.full[, subset.idx, drop = FALSE]
         Param.sub <- diag.K[subset.idx]
 
-        gradObs.margi0 <- grad.x.deriv_link(gradObs.orig.sub, Param.sub,
+        gradObs.logLik0 <- grad.x.deriv_link(gradObs.orig.sub, Param.sub,
                                             Params_Transform[["shrinkages"]])
 
         ## Final gradient for marginal part.
-        gradObs.margi <- as.matrix(Matrix::t(gradObs.margi0)) # transform to a col
+        gradObs.logLik <- as.matrix(Matrix::t(gradObs.loglike0)) # transform to a col
                                         # traditional dense matrix.
 
         ##----------------------------------------------------------------------------------------
@@ -424,8 +427,8 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
             hessMethod =  hessMethod)
 
         ## Pick gradient and hessian part for the knots (subset)
-        gradObs.pri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
-        gradObs = gradObs.margi + gradObs.pri
+        gradObs.logPri <- gradHessObsPri[["gradObsPri"]][subset.idx, ,drop = FALSE]
+        gradObs = gradObs.logLik + gradObs.logPri
         ##----------------------------------------------------------------------------------------
         ## Hessian (prior + marginal likelihood)
         ##----------------------------------------------------------------------------------------
@@ -452,7 +455,10 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
         ##----------------------------------------------------------------------------------------
         ## cat("hessObs.marig", hessObs.margi, "hessObs.pri", hessObs.pri, "\n")
 
-        out <- list(gradObs = gradObs, hessObs = hessObs)
+        out <- list(gradObs = gradObs,
+                    hessObs = hessObs,
+                    gradObs.logLik = gradObs.logLik,
+                    gradObs.logPri = gradObs.logPri)
         return(out)
     }
     else
