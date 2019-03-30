@@ -117,7 +117,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
 
         caller.prop <- call(logpost.fun.name,
                             Y = Y,
-                            x = x,
+                            x0 = x0,
                             Params = Params.prop,
                             callParam = callParam ,
                             priorArgs = priorArgs,
@@ -125,7 +125,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
                             Params_Transform = Params_Transform)
         caller.cur <- call(logpost.fun.name,
                            Y = Y,
-                           x = x,
+                           x0 = x0,
                            Params = Params.cur,
                            callParam = callParam,
                            priorArgs = priorArgs,

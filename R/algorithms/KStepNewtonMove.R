@@ -62,11 +62,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         gradObs.cur <- gradhess$gradObs
         hessObs.cur <- gradhess$hessObs
 
-        invHessObs.cur <- ginv(as.matrix(hessObs.cur)) # Convert Matrix class to matrix
-
-        ## Check if Hessian is bad
-        if((length(gradObs.cur) == 1 && is.na(gradObs.cur)) ||
-           is.singular(invHessObs.cur)) # bad, return NaN and quit, this draw will be
+        ## Check if gradient or Hessian is bad
+        if(any(is.na(gradObs.cur)) || any(is.na(hessObs.cur))) # bad, return NaN and quit, this draw will be
                                         # discarded in MH step
         {
             out <- list(gradObs.cur = NaN, hessObs.cur = NaN, invHessObs.cur = NaN,
@@ -74,6 +71,8 @@ KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
         }
         else # good, do k-step newton
         {
+            invHessObs.cur <- ginv(as.matrix(hessObs.cur)) # Convert Matrix class to matrix
+
             if((k <= KStep)) # if need to update newton steps
             {
                 ## cat(k, "step: param.cur: ", param.cur, "\n")

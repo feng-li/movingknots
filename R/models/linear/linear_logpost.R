@@ -114,7 +114,6 @@ linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Para
 
       ## Not singular, continuous
       Sigma4beta.tilde <- Matrix::solve(Sigma4beta.tilde.inv)
-
       beta.tilde <- Sigma4beta.tilde %*% (matrix(crossprod(X, Y) %*% Sigma.inv) +
                                           Sigma4beta.inv %*% mu)
       B.tilde <- matrix(beta.tilde, q, p)

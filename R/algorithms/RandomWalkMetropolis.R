@@ -54,10 +54,10 @@ RandomWalkMetropolis <- function(
     Params.cur <- Params
     Params.cur[[callParam$id]][callParam$subset] <- param.cur
 
-    caller.prop <- call(logpost.fun.name,Y = Y, x = x, Params = Params.prop,callParam =
+    caller.prop <- call(logpost.fun.name,Y = Y, x0 = x0, Params = Params.prop,callParam =
                         callParam ,  priorArgs = priorArgs, splineArgs = splineArgs,
                         Params_Transform = Params_Transform)
-    caller.cur <- call(logpost.fun.name, Y = Y,  x = x, Params = Params.cur,callParam =
+    caller.cur <- call(logpost.fun.name, Y = Y,  x0 = x0, Params = Params.cur,callParam =
                        callParam, priorArgs = priorArgs, splineArgs = splineArgs,
                        Params_Transform = Params_Transform)
 
