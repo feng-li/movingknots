@@ -161,7 +161,7 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-cross.validation <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validation.
+crossValidArgs <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
@@ -279,7 +279,7 @@ logpost.fun.name <-  tolower(paste(Model_Name, "logpost", sep = "_"))
 ## The training($training) and testing($testing) structure.
 ## If no cross-validation, $training is also $testing.
 ## If full run is required, the last list in $training and $testing is for a full run.
-crossvalid.struc <- set.crossvalid(nObs = n, crossValidArgs = cross.validation)
+crossvalid.struc <- set.crossvalid(nObs = n, crossValidArgs = crossValidArgs)
 
 ## No. of total runs
 nCross <- length(crossvalid.struc$training)
