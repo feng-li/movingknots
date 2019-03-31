@@ -34,16 +34,16 @@ SGLD = function(param.cur,
     nPar = length(param.cur)
     nObs = dim(Y)[1]
 
-
-    nIterations = celing(nObs / batchSize) # no. runs with one epoch.
-    nRuns = (nIteration * nEpoch)
+    nIterations = ceiling(nObs / minibatchSize) # no. runs with one epoch.
+    nRuns = (nIterations * nEpoch)
     param.out = matrix(NA, nPar, nRuns)
     accept.prob = matrix(NA, 1, nRuns)
 
     for(iRun in 1:nRuns)
     {
         ## Redo a splitting when finishing one epoch
-        if(iIter %in% seq(1, nRuns, by = nIterations))
+
+        if(iRun %in% seq(1, nRuns, by = nIterations))
         {
             subsetIdxLst = split(sample(1:nObs, size = nObs), 1:nIterations)
         }
@@ -52,12 +52,12 @@ SGLD = function(param.cur,
 
         subsetIdx = subsetIdxLst[[whichIteration]]
         epsilon = stepsizeSeq[iRun]
-        minibatchSizeeNew = length(subsetIdx) # The minibatch size is not exactly same as
+        minibatchSizeNew = length(subsetIdx) # The minibatch size is not exactly same as
                                         # required due to unequal splitting.
         Params[[callParam$id]][callParam$subset] <- param.cur
         caller = call(gradhess.fun.name,
                       Params = Params,
-                      hessMethod = hessMethod,
+                      hessMethod = "skip",
                       Y = Y[subsetIdx,, drop = FALSE],
                       x0 = x0[subsetIdx,, drop = FALSE],
                       callParam = callParam,

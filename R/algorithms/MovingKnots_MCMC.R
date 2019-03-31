@@ -33,7 +33,6 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
         ## Training sample
         Y.iCross <- Y[crossvalid.struc$training[[iCross]], , drop = FALSE]
         x.iCross <- x0[crossvalid.struc$training[[iCross]], , drop = FALSE]
-
         for(iIter in 1:nIter) # loop nIter times
         {
             ## a <- proc.time()
