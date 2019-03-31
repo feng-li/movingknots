@@ -1,4 +1,4 @@
-##' The Main file for Metropolis–Hastings algorithm
+##' The Main file for MCMC algorithm.
 ##'
 ##' Details.
 ##' @name
@@ -24,39 +24,17 @@
 ##' @export
 MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonStep,
                        Params, hessMethod, Y.iCross, x.iCross, callParam, splineArgs,
-                       priorArgs, prop.df, Params_Transform, propMethod)
+                       priorArgs, algArgs, Params_Transform, propMethod)
 {
-  ## This is the mail MH file,  It will call individual functions for each proposal
- # print("MH-Main \n")
- # browser("MH-Main")
-  require("MASS")
-  require("Matrix")
-  if (tolower(propMethod) == "inverse-wishart")
+    ## This is the mail MH file,  It will call individual functions for each proposal
+                                        # print("MH-Main \n")
+                                        # browser("MH-Main")
+    require("MASS")
+    require("Matrix")
+    if (tolower(propMethod) == "inverse-wishart")
     {
-      ## The Metropolis-Hastings with inverse Wishart proposal
-      out <- MHPropWithIWishart(param.cur = param.cur, logpost.fun.name =
-                                logpost.fun.name, Params = Params, Y = Y.iCross, x0 =
-                                x.iCross, callParam = callParam,
-                                splineArgs = splineArgs, priorArgs = priorArgs,
-                                Params_Transform = Params_Transform)
-    }
-  else if((tolower(propMethod) == "kstepnewton"))
-    {
-      ## The Metropolis-Hastings with k-step Newton proposal
-      out <- MHPropWithKStepNewton(param.cur = param.cur, gradhess.fun.name =
-                                   gradhess.fun.name, logpost.fun.name =
-                                   logpost.fun.name, nNewtonStep =
-                                   nNewtonStep, Params = Params, hessMethod =
-                                   hessMethod, Y = Y.iCross, x0 = x.iCross,
-                                   callParam = callParam,
-                                   splineArgs = splineArgs, priorArgs = priorArgs,
-                                   prop.df = prop.df, Params_Transform =
-                                   Params_Transform)
-    }
-  else if ((tolower(propMethod) == "random-walk"))
-    {
-      ## The Metropolis with random walk proposal
-      out <- RandomWalkMetropolis(param.cur = param.cur,
+        ## The Metropolis-Hastings with inverse Wishart proposal
+        out <- MHPropWithIWishart(param.cur = param.cur,
                                   logpost.fun.name = logpost.fun.name,
                                   Params = Params,
                                   Y = Y.iCross,
@@ -66,23 +44,53 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
                                   priorArgs = priorArgs,
                                   Params_Transform = Params_Transform)
     }
-  else if ((tolower(propMethod) == "sgld"))
+    else if((tolower(propMethod) == "kstepnewton"))
     {
-      out <- SGLD(param.cur = param.cur,
-                  logpost.fun.name = logpost.fun.name,
-                  Params = Params,
-                  Y = Y.iCross,
-                  x0 = x.iCross,
-                  callParam = callParam,
-                  splineArgs = splineArgs,
-                  priorArgs = priorArgs,
-                  Params_Transform = Params_Transform,
-                  algArgs=algArgs)
+        ## The Metropolis-Hastings with k-step Newton proposal
+        out <- MHPropWithKStepNewton(param.cur = param.cur,
+                                     gradhess.fun.name = gradhess.fun.name,
+                                     logpost.fun.name = logpost.fun.name,
+                                     nNewtonStep = nNewtonStep,
+                                     Params = Params,
+                                     hessMethod = hessMethod,
+                                     Y = Y.iCross,
+                                     x0 = x.iCross,
+                                     callParam = callParam,
+                                     splineArgs = splineArgs,
+                                     priorArgs = priorArgs,
+                                     algArgs = algArgs,
+                                     Params_Transform = Params_Transform)
     }
-  else
+    else if ((tolower(propMethod) == "random-walk"))
     {
-      stop("Wrong argument for propDensity!")
+        ## The Metropolis with random walk proposal
+        out <- RandomWalkMetropolis(param.cur = param.cur,
+                                    logpost.fun.name = logpost.fun.name,
+                                    Params = Params,
+                                    Y = Y.iCross,
+                                    x0 = x.iCross,
+                                    callParam = callParam,
+                                    splineArgs = splineArgs,
+                                    priorArgs = priorArgs,
+                                    Params_Transform = Params_Transform)
+    }
+    else if ((tolower(propMethod) == "sgld"))
+    {
+        out <- SGLD(param.cur = param.cur,
+                    logpost.fun.name = logpost.fun.name,
+                    Params = Params,
+                    Y = Y.iCross,
+                    x0 = x.iCross,
+                    callParam = callParam,
+                    splineArgs = splineArgs,
+                    priorArgs = priorArgs,
+                    algArgs=algArgs,
+                    Params_Transform = Params_Transform)
+    }
+    else
+    {
+        stop("Wrong argument for propDensity!")
     }
 
-  return(out)
+    return(out)
 }

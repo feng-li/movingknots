@@ -126,8 +126,8 @@ Params_Fixed <- list(
 ## The split argument is only used when surface and additive subsets are of the
 ## same length
 Params_subsetsArgs <- list(
-    "knots" = list(thinplate.s = list(N.subsets = 2, partiMethod = "systematic"),
-                   thinplate.a = list(N.subsets = 2, partiMethod = "systematic"), split = FALSE),
+    "knots" = list(thinplate.s = list(N.subsets = 1, partiMethod = "systematic"),
+                   thinplate.a = list(N.subsets = 1, partiMethod = "systematic"), split = FALSE),
 
     "shrinkages" = list(N.subsets = 1, partiMethod = "systematic"),
     "covariance"  = list(N.subsets = 1, partiMethod = "systematic"),
@@ -150,8 +150,8 @@ hessMethods <- list("knots" = "outer",
                     "coefficients" = NA)
 
 ## Propose method in Metropolis-Hasting
-propMethods <- list("knots" = "KStepNewton",
-                    "shrinkages" = "KStepNewton",
+propMethods <- list("knots" = "random-walk", # "KStepNewton",
+                    "shrinkages" = "random-walk", # "KStepNewton",
                     "covariance" = "Inverse-Wishart", # random MH without K-step Newton
                     "coefficients" = NA)
 
@@ -160,7 +160,7 @@ propMethods <- list("knots" = "KStepNewton",
 ##----------------------------------------------------------------------------------------
 
 ## NO. OF ITERATIONS
-nIter <- 100
+nIter <- 1000
 
 ## BURN-IN
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
@@ -169,21 +169,17 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-cross.validation <- list(N.subsets = 0, # No. of folds. If 0:, no cross-validation.
+cross.validation <- list(N.subsets = 4, # No. of folds. If 0:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
-## NO. OF FINTE NEWTON MOVE FOR EACH PARAMETERS
-nNewtonSteps <- list("knots" = 1,
-                     "shrinkages" = 1,
-                     "covariance" = NA, # random MH
-                     "coefficients" = NA) # integrated out
+algArgs = list(knots = list(hessMethods = "outer", propMethods = "random-walk",
+                            prop.df = 5, nNewtonSteps = 1),
+               shrinkages = list(hessMethods = "outer", propMethods = "random-walk",
+                                 prop.df = 5, nNewtonSteps = 1),
+               covariance = NA,
+               coefficients = NA)
 
-## THE DF. FOR A MULTIVARIATE T-PROPOSAL IN MH ALGORITHM.
-MH.prop.df <- list("knots" = 5,
-                   "shrinkages" = 5,
-                   "covariance" = NA,
-                   "coefficients" = NA)
 ##----------------------------------------------------------------------------------------
 ## Set up Priors
 ##----------------------------------------------------------------------------------------
@@ -345,17 +341,15 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##----------------------------------------------------------------------------------------
 OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                logpost.fun.name =  logpost.fun.name,
-                               nNewtonSteps =  nNewtonSteps,
                                nIter = nIter,
                                Params = Params,
                                Params4Gibbs = Params4Gibbs,
                                Params.sub.struc =  Params.sub.struc,
-                               hessMethods = hessMethods,
                                Y = Y,
                                x0 = x,
                                splineArgs = splineArgs,
                                priorArgs = priorArgs,
-                               MH.prop.df = MH.prop.df,
+                               algArgs = algArgs,
                                Params_Transform = Params_Transform,
                                propMethods = propMethods,
                                crossvalid.struc = crossvalid.struc,

@@ -1,9 +1,23 @@
 ##' @export
-MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, nIter,
-                             Params, Params4Gibbs, Params.sub.struc, hessMethods, Y, x0, splineArgs,
-                             priorArgs, MH.prop.df, Params_Transform, propMethods,
-                             crossvalid.struc, OUT.Params, OUT.accept.probs, burn.in,
-                             LPDS.sampleProp, track.MCMC)
+MovingKnots_MCMC <- function(gradhess.fun.name,
+                             logpost.fun.name,
+                             nIter,
+                             Params,
+                             Params4Gibbs,
+                             Params.sub.struc,
+                             Y,
+                             x0,
+                             splineArgs,
+                             priorArgs,
+                             Params_Transform,
+                             propMethods,
+                             algArgs,
+                             crossvalid.struc,
+                             OUT.Params,
+                             OUT.accept.probs,
+                             burn.in,
+                             LPDS.sampleProp,
+                             track.MCMC)
 {
     ##----------------------------------------------------------------------------------------
     ## Update Knots locations (subsets),  shrinkage and covariance jointly
@@ -34,15 +48,13 @@ MovingKnots_MCMC <- function(gradhess.fun.name, logpost.fun.name, nNewtonSteps, 
                         out.iSub <- MHPropMain(param.cur = param.cur,
                                                gradhess.fun.name = gradhess.fun.name,
                                                logpost.fun.name = logpost.fun.name,
-                                               nNewtonStep = nNewtonSteps[[iPar]],
                                                Params = Params,
-                                               hessMethod = hessMethods[[iPar]],
                                                Y.iCross = Y.iCross,
                                                x.iCross = x.iCross,
                                                callParam = list(id = iPar, subset = Sub4iPar),
                                                splineArgs = splineArgs,
                                                priorArgs = priorArgs,
-                                               prop.df = MH.prop.df[[iPar]],
+                                               algArgs = algArgs[[iPar]],
                                                Params_Transform = Params_Transform,
                                                propMethod = propMethods[[iPar]])
                         ## Update the parameters in the parameters list.

@@ -22,16 +22,16 @@ SGLD = function(param.cur,
                 callParam,
                 splineArgs,
                 priorArgs,
-                Params_Transfor,
-                algArgs)
+                algArgs,
+                Params_Transform)
 {
     minibatchSize = algArgs[["minibatchSize"]]
     nEpoch= algArgs[["nEpoch"]]
     calMHAccRate = algArgs[["calMHAccRate"]] # if TRUE, SGLD will be the proposal of
                                              # MH. See Welling & Teh (2011), p 3.
-    stepsizeRange = algArgs[["stepsizeRange"]]
+    stepsizeSeq = algArgs[["stepsizeSeq"]]
 
-    nPar <- length(param.cur)
+    nPar = length(param.cur)
     nObs = dim(Y)[1]
 
 
@@ -39,6 +39,7 @@ SGLD = function(param.cur,
     nRuns = (nIteration * nEpoch)
     param.out = matrix(NA, nPar, nRuns)
     accept.prob = matrix(NA, 1, nRuns)
+
     for(iRun in 1:nRuns)
     {
         ## Redo a splitting when finishing one epoch
@@ -50,19 +51,19 @@ SGLD = function(param.cur,
         whichIteration[whichIteration == 0] = nIterations
 
         subsetIdx = subsetIdxLst[[whichIteration]]
-        epsilon = stemsize
+        epsilon = stepsizeSeq[iRun]
         minibatchSizeeNew = length(subsetIdx) # The minibatch size is not exactly same as
                                         # required due to unequal splitting.
         Params[[callParam$id]][callParam$subset] <- param.cur
-        caller <- call(gradhess.fun.name,
-                       Params = Params,
-                       hessMethod = hessMethod,
-                       Y = Y[subsetIdx,, drop = FALSE],
-                       x0 = x0[subsetIdx,, drop = FALSE],
-                       callParam = callParam,
-                       splineArgs = splineArgs,
-                       priorArgs = priorArgs,
-                       Params_Transform = Params_Transform)
+        caller = call(gradhess.fun.name,
+                      Params = Params,
+                      hessMethod = hessMethod,
+                      Y = Y[subsetIdx,, drop = FALSE],
+                      x0 = x0[subsetIdx,, drop = FALSE],
+                      callParam = callParam,
+                      splineArgs = splineArgs,
+                      priorArgs = priorArgs,
+                      Params_Transform = Params_Transform)
         gradhess <- eval(caller)
 
         gradObs.logLik <- gradhess$gradObs.logLik
@@ -76,8 +77,7 @@ SGLD = function(param.cur,
         correctionGamma = diag(1, nrow = nPar)
         potentialUgrad = -gradObsSub
 
-        noise = rmvnorm(n = 1
-                        mean = matrix(0, nrow = 1, ncol = nprop),
+        noise = rmvnorm(n = 1, mean = matrix(0, nrow = 1, ncol = nprop),
                         sigma = 2 * epsilon * diffusionMatD)
 
         param.prop = (param.cur - epsilon * (diffusionMatD %*% potentialUgrad +
