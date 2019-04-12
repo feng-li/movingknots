@@ -25,7 +25,7 @@ SGLD = function(param.cur,
                 algArgs,
                 Params_Transform)
 {
-    minibatchSize = algArgs[["minibatchSize"]]
+    minibatchProp = algArgs[["minibatchProp"]]
     nEpoch= algArgs[["nEpoch"]]
     calMHAccRate = algArgs[["calMHAccRate"]] # if TRUE, SGLD will be the proposal of
                                              # MH. See Welling & Teh (2011), p 3.
@@ -34,10 +34,10 @@ SGLD = function(param.cur,
     nPar = length(param.cur)
     nObs = dim(Y)[1]
 
-    nIterations = ceiling(nObs / minibatchSize) # no. runs with one epoch.
+    nIterations = ceiling(1/ minibatchProp) # no. runs with one epoch.
     nRuns = (nIterations * nEpoch)
     param.out = matrix(NA, nPar, nRuns)
-    accept.prob = matrix(NA, 1, nRuns)
+    accept.probMat = matrix(NA, 1, nRuns)
 
     for(iRun in 1:nRuns)
     {
@@ -72,29 +72,34 @@ SGLD = function(param.cur,
         gradObsSub = (gradObs.logLik / minibatchSizeNew * nObs + gradObs.logPri)
 
         ## Stochastic Gradient Riemannian Langevin Dynamics (SGRLD). Notation followed in Ma 2015
-        fisherInfoMatG = diag(1 / param.cur)
-        diffusionMatD = diag(param.cur)
-        correctionGamma = diag(1, nrow = nPar)
+        ## fisherInfoMatG = diag(as.vector(1 / param.cur), nrow = nPar)
+        ## diffusionMatD = diag(as.vector(param.cur), nrow = nPar)
+
+        fisherInfoMatG = diag(1, nrow = nPar)
+        diffusionMatD = diag(1, nrow = nPar)
+
+        correctionGamma = matrix(1, nPar, 1)
         potentialUgrad = -gradObsSub
 
-        noise = rmvnorm(n = 1, mean = matrix(0, nrow = 1, ncol = nprop),
-                        sigma = 2 * epsilon * diffusionMatD)
+        noise = matrix(rmvnorm(n = 1, mean = matrix(0, nrow = 1, ncol = nPar),
+                               sigma = 2 * epsilon * diffusionMatD)) # row vector -> col vector
 
         param.prop = (param.cur - epsilon * (diffusionMatD %*% potentialUgrad +
                                              correctionGamma) + noise)
-        param.out[, iRun] = param.prop
+
+
         if(calMHAccRate == TRUE)
         {
             stop("Not yet done!")
         }
         else
         {
-            accept.prob[, iRun] = 1
+            param.out[, iRun] = param.prop
+            accept.probMat[, iRun] = 1
         }
     }
 
-
-    out <- list(param.out = param.out, accept.prob = accept.prob)
+    out <- list(param.out = param.out, accept.prob = mean(accept.probMat))
     return(out)
 
 }

@@ -405,7 +405,7 @@ linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, pr
                                             Params_Transform[["shrinkages"]])
 
         ## Final gradient for marginal part.
-        gradObs.logLik <- as.matrix(Matrix::t(gradObs.loglike0)) # transform to a col
+        gradObs.logLik <- as.matrix(Matrix::t(gradObs.logLik0)) # transform to a col
                                         # traditional dense matrix.
 
         ##----------------------------------------------------------------------------------------
