@@ -27,8 +27,10 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
 
     cat("Updating Knots, Shrinkages, and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
+    cl <- getDefaultCluster()
     nCross <- length(crossvalid.struc$training)
-    for(iCross in 1:nCross) # loop over subsets of data. TODO: Parallel Computing?
+
+    MCMCPropFun <- function(iCross)
     {
         ## Training sample
         Y.iCross <- Y[crossvalid.struc$training[[iCross]], , drop = FALSE]
@@ -49,6 +51,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                         ## Special case to pass stepsize sequence.
                         if(tolower(propMethods[[iPar]]) %in% c("sgld"))
                         {
+                            nInner = length(algArgs.cur[["stepsizeSeq"]]) / nIter
                             algArgs.cur[["stepsizeSeq"]] = (algArgs.cur[["stepsizeSeq"]]
                                 [((iIter - 1)* nInner + 1):(iIter * nInner)])
                         }
@@ -95,7 +98,20 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
             }
             ## print(proc.time()-a)
         }
+        return(list(OUT.Param = OUT.Param, OUT.accept.probs = OUT.accept.probs))
     } # for(iCross in 1:nCross)
+
+    clusterExport(cl, "nCross")
+    sink.parallel(cl)
+    MCMCPropOut = parLapply(cl = cl, X = as.list(1:nCross), fun = MCMCPropFun)
+    sink.parallel(cl, file = NULL)
+
+    ## Collecting results
+    for (iPar in Params4Gibbs) # loop over parameters
+    {
+        OUT.Params[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.Params"]][[iPar]][,,, iCross]
+        OUT.accept.probs[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.accept.probs"]][[iPar]][,,, iCross]
+    }
 
     ##----------------------------------------------------------------------------------------
     ## Sample coefficients from Normal
