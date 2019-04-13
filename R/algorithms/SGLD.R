@@ -39,14 +39,12 @@ SGLD = function(param.cur,
     param.out = matrix(NA, nPar, nRuns)
     accept.probMat = matrix(NA, 1, nRuns)
 
-    param.prop = param.cur
     for(iRun in 1:nRuns)
     {
         ## Redo a splitting when finishing one epoch
-
         if(iRun %in% seq(1, nRuns, by = nIterations))
         {
-            subsetIdxLst = split(sample(1:nObs, size = nObs), 1:nIterations)
+            suppressWarnings(subsetIdxLst <- split(sample(1:nObs, size = nObs), 1:nIterations))
         }
         whichIteration = iRun %% nIterations
         whichIteration[whichIteration == 0] = nIterations
@@ -59,8 +57,8 @@ SGLD = function(param.cur,
         caller = call(gradhess.fun.name,
                       Params = Params,
                       hessMethod = "skip",
-                      Y = Y[subsetIdx,, drop = FALSE],
-                      x0 = x0[subsetIdx,, drop = FALSE],
+                      Y = Y[subsetIdx, , drop = FALSE],
+                      x0 = x0[subsetIdx, , drop = FALSE],
                       callParam = callParam,
                       splineArgs = splineArgs,
                       priorArgs = priorArgs,

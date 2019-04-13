@@ -56,14 +56,20 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                                                algArgs = algArgs[[iPar]],
                                                Params_Transform = Params_Transform,
                                                propMethod = propMethods[[iPar]])
+
                         ## Update the parameters in the parameters list.
-                        Params[[iPar]][Sub4iPar] <- out.iSub$param.out
+                        param.cur.outMat = out.iSub$param.out
+
+                        ## Take the last one if inner loops are used in e.g. SGLD
+                        Params[[iPar]][Sub4iPar] <- param.cur.outMat[, ncol(param.cur.outMat)]
                         ## Save the acceptance probability
                         OUT.accept.probs[[iPar]][iSub, iIter, iCross] <- out.iSub$accept.prob
+
+                        ## Save the updated parameters for current iteration.
+                        OUT.Params[[iPar]][Sub4iPar,  , iIter, iCross] <- param.cur.outMat
                     }
+
                 }
-                ## Save the updated paramters for current iteration.
-                OUT.Params[[iPar]][,  , iIter, iCross] <- Params[[iPar]]
             } # for (iPar in Params4Gibbs)
             ## Track the iterations
             if(track.MCMC)
