@@ -39,6 +39,7 @@ SGLD = function(param.cur,
     param.out = matrix(NA, nPar, nRuns)
     accept.probMat = matrix(NA, 1, nRuns)
 
+    param.prop = param.cur
     for(iRun in 1:nRuns)
     {
         ## Redo a splitting when finishing one epoch
@@ -94,6 +95,8 @@ SGLD = function(param.cur,
         }
         else
         {
+            ## No Metropolis-Hastings calibration
+            param.cur = param.prop
             param.out[, iRun] = param.prop
             accept.probMat[, iRun] = 1
         }
