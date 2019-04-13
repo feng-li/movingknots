@@ -73,7 +73,8 @@ configuring the model. You should edit the file to point the location of `flutil
 algorithm run automatically and the summary of the results will be printed on the R
 console. For example
 
-        R> source(file.path(path.package("movingknots"),"examples","rajan_s_moving_2_plus_a_moving2.R"))
+        R> source(file.path(path.package("movingknots"),"examples","RUN_rajan_s_moving_2_plus_a_moving2.R"))
+        R> source(file.path(path.package("movingknots"),"examples","RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R"))
 
 ### Run with Rscript (with Linux)
 
@@ -81,11 +82,13 @@ console. For example
 
 * You need make sure the script is executable in a terminal
 
-        chmod +x movingknots/inst/examples/rajan_s_moving_2_plus_a_moving2.R
+        chmod +x movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2.R
+        chmod +x movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R
 
 * And then just execute it like other bash scripts
 
-        ./movingknots/inst/examples/rajan_s_moving_2_plus_a_moving2.R
+        ./movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2.R
+        ./movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R
 
 Help and bug reports
 --------------------
