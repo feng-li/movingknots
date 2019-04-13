@@ -26,61 +26,69 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
         Y.jCross <- Y[crossvalid.struc$training[[jCross]], , drop = FALSE]
         x.jCross <- x[crossvalid.struc$training[[jCross]], , drop = FALSE]
 
+        nInnerLst = lapply(OUT.Params, function(x) dim(x)[2])
+        nInnerMax = max(unlist(nInnerLst))
+
         for(jIter in 1:nIter) # loop nIter times
         {
-            ## Pick up values from Gibbs
-            knots.mat <- OUT.Params[["knots"]][, , jIter, jCross]
-            diag.K <- OUT.Params[["shrinkages"]][, , jIter, jCross]
-            covariance <- OUT.Params[["covariance"]][, , jIter, jCross]
+            for(jInner in 1:nInnerMax)
+            { ## Inner loops for SGLD
 
-            knots.mat.TB <- par.transform(par = knots.mat, method =
-                                                               Params_Transform[["knots"]])
-            diag.K.TB <- par.transform(par = diag.K, method =
-                                                         Params_Transform[["shrinkages"]])
-            Sigma.TB <- par.transform(par = covariance, method =
-                                                            Params_Transform[["covariance"]])
+                ## Pick up values from Gibbs
+                which.InnerLst = lapply(nInnerLst, function(x) min(x, jInner))
 
-            Sigma <- vech2m(Sigma.TB)
+                knots.mat <- OUT.Params[["knots"]][, which.InnerLst[["knots"]], jIter, jCross]
+                diag.K <- OUT.Params[["shrinkages"]][,  which.InnerLst[["shrinkages"]], jIter, jCross]
+                covariance <- OUT.Params[["covariance"]][,  which.InnerLst[["covariance"]], jIter, jCross]
 
-            Sigma.inv <- ginv(Sigma)
-            knots.list <- knots_mat2list(knots.mat, splineArgs)
+                knots.mat.TB <- par.transform(par = knots.mat, method =
+                                                                   Params_Transform[["knots"]])
+                diag.K.TB <- par.transform(par = diag.K, method =
+                                                             Params_Transform[["shrinkages"]])
+                Sigma.TB <- par.transform(par = covariance, method =
+                                                                Params_Transform[["covariance"]])
 
-            X <- d.matrix(x0,knots.list,splineArgs)
-            q = dim(X)[2] # total covariates in design matrix
-            q.knots <- sapply(knots.list, nrow)
-            q.i <- c(q - sum(q.knots), q.knots) # size for X_0(with/without intercept), X_s,  X_a
+                Sigma <- vech2m(Sigma.TB)
+
+                Sigma.inv <- ginv(Sigma)
+                knots.list <- knots_mat2list(knots.mat, splineArgs)
+
+                X <- d.matrix(x0,knots.list,splineArgs)
+                q = dim(X)[2] # total covariates in design matrix
+                q.knots <- sapply(knots.list, nrow)
+                q.i <- c(q - sum(q.knots), q.knots) # size for X_0(with/without intercept), X_s,  X_a
                                         # q <- sum(q.i)
-            p <- dim(Sigma)[1]
+                p <- dim(Sigma)[1]
 
-            P4X <- crossprod(X)
-            P.mats.all <- P.matrix(X, q.i, priorArgs) # The P matrices and X matrices, list
-            P.mats <- P.mats.all[["P"]]
+                P4X <- crossprod(X)
+                P.mats.all <- P.matrix(X, q.i, priorArgs) # The P matrices and X matrices, list
+                P.mats <- P.mats.all[["P"]]
 
-            mu <- priorArgs$coefficients.mu0
+                mu <- priorArgs$coefficients.mu0
 
-            ## K.tmp <- diag(diag.K.tmp, length(diag.K.tmp))
-
-
-            Sigma4beta.inv <- Sigma4betaFun(diag.K.TB, Sigma, P.mats, inverse = TRUE)
-            Sigma4beta.tilde.inv <- Sigma.inv %x% P4X + Sigma4beta.inv
-
-            Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
+                ## K.tmp <- diag(diag.K.tmp, length(diag.K.tmp))
 
 
-            Y.Sigma.inv <- Y %*% Sigma.inv
-            XT.Y.Sigma.inv <- crossprod(X, Y.Sigma.inv)
+                Sigma4beta.inv <- Sigma4betaFun(diag.K.TB, Sigma, P.mats, inverse = TRUE)
+                Sigma4beta.tilde.inv <- Sigma.inv %x% P4X + Sigma4beta.inv
 
-            beta.tilde <- Sigma4beta.tilde %*% (matrix(XT.Y.Sigma.inv) +
-                                                Sigma4beta.tilde.inv %*% mu)
+                Sigma4beta.tilde <- ginv(as.matrix(Sigma4beta.tilde.inv))
 
-            ## Sigma4beta.tilde should be symmetric. But might be not numerically after 1e-5
-            Norm.Sigma <- (Sigma4beta.tilde + t(Sigma4beta.tilde))/2
 
-            out.beta <- rmvnorm(mean = beta.tilde, n = 1, sigma = Norm.Sigma)
+                Y.Sigma.inv <- Y %*% Sigma.inv
+                XT.Y.Sigma.inv <- crossprod(X, Y.Sigma.inv)
 
-            ## Save to OUT.Params
-            OUT.Params[["coefficients"]][, , jIter, jCross] <- out.beta
+                beta.tilde <- Sigma4beta.tilde %*% (matrix(XT.Y.Sigma.inv) +
+                                                    Sigma4beta.tilde.inv %*% mu)
 
+                ## Sigma4beta.tilde should be symmetric. But might be not numerically after 1e-5
+                Norm.Sigma <- (Sigma4beta.tilde + t(Sigma4beta.tilde))/2
+
+                out.beta <- rmvnorm(mean = beta.tilde, n = 1, sigma = Norm.Sigma)
+
+                ## Save to OUT.Params
+                OUT.Params[["coefficients"]][, jInner, jIter, jCross] <- out.beta
+            }
             ## Simple progress bar
             ## progressbar(((jCross-1)*nIter + jIter), nCross*nIter)
 

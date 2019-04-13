@@ -44,6 +44,15 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                     if(!is.null(Sub4iPar)) # update if subsets are all fixed
                     {
                         param.cur <- matrix(Params[[iPar]][Sub4iPar])
+                        algArgs.cur = algArgs[[iPar]]
+
+                        ## Special case to pass stepsize sequence.
+                        if(tolower(propMethods[[iPar]]) %in% c("sgld"))
+                        {
+                            algArgs.cur[["stepsizeSeq"]] = (algArgs.cur[["stepsizeSeq"]]
+                                [((iIter - 1)* nInner + 1):(iIter * nInner)])
+                        }
+
                         out.iSub <- MHPropMain(param.cur = param.cur,
                                                gradhess.fun.name = gradhess.fun.name,
                                                logpost.fun.name = logpost.fun.name,
@@ -102,10 +111,17 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
 
     ## Update the LPDS
     cat("Updating LPDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-    OUT.LPDS <- LogPredScore(Y = Y, x = x0, logpost.fun.name = logpost.fun.name,
-                             crossvaid.struc = crossvaid.struc, splineArgs = splineArgs,
-                             priorArgs = priorArgs, OUT.Params = OUT.Params, Params_Transform
-                             = Params_Transform, burn.in = burn.in, LPDS.sampleProp = LPDS.sampleProp)
+    OUT.LPDS <- LogPredScore(Y = Y,
+                             x = x0,
+                             logpost.fun.name = logpost.fun.name,
+                             crossvaid.struc = crossvaid.struc,
+                             splineArgs = splineArgs,
+                             priorArgs = priorArgs,
+                             OUT.Params = lapply(OUT.Params, function(x) apply(x,  c(1, 3, 4), mean)),
+                             Params_Transform = Params_Transform,
+                             burn.in = burn.in,
+                             LPDS.sampleProp = LPDS.sampleProp)
+
     cat("LPDS:", round(OUT.LPDS$LPDS, 2), "( n.se:", round(OUT.LPDS$nseLPDS, 2), ")",
         "\n\n")
 
@@ -122,15 +138,16 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     ## Drop the burn-in
     num.burn.in <- floor(nIter*burn.in)
 
+    ## TODO: the posterior mode should be averaged with stepsize? Willing & Teh 2011, Eq(11).
     OUT.Params.mode <- lapply(OUT.Params,
                               function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                                c(1, 2, 4), mean))
+                                                c(1,  4), mean))
     OUT.Params.sd <- lapply(OUT.Params,
                             function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                              c(1, 2, 4), sd))
+                                              c(1,  4), sd))
     OUT.Params.ineff <- lapply(OUT.Params,
                                function(x) apply(x[, , nIter:(num.burn.in+1),drop=FALSE, ],
-                                                 c(1, 2, 4), ineff))
+                                                 c(1, 4), ineff))
 
     OUT.accept.probs.mean <- lapply(OUT.accept.probs,
                                     function(x) apply(x[, (num.burn.in+1):nIter, ,drop = FALSE],c(1, 3), mean))

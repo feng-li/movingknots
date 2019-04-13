@@ -358,6 +358,7 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                LPDS.sampleProp = LPDS.sampleProp,
                                track.MCMC = track.MCMC)
 
+rm(OUT.Params)
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
 ##----------------------------------------------------------------------------------------
