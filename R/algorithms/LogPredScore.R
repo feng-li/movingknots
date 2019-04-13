@@ -74,7 +74,7 @@ LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, pr
           for(j in LPDS.sampleIdx) ## Just the likelihood function with posterior samples
             {
 
-              Params.j <- lapply(OUT.Params, function(x) apply(x[, , j, iCross, drop =
+              Params.j <- lapply(OUT.Params, function(x) apply(x[, j, iCross, drop =
                                                                  FALSE], c(1, 2), "["))
               caller.log.like <- call(logpost.fun.name,Y = Y.iTesting, x = x.iTesting,
                                       Params = Params.j, callParam = list(id =

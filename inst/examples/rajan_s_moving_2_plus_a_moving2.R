@@ -39,6 +39,7 @@ require("methods")
 require("MASS")
 require("Matrix")
 require("mvtnorm")
+require("parallel")
 
 dev = TRUE
 if(dev == TRUE)
@@ -52,6 +53,20 @@ if(dev == TRUE)
     require("flutils")
     require("movingknots")
 }
+
+
+cl <- makeCluster(detectCores())
+setDefaultCluster(cl)
+ce <- clusterEvalQ(cl,{
+    require("methods")
+    require("MASS")
+    require("Matrix")
+    require("mvtnorm")
+
+    source("~/code/flutils/R/systools/sourceDir.R")
+    sourceDir("~/code/movingknots/R", "~/code/flutils/R", recursive = TRUE)
+})
+
 ## SAVE OUTPUT PATH
 save.output <- "~/running" # "save.output = FALSE" will not save anything
 
@@ -169,7 +184,7 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-crossValidArgs <- list(N.subsets = 4, # No. of folds. If 0:, no cross-validation.
+crossValidArgs <- list(N.subsets = 5, # No. of folds. If 0:, no cross-validation.
                          partiMethod = "systematic", # How to partition the data
                          full.run = FALSE)     # Also include a full run.
 
@@ -339,6 +354,12 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, 
 ##----------------------------------------------------------------------------------------
 ## MovingKnots MCMC
 ##----------------------------------------------------------------------------------------
+clusterExport(cl, c("gradhess.fun.name", "logpost.fun.name", "nIter", "Params",
+                    "Params4Gibbs", "Params.sub.struc", "Y", "x", "splineArgs",
+                    "priorArgs", "Params_Transform", "propMethods", "algArgs",
+                    "crossvalid.struc", "OUT.Params", "OUT.accept.probs", "burn.in",
+                    "LPDS.sampleProp", "track.MCMC"))
+
 OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                logpost.fun.name =  logpost.fun.name,
                                nIter = nIter,
@@ -359,6 +380,8 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                LPDS.sampleProp = LPDS.sampleProp,
                                track.MCMC = track.MCMC)
 
+rm(OUT.Params)
+stopCluster(cl)
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
 ##----------------------------------------------------------------------------------------

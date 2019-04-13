@@ -31,6 +31,7 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
 
         for(jIter in 1:nIter) # loop nIter times
         {
+            out.betaAry = array(NA, c(dim(OUT.Params[["coefficients"]])[1:2], nInnerMax))
             for(jInner in 1:nInnerMax)
             { ## Inner loops for SGLD
 
@@ -84,11 +85,11 @@ linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
                 ## Sigma4beta.tilde should be symmetric. But might be not numerically after 1e-5
                 Norm.Sigma <- (Sigma4beta.tilde + t(Sigma4beta.tilde))/2
 
-                out.beta <- rmvnorm(mean = beta.tilde, n = 1, sigma = Norm.Sigma)
-
-                ## Save to OUT.Params
-                OUT.Params[["coefficients"]][, jInner, jIter, jCross] <- out.beta
+                out.betaAry[,, jInner] <- rmvnorm(mean = beta.tilde, n = 1, sigma = Norm.Sigma)
             }
+
+            ## Save to OUT.Params
+            OUT.Params[["coefficients"]][,, jIter, jCross] <- apply(out.betaAry, c(1, 2), mean)
             ## Simple progress bar
             ## progressbar(((jCross-1)*nIter + jIter), nCross*nIter)
 

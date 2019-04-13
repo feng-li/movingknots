@@ -179,7 +179,7 @@ burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
-crossValidArgs <- list(N.subsets = 4, # No. of folds. If 0:, no cross-validation.
+crossValidArgs <- list(N.subsets = 5, # No. of folds. If 0:, no cross-validation.
                        partiMethod = "systematic" # How to partition the data
                        )
 

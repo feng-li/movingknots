@@ -98,7 +98,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
             }
             ## print(proc.time()-a)
         }
-        return(list(OUT.Param = OUT.Param, OUT.accept.probs = OUT.accept.probs))
+        return(list(OUT.Params = OUT.Params, OUT.accept.probs = OUT.accept.probs))
     } # for(iCross in 1:nCross)
 
     clusterExport(cl, "nCross")
@@ -107,10 +107,12 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     sink.parallel(cl, file = NULL)
 
     ## Collecting results
-    for (iPar in Params4Gibbs) # loop over parameters
-    {
-        OUT.Params[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.Params"]][[iPar]][,,, iCross]
-        OUT.accept.probs[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.accept.probs"]][[iPar]][,,, iCross]
+    for(iCross in 1:nCross){
+        for (iPar in Params4Gibbs) # loop over parameters
+        {
+            OUT.Params[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.Params"]][[iPar]][,,, iCross]
+            OUT.accept.probs[[iPar]][,, iCross] = MCMCPropOut[[iCross]][["OUT.accept.probs"]][[iPar]][,, iCross]
+        }
     }
 
     ##----------------------------------------------------------------------------------------
@@ -118,8 +120,15 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     ##----------------------------------------------------------------------------------------
     cat("Updating Coefficients >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
-    OUT.Params <- linear_post4coef(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
-                                   splineArgs, priorArgs, Params_Transform)
+    OUT.Params <- linear_post4coef(Y = Y,
+                                   x0 = x0,
+                                   OUT.Params = OUT.Params,
+                                   crossvalid.struc = crossvalid.struc,
+                                   nCross = nCross,
+                                   nIter = nIter,
+                                   splineArgs = splineArgs,
+                                   priorArgs = priorArgs,
+                                   Params_Transform = Params_Transform)
 
     ##----------------------------------------------------------------------------------------
     ## Compute the predictive density and LPDS
