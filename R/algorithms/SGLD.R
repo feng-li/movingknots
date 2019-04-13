@@ -78,7 +78,7 @@ SGLD = function(param.cur,
         fisherInfoMatG = diag(1, nrow = nPar)
         diffusionMatD = diag(1, nrow = nPar)
 
-        correctionGamma = matrix(1, nPar, 1)
+        correctionGamma = matrix(0, nPar, 1)
         potentialUgrad = -gradObsSub
 
         noise = matrix(rmvnorm(n = 1, mean = matrix(0, nrow = 1, ncol = nPar),
