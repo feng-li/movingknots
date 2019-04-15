@@ -155,7 +155,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                              crossvaid.struc = crossvaid.struc,
                              splineArgs = splineArgs,
                              priorArgs = priorArgs,
-                             OUT.Params = OUT.Param,
+                             OUT.Params = OUT.Params,
                              Params_Transform = Params_Transform,
                              burn.in = burn.in,
                              LPDS.sampleProp = LPDS.sampleProp)
