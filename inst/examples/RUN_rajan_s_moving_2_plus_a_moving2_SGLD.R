@@ -42,6 +42,8 @@ require("mvtnorm")
 require("parallel")
 
 dev = TRUE
+parallel = TRUE
+
 if(dev == TRUE)
 {
     unloadNamespace("flutils")
@@ -55,17 +57,20 @@ if(dev == TRUE)
 }
 
 
-cl <- makeCluster(detectCores())
-setDefaultCluster(cl)
-ce <- clusterEvalQ(cl,{
-    require("methods")
-    require("MASS")
-    require("Matrix")
-    require("mvtnorm")
+if(parallel == TRUE)
+{
+    cl <- makeCluster(detectCores())
+    setDefaultCluster(cl)
+    ce <- clusterEvalQ(cl,{
+        require("methods")
+        require("MASS")
+        require("Matrix")
+        require("mvtnorm")
 
-    source("~/code/flutils/R/systools/sourceDir.R")
-    sourceDir("~/code/movingknots/R", "~/code/flutils/R", recursive = TRUE)
-})
+        source("~/code/flutils/R/systools/sourceDir.R")
+        sourceDir("~/code/movingknots/R", "~/code/flutils/R", recursive = TRUE)
+    })
+}
 
 ## SAVE OUTPUT PATH
 save.output <- "~/running" # "save.output = FALSE" will not save anything
@@ -176,7 +181,7 @@ nIter <- 1000
 burn.in <- 0.2  # [0, 1) If 0: use all MCMC results.
 
 ## LPDS SAMPLE SIZE
-LPDS.sampleProp <- 0.05 # Sample proportion to the total posterior after burn-in.
+LPDS.sampleProp <- 1 # Sample proportion to the total posterior after burn-in.
 
 ## CROSS-VALIDATION
 crossValidArgs <- list(N.subsets = 5, # No. of folds. If 0:, no cross-validation.
@@ -185,8 +190,8 @@ crossValidArgs <- list(N.subsets = 5, # No. of folds. If 0:, no cross-validation
 
 algArgs = list(knots = list(minibatchProp = 0.1, nEpoch= 2, calMHAccRate = FALSE, # Welling & Teh (2011), p 3.
                             stepsizeSeq = make_stepsize(
-                                steprange = c(0.01, 0.0001), n = 20 * nIter,
-                                args = list(method = "exp-decay", lambda = 0.45))),
+                                steprange = c(0.01, 0.0001), n = 20 * nIter, # Welling & Teh (2011), p 5.
+                                args = list(method = "exp-decay", lambda = 0.55))),
                shrinkages = list(minibatchProp = 0.1, nEpoch= 2, calMHAccRate = FALSE,
                                  stepsizeSeq = make_stepsize(
                                      steprange = c(0.01, 0.0001), n = 20 * nIter,
@@ -331,10 +336,10 @@ OUT.accept.probs <- mapply(function(x) array(NA, c(length(x), nIter, nCross)),
 ## Parameters updates in each MH step
 INIT.knots.mat <- knots_list2mat(INIT.knots)
 
-OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), nInner, nIter, nCross)),
-                   "shrinkages" = array(INIT.shrinkages, c(p*model.comp.len, nInner, nIter, nCross)),
-                   "coefficients" = array(NA, c(q, p, nIter, nCross)),
-                   "covariance" = array(vech(INIT.covariance), c((p+1)*p/2, 1, nIter, nCross)))
+OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), 1, nInner, nIter, nCross)),
+                   "shrinkages" = array(INIT.shrinkages, c(p*model.comp.len, 1, nInner, nIter, nCross)),
+                   "coefficients" = array(NA, c(q, p, 1, nIter, nCross)),
+                   "covariance" = array(vech(INIT.covariance), c((p+1)*p/2, 1, 1, nIter, nCross)))
 
 ##########################################################################################
 ##                                 Testings
@@ -353,12 +358,15 @@ OUT.Params <- list("knots" = array(INIT.knots.mat, c(length(INIT.knots.mat), nIn
 ##----------------------------------------------------------------------------------------
 ## MovingKnots MCMC
 ##----------------------------------------------------------------------------------------
-clusterExport(cl, c("gradhess.fun.name", "logpost.fun.name", "nIter", "Params",
+if(parallel == TRUE)
+{
+    clusterExport(cl,
+                  c("gradhess.fun.name", "logpost.fun.name", "nIter", "Params",
                     "Params4Gibbs", "Params.sub.struc", "Y", "x", "splineArgs",
                     "priorArgs", "Params_Transform", "propMethods", "algArgs",
                     "crossvalid.struc", "OUT.Params", "OUT.accept.probs", "burn.in",
                     "LPDS.sampleProp", "track.MCMC"))
-
+}
 OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                logpost.fun.name =  logpost.fun.name,
                                nIter = nIter,
@@ -369,9 +377,9 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                x0 = x,
                                splineArgs = splineArgs,
                                priorArgs = priorArgs,
+                               algArgs = algArgs,
                                Params_Transform = Params_Transform,
                                propMethods = propMethods,
-                               algArgs = algArgs,
                                crossvalid.struc = crossvalid.struc,
                                OUT.Params = OUT.Params,
                                OUT.accept.probs = OUT.accept.probs,
@@ -380,7 +388,10 @@ OUT.FITTED <- MovingKnots_MCMC(gradhess.fun.name = gradhess.fun.name,
                                track.MCMC = track.MCMC)
 
 rm(OUT.Params)
-stopCluster(cl)
+if(parallel == TRUE)
+{
+    stopCluster(cl)
+}
 ##----------------------------------------------------------------------------------------
 ## Save outputs to files
 ##----------------------------------------------------------------------------------------

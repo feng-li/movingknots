@@ -26,10 +26,6 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     Start.Time <- proc.time() # The CPU time
 
     cat("Updating Knots, Shrinkages, and Covariance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-
-    cl <- getDefaultCluster()
-    nCross <- length(crossvalid.struc$training)
-
     MCMCPropFun <- function(iCross)
     {
         ## Training sample
@@ -78,7 +74,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                         OUT.accept.probs[[iPar]][iSub, iIter, iCross] <- out.iSub$accept.prob
 
                         ## Save the updated parameters for current iteration.
-                        OUT.Params[[iPar]][Sub4iPar,  , iIter, iCross] <- param.cur.outMat
+                        OUT.Params[[iPar]][Sub4iPar, , , iIter, iCross] <- param.cur.outMat
                     }
 
                 }
@@ -101,16 +97,26 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
         return(list(OUT.Params = OUT.Params, OUT.accept.probs = OUT.accept.probs))
     } # for(iCross in 1:nCross)
 
-    clusterExport(cl, "nCross")
-    sink.parallel(cl)
-    MCMCPropOut = parLapply(cl = cl, X = as.list(1:nCross), fun = MCMCPropFun)
-    sink.parallel(cl, file = NULL)
+    nCross <- length(crossvalid.struc$training)
+
+    cl <- getDefaultCluster()
+    if(length(cl) != 0)
+    {
+        clusterExport(cl, "nCross")
+        sink.parallel(cl)
+        MCMCPropOut = parLapply(cl = cl, X = as.list(1:nCross), fun = MCMCPropFun)
+        sink.parallel(cl, file = NULL)
+    }
+    else
+    {
+        MCMCPropOut = lapply(X = as.list(1:nCross), FUN = MCMCPropFun)
+    }
 
     ## Collecting results
     for(iCross in 1:nCross){
         for (iPar in Params4Gibbs) # loop over parameters
         {
-            OUT.Params[[iPar]][,,, iCross] = MCMCPropOut[[iCross]][["OUT.Params"]][[iPar]][,,, iCross]
+            OUT.Params[[iPar]][,,,, iCross] = MCMCPropOut[[iCross]][["OUT.Params"]][[iPar]][,,,, iCross]
             OUT.accept.probs[[iPar]][,, iCross] = MCMCPropOut[[iCross]][["OUT.accept.probs"]][[iPar]][,, iCross]
         }
     }
@@ -120,9 +126,17 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     ##----------------------------------------------------------------------------------------
     cat("Updating Coefficients >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
+    ## Average inner draws but keep the output structure.
+    OUT.Params1Inner = lapply(OUT.Params, function(x){
+        x4 = apply(x, c(1, 2, 4, 5), mean)
+        dimx = dim(x)
+        dimx[3] = 1
+        array(x4, dimx)
+    })
+
     OUT.Params <- linear_post4coef(Y = Y,
                                    x0 = x0,
-                                   OUT.Params = OUT.Params,
+                                   OUT.Params = OUT.Params1Inner,
                                    crossvalid.struc = crossvalid.struc,
                                    nCross = nCross,
                                    nIter = nIter,
@@ -133,7 +147,6 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     ##----------------------------------------------------------------------------------------
     ## Compute the predictive density and LPDS
     ##----------------------------------------------------------------------------------------
-
     ## Update the LPDS
     cat("Updating LPDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
     OUT.LPDS <- LogPredScore(Y = Y,
@@ -142,7 +155,7 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
                              crossvaid.struc = crossvaid.struc,
                              splineArgs = splineArgs,
                              priorArgs = priorArgs,
-                             OUT.Params = lapply(OUT.Params, function(x) apply(x,  c(1, 3, 4), mean)),
+                             OUT.Params = OUT.Param,
                              Params_Transform = Params_Transform,
                              burn.in = burn.in,
                              LPDS.sampleProp = LPDS.sampleProp)
@@ -164,18 +177,17 @@ MovingKnots_MCMC <- function(gradhess.fun.name,
     num.burn.in <- floor(nIter*burn.in)
 
     ## TODO: the posterior mode should be averaged with stepsize? Willing & Teh 2011, Eq(11).
-    OUT.Params.mode <- lapply(OUT.Params,
-                              function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                                c(1,  4), mean))
-    OUT.Params.sd <- lapply(OUT.Params,
-                            function(x) apply(x[, , (num.burn.in+1):nIter,drop=FALSE, ],
-                                              c(1,  4), sd))
-    OUT.Params.ineff <- lapply(OUT.Params,
-                               function(x) apply(x[, , nIter:(num.burn.in+1),drop=FALSE, ],
-                                                 c(1, 4), ineff))
+    OUT.Params.mode <- lapply(OUT.Params, function(x)
+        apply(x[,,, (num.burn.in+1):nIter,, drop=FALSE], c(1, 2, 5), mean))
 
-    OUT.accept.probs.mean <- lapply(OUT.accept.probs,
-                                    function(x) apply(x[, (num.burn.in+1):nIter, ,drop = FALSE],c(1, 3), mean))
+    OUT.Params.sd <- lapply(OUT.Params, function(x)
+        apply(x[,,, (num.burn.in+1):nIter,, drop=FALSE], c(1,  2, 5), sd))
+
+    OUT.Params.ineff <- lapply(OUT.Params, function(x)
+        apply(x[,,,(num.burn.in+1):nIter,, drop=FALSE], c(1, 2, 5), ineff))
+
+    OUT.accept.probs.mean <- lapply(OUT.accept.probs, function(x)
+        apply(x[, (num.burn.in+1):nIter, ,drop = FALSE],c(1, 3), mean))
 
     ##----------------------------------------------------------------------------------------
     ## Collecting system information

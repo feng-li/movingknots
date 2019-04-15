@@ -25,7 +25,7 @@ LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, pr
 {
 
   n <- dim(Y)[1] # no. of obs.
-  nIter <- dim(OUT.Params[[1]])[3] # no. of iterations
+  nIter <- dim(OUT.Params[[1]])[4] # no. of iterations
   num.burn.in <- floor(nIter*burn.in)
   nUsed <- nIter - num.burn.in
 
@@ -73,8 +73,7 @@ LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, pr
           which.j <- 0
           for(j in LPDS.sampleIdx) ## Just the likelihood function with posterior samples
             {
-
-              Params.j <- lapply(OUT.Params, function(x) apply(x[, j, iCross, drop =
+              Params.j <- lapply(OUT.Params, function(x) apply(x[,,, j, iCross, drop =
                                                                  FALSE], c(1, 2), "["))
               caller.log.like <- call(logpost.fun.name,Y = Y.iTesting, x = x.iTesting,
                                       Params = Params.j, callParam = list(id =
