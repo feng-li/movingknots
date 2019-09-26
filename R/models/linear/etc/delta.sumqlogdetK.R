@@ -1,4 +1,4 @@
-##' gradient for \sum q_i log|K_i|
+##' gradient for sum q_i log|K_i|
 ##'
 ##' Details
 ##' @param q.i NA

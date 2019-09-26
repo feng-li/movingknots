@@ -1,10 +1,9 @@
-##' D[vecf(g(x)]/D[vecg(x)'] %*% D[vec g(x)]/D[vec x']
+##' Gradient derivative for x wrt link function
 ##'
-##' Just the chain rule
+##' Just the chain rule.
 ##' @param grad "matrix" gradient
-##' @param Param NA
 ##' @param link NA
-##' @param par "matrix" should always be a matrix
+##' @param Param "matrix" should always be a matrix
 ##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @export
