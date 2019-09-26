@@ -1,20 +1,17 @@
 ##' DGP Surface nested
 ##'
 ##' A DGP process where the true model nests in the fitted model
-##' @title
-##' @return
-##' @references
+##' @param n NA
+##' @param p NA
+##' @param q.o NA
+##' @param q.s NA
+##' @param Sigma NA
+##' @param splineArgs NA
+##' @param splineArgs.crl NA
+##' @param PlotDGP NA
+##' @return NA
+##' @references NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Mon Apr 11 09:18:38 CEST 2011;
-##'       Current:       Tue Jul 31 08:54:18 CEST 2012.
-##' @param n
-##' @param p
-##' @param q.o
-##' @param q.s
-##' @param Sigma
-##' @param splineArgs
-##' @param splineArgs.crl
-##' @param sPlotDGP
 ##' @export
 DGP.surface <- function(n, p, q.o, q.s, Sigma, splineArgs, splineArgs.crl,
                         PlotDGP = FALSE)

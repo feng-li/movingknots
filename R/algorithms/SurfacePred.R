@@ -1,3 +1,12 @@
+##' Surface prediction for the movingknots.
+##'
+##' Details are available in the paper.
+##' @param Y NA
+##' @param x0 NA
+##' @param OUT.FITTED NA
+##' @param jIter NA
+##' @param iCross NA
+##' @param splineArgs NA
 ##' @export
 PredSurface <- function(Y, x0, OUT.FITTED, jIter, iCross, splineArgs)
 {

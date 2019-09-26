@@ -1,14 +1,11 @@
 ##' This is the gradient for a single partition of beta's variance.
 ##'
-##' <details>
-##' @title
-##' @param diag.K_i
-##' @param Sigma.inv
-##' @param P_i
+##' Details from the paper.
+##' @param diag.K_i NA
+##' @param Sigma.inv NA
+##' @param P_i NA
 ##' @return "matrix"
-##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Wed Jan 12 13:45:56 CET 2011; Current: Wed Jan 12 13:46:00 CET 2011.
 ##' @export
 delta.vecPartiSigma4beta.inv <- function(diag.K_i, Sigma.inv, P_i)
   {

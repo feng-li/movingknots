@@ -4,10 +4,9 @@
 ##' The function can be extended by adding new basis. This function gives the gradient for
 ##' the (vecX) w.r.t. vec(xi')'. You may need the transpose of the results if you want
 ##' gradient for the (vecX)' w.r.t. vec(xi'). This function is mostly used inside the
-##' function of gradient, so always consider the parameters input convenience
-##' when you update it.
+##' function of gradient, so always consider the parameters input convenience when you
+##' update it.
 ##'
-##' @name delta.xi
 ##' @title Gradient with respect to the knots locations.
 ##'
 ##' @param x "matrix".
@@ -15,6 +14,7 @@
 ##' @param knots "list".
 ##'         knots$thinplate.s:
 ##'         knots$thinplate.a:
+##' @param splineArgs  NA
 ##' @param knotsArgs "list".
 ##'         Arguments need to pass to the function, see bellow.
 ##'         knotsArgs$comp: "character", is the components in the design matrix;
@@ -33,10 +33,7 @@
 ##'         knots location if args$KnotsSubset is set to same as the full set.
 ##'         $thinplate.a: "matrix". Same as above but for the additive spline part.
 ##'
-##' @references The notes.
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Fri Sep  3 17:35:47 CEST 2010.
-##'       Current: 	 Fri Jan 21 13:28:21 CET 2011.
 ##' @export
 delta.xi <- function(x, knots, splineArgs)
 {

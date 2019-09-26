@@ -20,7 +20,7 @@
 ##' @param x0 "matrix".
 ##'         The covaritates, you should *NOT* provide the intercept.
 ##'         It will be added automatically if necessary.
-##' @param callParam
+##' @param callParam NA
 ##' @param splineArgs "list".
 ##'         Parameters for the spline options to pass to the function, where
 ##'         splineArgs$method should be the spline method for x, see also d.matrix().
@@ -28,8 +28,8 @@
 ##'         "thinplate".
 ##'         splineArgs$withInt: "logical". If TRUE, will return design matrix with
 ##'         intercept; if FALSE, design matrix without intercept.
-##' @param priorArgs
-##' @param Params_Transform
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @param callParams "character".
 ##'         callParams$id: the calling tag for the gradient. Possible values is "xi". "ka"
 ##'         callParams$subset: not all updated.
@@ -43,19 +43,10 @@
 ##'         priorArgs$K.mu0: mean for ka
 ##'         priorArgs$K.Sigma0: variance for ka
 ##'
-##' @return "list",  see bellow.
-##' \item   {gradObs}
-##'         {"matrix". n*p-by-1 The observed gradient for xi.}
-##' \item   {hessObs}
-##'         {"matrix". The obsered Hessian matrix for xi.}
+##' @return "list", see bellow.  `gradObs`: n*p-by-1 matrix, the observed gradient for xi.
+##'     `hessObs: The obsered Hessian matrix for xi.
 ##'
-##' @references Li and Villani's notes
 ##' @author Feng Li, Dept. of Statistics, Stockholm University, Sweden.
-##' @note First version: Fri Aug 27 10:36:38 CEST 2010.
-##'       Current:	 Wed Sep 15 23:57:50 CEST 2010.
-##'
-##' DEPENDS:
-##'
 ##' @export
 linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, priorArgs,
                             Params_Transform)

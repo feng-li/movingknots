@@ -1,15 +1,15 @@
 ##' Compute a matrix to pre-multiply the gradient for vec beta's inverse variance
 ##'
 ##' <details>
-##' @title
-##' @param Mat
-##' @param delta4K.list
+##' @param Mat  NA
+##' @param delta4K.list  NA
+##' @param p  NA
+##' @param q  NA
+##' @param q.i  NA
 ##' @param args "list" args$subset: subset of the shrinkage
-##' @return
-##' @references
+##' @return NA
+##' @references NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Wed Jan 19 16:37:25 CET 2011;
-##'       Current:       Wed Jan 19 16:37:34 CET 2011.
 ##' @export
 Mat.x.delta.vecSigma4beta.inv <- function(Mat, delta4K.list, p, q, q.i)
   {

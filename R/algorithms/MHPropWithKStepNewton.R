@@ -1,28 +1,21 @@
 ##' Metropolis–Hastings algorithm with K-step Newton method for the spline model.
 ##'
-##' Details.
-##' @name
-##' @title
-##' @param param.cur
-##' @param gradhess.fun.name
-##' @param logpost.fun.name
-##' @param nNewtonStep
-##' @param Params
-##' @param hessMethod
-##' @param Y
-##' @param x
-##' @param callParam
-##' @param splineArgs
-##' @param priorArgs
-##' @param prop.df
-##' @param Params_Transform
-##' @return
-##' @references
+##' Details are available in the paper.
+##' @param param.cur NA
+##' @param gradhess.fun.name NA
+##' @param logpost.fun.name NA
+##' @param nNewtonStep NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y NA
+##' @param x0 NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param prop.df NA
+##' @param Params_Transform NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Thu Feb 17 14:03:14 CET 2011;
-##'       Current:       Wed Feb 23 14:43:35 CET 2011.
-##' DEPENDS: mvtnorm
-##' TODO: replace the old multivariate t functions to mvtnorm functions
 ##' @export
 MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name,
                                   nNewtonStep, Params, hessMethod, Y, x0, callParam,

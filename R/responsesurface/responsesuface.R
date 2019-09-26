@@ -1,4 +1,3 @@
-##' @export
 responsesurface <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs,
                  priorArgs, OUT.Params, Params_Transform, burn.in, LPDS.sampleProp) {
 

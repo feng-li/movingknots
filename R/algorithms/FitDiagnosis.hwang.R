@@ -1,14 +1,19 @@
 ##' Diagnosis if the spline model
 ##'
 ##' This function is only applied to the moving knots model.
-##' @title
-##' @param criterion
-##' @param OUT.Params
-##' @return
-##' @references
+##' @param x.lst NA
+##' @param Y  NA
+##' @param OUT.Params NA
+##' @param Data.gen  NA
+##' @param logpost.fun.name NA
+##' @param splineArgs  NA
+##' @param Params_Transform  NA
+##' @param crossvalid.struc  NA
+##' @param burn.in  NA
+##' @param criterion NA
+##' @param hwang.model NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Aug 07 16:55:03 CEST 2012;
-##'       Current: Tue Aug 07 16:54:52 CEST 2012.
 ##' @export
 FitDiagnosis.hwang <- function(x.lst, Y, OUT.Params, Data.gen, logpost.fun.name, splineArgs,
                                Params_Transform, crossvalid.struc, burn.in,

@@ -1,16 +1,13 @@
 ##' <description>
 ##'
 ##' <details>
-##' @title
-##' @param Mat
-##' @param delta.knots
-##' @param n
-##' @param p
-##' @param q.i
-##' @return
-##' @references
+##' @param Mat NA
+##' @param delta.knots  NA
+##' @param n  NA
+##' @param p  NA
+##' @param q.i  NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: ; Current: .
 ##' @export
 Mat.delta.xi <- function(Mat, delta.knots, n, p, q.i)
 {

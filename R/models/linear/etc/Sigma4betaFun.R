@@ -1,17 +1,13 @@
 ##' Calculate the variance for the prior of coefficients (beta) in the moving knots model
 ##'
-##' <details>
-##' @title
+##' Details available in the paper.
 ##' @param diag.K "matrix" diagonal part of the matrix K
 ##' @param Sigma "matrix" variance for the error term
-##' @param P.mats
+##' @param P.mats  NA
 ##' @param inverse "logical" if TRUE,  will return the inverse variance matrix.
 ##' @param P "list" containing the P matrices.
 ##' @return "matrix"
-##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Feb 08 09:26:58 CET 2011;
-##'       Current:       Thu Feb 24 12:50:04 CET 2011.
 ##' @export
 Sigma4betaFun <- function(diag.K, Sigma, P.mats, inverse = FALSE)
 {

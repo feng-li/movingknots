@@ -1,9 +1,11 @@
 ##' Preform X_i multiply Dev xi
 ##'
 ##' <details>
-##' @title
-##' @return
-##' @references
+##' @param X.mats  NA
+##' @param delta.knots NA
+##' @param q.i  NA
+##' @param P.type  NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Thu Feb 10 11:09:46 CET 2011;
 ##'       Current:       Thu Feb 10 11:09:53 CET 2011.

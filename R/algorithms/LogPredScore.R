@@ -1,24 +1,18 @@
-##' This is the LPDS
+##' Log predictive scores
 ##'
-##' Details.
-##' @name
-##' @title
-##' @param Y
-##' @param x
-##' @param logpost.fun.name
-##' @param crossvaid.struc
-##' @param splineArgs
-##' @param priorArgs
-##' @param OUT.Params
-##' @param Params_Transform
-##' @param burn.in
-##' @return
-##' @references
+##' Details see the paper
+##' @param Y NA
+##' @param x NA
+##' @param logpost.fun.name NA
+##' @param crossvaid.struc NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param OUT.Params NA
+##' @param Params_Transform NA
+##' @param burn.in NA
+##' @param LPDS.sampleProp NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Nov 30 23:18:18 CET 2010;
-##'       Current:       Tue Nov 30 23:18:25 CET 2010.
-##' TODO: Don't use the full draws when nIter is large.
-##'       Still doubt the nseLPDS
 ##' @export
 LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, priorArgs,
                  OUT.Params, Params_Transform, burn.in, LPDS.sampleProp)

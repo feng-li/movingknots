@@ -1,22 +1,17 @@
 ##' Direct sample the coefficients from normal distribution.
 ##'
-##' <details>
-##' @title
-##' @param Y
-##' @param x
-##' @param OUT.Params
-##' @param crossvalid.struc
-##' @param nCross
-##' @param nIter
-##' @param splineArgs
-##' @param priorArgs
-##' @param Params_Transform
-##' @return
-##' @references
+##' Details are available from the paper.
+##' @param Y NA
+##' @param x0 NA
+##' @param OUT.Params NA
+##' @param crossvalid.struc NA
+##' @param nCross NA
+##' @param nIter NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Fri Mar 04 20:21:33 CET 2011;
-##'       Current:       Fri Mar 04 20:21:41 CET 2011.
-##' TODO: Use apply?
 ##' @export
 linear_post4coef <- function(Y, x0, OUT.Params, crossvalid.struc, nCross, nIter,
                              splineArgs, priorArgs, Params_Transform)

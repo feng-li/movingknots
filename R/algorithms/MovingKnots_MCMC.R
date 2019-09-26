@@ -1,3 +1,26 @@
+##' MCMC for movingknots.
+##'
+##' Details are available in the paper.
+##' @param gradhess.fun.name NA
+##' @param logpost.fun.name NA
+##' @param nIter NA
+##' @param Params NA
+##' @param Params4Gibbs NA
+##' @param Params.sub.struc NA
+##' @param Y NA
+##' @param x0 NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
+##' @param propMethods NA
+##' @param algArgs NA
+##' @param crossvalid.struc NA
+##' @param OUT.Params NA
+##' @param OUT.accept.probs NA
+##' @param burn.in NA
+##' @param LPDS.sampleProp NA
+##' @param track.MCMC NA
+##' @return NA
 ##' @export
 MovingKnots_MCMC <- function(gradhess.fun.name,
                              logpost.fun.name,

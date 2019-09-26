@@ -1,12 +1,14 @@
 ##' Calculate the posterior df and location matrix V from the inverse Wishart distribution.
 ##'
-##' <details>
-##' @title
-##' @return
-##' @references
+##' Details are available in the paper.
+##' @param Params NA
+##' @param Y NA
+##' @param x0 NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Feb 22 19:49:35 CET 2011;
-##'       Current:       Tue Feb 22 19:49:42 CET 2011.
 ##' @export
 linear_IWishart <- function(Params, Y, x0, splineArgs, priorArgs, Params_Transform)
 {

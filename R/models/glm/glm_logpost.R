@@ -1,13 +1,15 @@
 ##' The conditional and joint log posterior function
 ##'
 ##' Details.
-##' @param Y
-##' @param x
-##' @param Params
-##' @param callParam
+##' @param Y NA
+##' @param x  NA
+##' @param Params NA
+##' @param callParam  NA
 ##' @param splineArgs "list".
+##' @param priorArgs  NA
+##' @param Params_Transform NA
 ##' @param ParamsTransArgs "list"
-##' @param Params
+##' @param Params NA
 ##'         Params$xi:
 ##'         Parmas$K:
 ##' @param priorArgs
@@ -30,10 +32,7 @@
 ##'        them.
 ##'
 ##' @return "scalar".
-##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Sat Nov 06 22:23:57 CET 2010;
-##'       Current:       Wed Dec 29 15:55:51 CET 2010.
 ##' @export
 glm_logpost <- function(Y, x, Params, callParam, splineArgs, priorArgs, Params_Transform)
 {

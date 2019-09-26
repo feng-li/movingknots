@@ -1,12 +1,9 @@
-##' Description
+##' Parameter transformation.
 ##'
-##' Details.
-##' @name
-##' @title
-##' @param par
-##' @param method
-##' @return
-##' @references
+##' Details are available in the paper.
+##' @param par NA
+##' @param method NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: ; Current: .
 ##' @export

@@ -1,26 +1,22 @@
-##' The Main file for MCMC algorithm.
+##' The Main MCMC algorithm for movingknots.
 ##'
-##' Details.
-##' @name
-##' @title
-##' @param param.cur
-##' @param gradhess.fun.name
-##' @param logpost.fun.name
-##' @param nNewtonStep
-##' @param Params
-##' @param hessMethod
-##' @param Y.iCross
-##' @param x.iCross
-##' @param callParam
-##' @param splineArgs
-##' @param priorArgs
-##' @param prop.df
-##' @param Params_Transform
-##' @param propMethod
-##' @return
-##' @references
+##' Details are available in the paper.
+##' @param param.cur NA
+##' @param gradhess.fun.name NA
+##' @param logpost.fun.name NA
+##' @param nNewtonStep NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y.iCross NA
+##' @param x.iCross NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param algArgs NA
+##' @param Params_Transform NA
+##' @param propMethod NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: ; Current: .
 ##' @export
 MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonStep,
                        Params, hessMethod, Y.iCross, x.iCross, callParam, splineArgs,
@@ -58,7 +54,7 @@ MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonSt
                                      callParam = callParam,
                                      splineArgs = splineArgs,
                                      priorArgs = priorArgs,
-                                     algArgs = algArgs,
+                                     # algArgs = algArgs,
                                      Params_Transform = Params_Transform)
     }
     else if ((tolower(propMethod) == "random-walk"))

@@ -1,3 +1,10 @@
+##' Surface from Hwang paper.
+##'
+##' Details are available in the paper.
+##' @param model NA
+##' @param X  NA
+##' @param ...  NA
+##' @return NA
 ##' @export
 surface.hwang <- function(model, X, ...)
   {

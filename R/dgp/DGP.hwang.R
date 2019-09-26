@@ -1,30 +1,18 @@
 ##' A collection of DGPs for different models from Hwang's example.
 ##'
-##' The model can be extended.
-##' @name DGP
-##' @title DATA GENERATING PROCESSES
-##' @param n "numeric".
-##'         No. of obs. to be generated
-##' @param Sigma "matrix".
-##'         The variance covariance matrix.
-##' @param model "character".
-##'         The model name to be use.
-##'         When the model is "spline",  you also need to supply paramters,  see otherArgs.
-##' @param otherArgs "list".
-##'         Other arguemnts need to pass to the function.
-##'         otherArgs$seed: Set the seed. If this vaule is unset, use a random
-##' seed.
-##'         otherArgs$xi:
-##'         otherArgs$withOnt:
-##'         otherArgs$spline.type:
-##' @param PlotData "logical"
-##'         If need to plot the data out.
+##' Data generating processes. The model can be extended.
+##' @param n "numeric".  No. of obs. to be generated
+##' @param q NA
+##' @param Sigma "matrix".  The variance covariance matrix.
+##' @param model "character".  The model name to be use.  When the model is "spline", you
+##'     also need to supply paramters, see otherArgs.
+##' @param otherArgs "list".  Other arguemnts need to pass to the function.
+##'     otherArgs$seed: Set the seed. If this vaule is unset, use a random seed.
+##'     otherArgs$xi: otherArgs$withOnt: otherArgs$spline.type:
+##' @param PlotData "logical" If need to plot the data out.
 ##' @return "list"
 ##' @references Hwang 2000
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Mar 30 20:11:06 CEST 2010;
-##'       Current:       Tue Jul 31 13:05:02 CEST 2012.
-##' DEPENDS: mvtnorm
 ##' @export
 DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA, nTesting = NA),  PlotData)
 {

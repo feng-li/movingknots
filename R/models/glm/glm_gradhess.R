@@ -1,3 +1,14 @@
+##' GLM
+##'
+##' GLM
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y NA
+##' @param x NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @export
 glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorArgs,
                             Params_Transform)
@@ -168,9 +179,24 @@ glm_gradhess <- function(Params, hessMethod, Y, x, callParam, splineArgs, priorA
     }
 }
 
-## Gradient w.r.t. vecB
-## Be aware that this will give a q--by--1 matrix
-## Fri Mar 26 13:38:51 CET 2010
+##' Gradient w.r.t. vecB
+##'
+##' Be aware that this will give a q--by--1 matrix
+##' @param B NA
+##' @param Sigma NA
+##' @param x NA
+##' @param xi NA
+##' @param l0 NA
+##' @param l NA
+##' @param link NA
+##' @param gradient.prior.vecB NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @export
 gradient_vecB <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.vecB)
   {
@@ -190,10 +216,25 @@ gradient_vecB <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.vecB)
     return(t(grad.vecB.out))
   }
 
-## The gradient with respect to vech Sigma
-## Mon Mar 29 09:17:32 CEST 2010
-## p--by--1 matrix
-
+##' The gradient with respect to vech Sigma
+##'
+##' sid
+##' @param B NA
+##' @param Sigma NA
+##' @param x NA
+##' @param xi NA
+##' @param l0 NA
+##' @param l NA
+##' @param link NA
+##' @param gradient.prior.Sigma NA
+##' @param gradient.prior.vecB NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @export
 grad_vech_Sigma <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.Sigma)
 {
@@ -214,7 +255,27 @@ grad_vech_Sigma <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.Sigma)
 }
 
 
-## gradient w.r.t. xi
+##' gradient w.r.t. xi
+##' @param Y NA
+##' @param x NA
+##' @param xi NA
+##' @param l0 NA
+##' @param l NA
+##' @param n0 NA
+##' @param S0 NA
+##' @param B NA
+##' @param ka NA
+##' @param gradient.prior.xi NA
+##' @param Sigma NA
+##' @param link NA
+##' @param gradient.prior.Sigma NA
+##' @param gradient.prior.vecB NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @export
 gradient_xi <- function(Y,x,xi,l0,l,n0,S0,B,ka,gradient.prior.xi)
   {
@@ -276,9 +337,29 @@ gradient_xi <- function(Y,x,xi,l0,l,n0,S0,B,ka,gradient.prior.xi)
   }
 
 
-## Gradient w.r.t xi (conditional method)
-## Be aware that this will give k--by-1 matrix
-## Fri Mar 26 15:39:01 CET 2010
+##' Gradient w.r.t xi (conditional method)
+##'
+##' Be aware that this will give k--by-1 matrix
+##' @param B NA
+##' @param Sigma NA
+##' @param x NA
+##' @param xi NA
+##' @param l0 NA
+##' @param l NA
+##' @param link NA
+##' @param gradient.prior.xi NA
+##' @param Y NA
+##' @param n0 NA
+##' @param S0 NA
+##' @param ka NA
+##' @param gradient.prior.Sigma NA
+##' @param gradient.prior.vecB NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
 ##' @export
 gradient_xi_condi <- function(B,Sigma,x,xi,l0,l,link,gradient.prior.xi)
 {

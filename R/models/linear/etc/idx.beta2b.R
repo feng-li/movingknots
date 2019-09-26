@@ -1,14 +1,11 @@
 ##' Convert indices from beta to b
 ##'
-##' <details>
-##' @title
-##' @param p
-##' @param q
-##' @param q.i
-##' @return
-##' @references
+##' Details from the paper
+##' @param p NA
+##' @param q NA
+##' @param q.i NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: ; Current: .
 ##' @export
 idx.beta2b <- function(p, q, q.i)
   {

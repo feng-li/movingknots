@@ -1,15 +1,15 @@
 ##' <description>
 ##'
 ##' <details>
-##' @title
 ##' @param Mat "matrix"
+##' @param X.delta.knots.i  NA
+##' @param p  NA
+##' @param q  NA
+##' @param q_i  NA
 ##' @param X_i "matrix" the matrix used for obtaining P_i matrix
 ##' @param delta_i "matrix" the matrix for the gradient
 ##' @return "matrix"
-##' @references
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Fri Jan 28 11:30:57 CET 2011;
-##'       Current:       Fri Jan 28 11:31:06 CET 2011.
 ##' @export
 Mat.x.DvecA.k.XTX_stp2 <- function(Mat, X.delta.knots.i, p, q, q_i)
   {

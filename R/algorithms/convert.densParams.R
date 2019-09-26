@@ -1,12 +1,10 @@
 ##' Convert the parameters corresponding to different transformations
 ##'
 ##' Details.
-##' @name
-##' @title
-##' @param mean
-##' @param var
-##' @return
-##' @references
+##' @param mean NA
+##' @param var  NA
+##' @param linkage NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
 ##' @note First version: Wed Feb 02 16:09:43 CET 2011;
 ##'       Current: Wed Feb 02 16:09:48 CET 2011.

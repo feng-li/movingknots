@@ -1,16 +1,12 @@
 ##' D[vecf(g(x)]/D[vecg(x)'] %*% D[vec g(x)]/D[vec x']
 ##'
 ##' Just the chain rule
-##' @title
 ##' @param grad "matrix" gradient
-##' @param Param
-##' @param link
+##' @param Param NA
+##' @param link NA
 ##' @param par "matrix" should always be a matrix
-##' @return
-##' @references
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Sun Feb 20 15:03:34 CET 2011;
-##'       Current:       Sun Feb 20 15:03:43 CET 2011.
 ##' @export
 grad.x.deriv_link <- function(grad, Param, link)
   {

@@ -1,42 +1,22 @@
-##' This is the simple Newton move for spline models without dimession changes.
+##' Newton move for spline models without dimession changes.
 ##'
-##'
-##' @name
-##' @title
-##' @param param.cur "matrix".
-##'         The initial values for the Newton update.
-##' @param gradhess.fun.name
-##' @param KStep
-##' @param Params
-##' @param hessMethod
-##' @param Y
-##' @param x
-##' @param callParam
-##' @param splineArgs
-##' @param priorArgs
-##'        priorArgs$prior_type:
-##'        priorArgs$ka0:
-##'        priorArgs$M:
-##'        priorArgs$S0:
-##'        priorArgs$n0:
-##'        priorArgs$mu0:
-##'        priorArgs$Sigma0:
-##'        priorArgs$ka.mu0:
-##'        priorArgs$ka.Sigma0:
-##' @return "list". See bellow.
-##' \item   {gradObs.cur}
-##'         {"matrix". The gradient}
-##' \item   {invHessObs.cur}
-##'         {"matrix". The inverse hessian matrix.}
-##' \item   {param.cur}
-##'         {"matrix". The updated paramters after K step Newton integrations.}
-##' @references
+##' Details see the paper.
+##' @param param.cur "matrix".  The initial values for the Newton update.
+##' @param gradhess.fun.name NA
+##' @param KStep NA
+##' @param Params NA
+##' @param hessMethod NA
+##' @param Y NA
+##' @param x0 NA
+##' @param callParam NA
+##' @param splineArgs NA
+##' @param priorArgs NA
+##' @param Params_Transform NA
+##' @param priorArgs NA
+##' @return "list". See bellow.  `gradObs.cur`: The gradient matrix. `invHessObs.cur`: The
+##'     inverse hessian matrix.  `param.cur`: The updated parameters after K step Newton
+##'     iterations.
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Wed Sep 29 17:18:22 CEST 2010;
-##'       Current:       Wed Sep 29 17:18:34 CEST 2010.
-##' TODO: Error handling when hessian is ill behaved.
-##'       Think about how to add shrinkage in.
-##'       And variable selection
 ##' @export
 KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
                             hessMethod, Y, x0, callParam, splineArgs,

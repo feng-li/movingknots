@@ -1,14 +1,13 @@
-##' Trajectory MCMC.
+##' Trajectory MCMC for movingknots
 ##'
-##' Details.
-##' @name
-##' @title
-##' @param ...
+##' Details
+##' @param iIter  NA
+##' @param nIter  NA
+##' @param iCross  NA
+##' @param OUT.accept.probs  NA
 ##' @param interval e.g. 10%
-##' @return
-##' @references
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: ; Current: .
 ##' @export
 MCMC.trajectory <- function(iIter, nIter, iCross, OUT.accept.probs, interval = 0.1)
 {

@@ -1,13 +1,10 @@
 ##' Convert list of knots into a n-by-1 matrix.
 ##'
 ##' Converted byrow by default.
-##' @title
 ##' @param knots.list List
 ##' @param byrow "logical"
 ##' @return Matrix
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Wed Feb 02 13:01:00 CET 2011;
-##'       Current:       Wed Feb 02 13:01:07 CET 2011.
 ##' @export
 knots_list2mat <- function(knots.list, byrow = TRUE)
   {

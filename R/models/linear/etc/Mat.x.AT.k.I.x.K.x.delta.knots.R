@@ -1,15 +1,14 @@
 ##' <description>
 ##'
 ##' <details>
-##' @title
 ##' @param Mat "matrix" Sigma4beta.tilde
-##' @param A
-##' @param delta.knots
-##' @return
-##' @references
+##' @param A NA
+##' @param delta.knots  NA
+##' @param p  NA
+##' @param q  NA
+##' @param q.i NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Thu Feb 10 10:19:02 CET 2011;
-##'       Current:       Thu Feb 10 10:19:08 CET 2011.
 ##' @export
 Mat.x.AT.k.I.x.K.x.delta.knots <- function(Mat, A, delta.knots, p, q, q.i)
 {

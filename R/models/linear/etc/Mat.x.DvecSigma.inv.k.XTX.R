@@ -1,17 +1,14 @@
 ##' <description>
 ##'
 ##' <details>
-##' @title
-##' @param a
-##' @param B
-##' @param Sigma
-##' @param P.mats
-##' @param delta.xi
-##' @return
-##' @references
+##' @param Mat  NA
+##' @param Sigma.inv  NA
+##' @param X.delta.knots.lst  NA
+##' @param p  NA
+##' @param q  NA
+##' @param q.i  NA
+##' @return NA
 ##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Tue Feb 01 10:25:02 CET 2011;
-##'       Current:       Tue Feb 01 10:25:08 CET 2011.
 ##' @export
 Mat.x.DvecSigma.inv.k.XTX <- function(Mat, Sigma.inv, X.delta.knots.lst, p,
                                       q, q.i)
