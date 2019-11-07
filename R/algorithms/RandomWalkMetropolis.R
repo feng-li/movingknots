@@ -1,19 +1,19 @@
-##' Random walk Metropolis algorithm for movingknots.
-##'
-##' Random Walk Metropolis
-##' @param param.cur NA
-##' @param logpost.fun.name NA
-##' @param Params NA
-##' @param Y NA
-##' @param x0 NA
-##' @param callParam NA
-##' @param splineArgs NA
-##' @param priorArgs NA
-##' @param Params_Transform NA
-##' @return NA
-##' @references Li Villani 2012
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Random walk Metropolis algorithm for movingknots.
+#'
+#' Random Walk Metropolis
+#' @param param.cur NA
+#' @param logpost.fun.name NA
+#' @param Params NA
+#' @param Y NA
+#' @param x0 NA
+#' @param callParam NA
+#' @param splineArgs NA
+#' @param priorArgs NA
+#' @param Params_Transform NA
+#' @return NA
+#' @references Li Villani 2012
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 RandomWalkMetropolis <- function(
     param.cur,
     logpost.fun.name,

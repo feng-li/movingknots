@@ -1,53 +1,53 @@
-##' This is the gradient and hessian matrix for the simple spline model with conjugate
-##' priors.
-##'
-##' This function will only return the gradient and hessian part for the *labeled* knots.
-##' It is possiable to provide the full gradient and hessian matrix if the parameter
-##' otherArgs$subsets contains the full knots labels.
-##'
-##' @name linear_gradhess
-##' @title Gradient and Hessian matrix for the "marginal posterior" for knots in the
-##'        linear model.
-##'
-##' @param Params "list". Contains the matrices for the parameters.
-##'         Params$knots: knots
-##'         Params$shrinkages: The shrinkages
-##'         Params$Sigma: The variance
-##' @param hessMethod "character".
-##'         Method to be used in the Hessian approximation.
-##' @param Y "matrix".
-##'         The response matrix, we consider the multivariate case.
-##' @param x0 "matrix".
-##'         The covaritates, you should *NOT* provide the intercept.
-##'         It will be added automatically if necessary.
-##' @param callParam NA
-##' @param splineArgs "list".
-##'         Parameters for the spline options to pass to the function, where
-##'         splineArgs$method should be the spline method for x, see also d.matrix().
-##'         splineArgs$method: "character". The method of splines, which can be
-##'         "thinplate".
-##'         splineArgs$withInt: "logical". If TRUE, will return design matrix with
-##'         intercept; if FALSE, design matrix without intercept.
-##' @param priorArgs NA
-##' @param Params_Transform NA
-##' @param callParams "character".
-##'         callParams$id: the calling tag for the gradient. Possible values is "xi". "ka"
-##'         callParams$subset: not all updated.
-##' @param priorArgs
-##'         priorArgs$prior_type: gradient type for prior
-##'         priorArgs$M: mean of B,  q-by-q
-##'         priorArgs$n0: df. of inverse wishart distribution.
-##'         priorArgs$S0: Covariance matrix from the prior of B.
-##'         priorArgs$xi.mu0: Mean of the knots locations from the prior
-##'         priorArgs$xi.Sigma0: Covariance matrix from the prior of knots
-##'         priorArgs$K.mu0: mean for ka
-##'         priorArgs$K.Sigma0: variance for ka
-##'
-##' @return "list", see bellow.  `gradObs`: n*p-by-1 matrix, the observed gradient for xi.
-##'     `hessObs: The obsered Hessian matrix for xi.
-##'
-##' @author Feng Li, Dept. of Statistics, Stockholm University, Sweden.
-##' @export
+#' This is the gradient and hessian matrix for the simple spline model with conjugate
+#' priors.
+#'
+#' This function will only return the gradient and hessian part for the *labeled* knots.
+#' It is possiable to provide the full gradient and hessian matrix if the parameter
+#' otherArgs$subsets contains the full knots labels.
+#'
+#' @name linear_gradhess
+#' @title Gradient and Hessian matrix for the "marginal posterior" for knots in the
+#'        linear model.
+#'
+#' @param Params "list". Contains the matrices for the parameters.
+#'         Params$knots: knots
+#'         Params$shrinkages: The shrinkages
+#'         Params$Sigma: The variance
+#' @param hessMethod "character".
+#'         Method to be used in the Hessian approximation.
+#' @param Y "matrix".
+#'         The response matrix, we consider the multivariate case.
+#' @param x0 "matrix".
+#'         The covaritates, you should *NOT* provide the intercept.
+#'         It will be added automatically if necessary.
+#' @param callParam NA
+#' @param splineArgs "list".
+#'         Parameters for the spline options to pass to the function, where
+#'         splineArgs$method should be the spline method for x, see also d.matrix().
+#'         splineArgs$method: "character". The method of splines, which can be
+#'         "thinplate".
+#'         splineArgs$withInt: "logical". If TRUE, will return design matrix with
+#'         intercept; if FALSE, design matrix without intercept.
+#' @param priorArgs NA
+#' @param Params_Transform NA
+#' @param callParams "character".
+#'         callParams$id: the calling tag for the gradient. Possible values is "xi". "ka"
+#'         callParams$subset: not all updated.
+#' @param priorArgs
+#'         priorArgs$prior_type: gradient type for prior
+#'         priorArgs$M: mean of B,  q-by-q
+#'         priorArgs$n0: df. of inverse wishart distribution.
+#'         priorArgs$S0: Covariance matrix from the prior of B.
+#'         priorArgs$xi.mu0: Mean of the knots locations from the prior
+#'         priorArgs$xi.Sigma0: Covariance matrix from the prior of knots
+#'         priorArgs$K.mu0: mean for ka
+#'         priorArgs$K.Sigma0: variance for ka
+#'
+#' @return "list", see bellow.  `gradObs`: n*p-by-1 matrix, the observed gradient for xi.
+#'     `hessObs: The obsered Hessian matrix for xi.
+#'
+#' @author Feng Li, Dept. of Statistics, Stockholm University, Sweden.
+#' @export
 linear_gradhess <- function(Params, hessMethod, Y, x0, callParam, splineArgs, priorArgs,
                             Params_Transform)
 {

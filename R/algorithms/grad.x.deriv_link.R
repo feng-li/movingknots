@@ -1,12 +1,12 @@
-##' Gradient derivative for x wrt link function
-##'
-##' Just the chain rule.
-##' @param grad "matrix" gradient
-##' @param link NA
-##' @param Param "matrix" should always be a matrix
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Gradient derivative for x wrt link function
+#'
+#' Just the chain rule.
+#' @param grad "matrix" gradient
+#' @param link NA
+#' @param Param "matrix" should always be a matrix
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 grad.x.deriv_link <- function(grad, Param, link)
   {
     if(tolower(link) == "identity")

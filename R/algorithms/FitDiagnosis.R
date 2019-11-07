@@ -1,20 +1,20 @@
-##' Diagnosis if the spline model
-##'
-##' This function is only applied to the moving knots model.
-##' @param x NA
-##' @param Y NA
-##' @param OUT.Params NA
-##' @param Data.gen NA
-##' @param logpost.fun.name NA
-##' @param splineArgs NA
-##' @param splineArgs.gen NA
-##' @param Params_Transform NA
-##' @param crossvalid.struc NA
-##' @param burn.in NA
-##' @param criterion NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Diagnosis if the spline model
+#'
+#' This function is only applied to the moving knots model.
+#' @param x NA
+#' @param Y NA
+#' @param OUT.Params NA
+#' @param Data.gen NA
+#' @param logpost.fun.name NA
+#' @param splineArgs NA
+#' @param splineArgs.gen NA
+#' @param Params_Transform NA
+#' @param crossvalid.struc NA
+#' @param burn.in NA
+#' @param criterion NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 FitDiagnosis <- function(x, Y, OUT.Params, Data.gen, logpost.fun.name, splineArgs,
                          splineArgs.gen,  Params_Transform, crossvalid.struc, burn.in,
                          criterion = c("LOSS", "KL", "L2"))

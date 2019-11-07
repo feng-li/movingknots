@@ -1,19 +1,19 @@
-##' A collection of DGPs for different models from Hwang's example.
-##'
-##' Data generating processes. The model can be extended.
-##' @param n "numeric".  No. of obs. to be generated
-##' @param q NA
-##' @param Sigma "matrix".  The variance covariance matrix.
-##' @param model "character".  The model name to be use.  When the model is "spline", you
-##'     also need to supply paramters, see otherArgs.
-##' @param otherArgs "list".  Other arguemnts need to pass to the function.
-##'     otherArgs$seed: Set the seed. If this vaule is unset, use a random seed.
-##'     otherArgs$xi: otherArgs$withOnt: otherArgs$spline.type:
-##' @param PlotData "logical" If need to plot the data out.
-##' @return "list"
-##' @references Hwang 2000
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' A collection of DGPs for different models from Hwang's example.
+#'
+#' Data generating processes. The model can be extended.
+#' @param n "numeric".  No. of obs. to be generated
+#' @param q NA
+#' @param Sigma "matrix".  The variance covariance matrix.
+#' @param model "character".  The model name to be use.  When the model is "spline", you
+#'     also need to supply paramters, see otherArgs.
+#' @param otherArgs "list".  Other arguemnts need to pass to the function.
+#'     otherArgs$seed: Set the seed. If this vaule is unset, use a random seed.
+#'     otherArgs$xi: otherArgs$withOnt: otherArgs$spline.type:
+#' @param PlotData "logical" If need to plot the data out.
+#' @return "list"
+#' @references Hwang 2000
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 DGP.hwang <- function(n, q, Sigma, model, otherArgs = list(seed = NA, nTesting = NA),  PlotData)
 {
   ## Get user supplied seed.

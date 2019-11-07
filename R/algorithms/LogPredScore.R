@@ -1,19 +1,19 @@
-##' Log predictive scores
-##'
-##' Details see the paper
-##' @param Y NA
-##' @param x NA
-##' @param logpost.fun.name NA
-##' @param crossvaid.struc NA
-##' @param splineArgs NA
-##' @param priorArgs NA
-##' @param OUT.Params NA
-##' @param Params_Transform NA
-##' @param burn.in NA
-##' @param LPDS.sampleProp NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Log predictive scores
+#'
+#' Details see the paper
+#' @param Y NA
+#' @param x NA
+#' @param logpost.fun.name NA
+#' @param crossvaid.struc NA
+#' @param splineArgs NA
+#' @param priorArgs NA
+#' @param OUT.Params NA
+#' @param Params_Transform NA
+#' @param burn.in NA
+#' @param LPDS.sampleProp NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 LogPredScore <- function(Y, x, logpost.fun.name, crossvaid.struc, splineArgs, priorArgs,
                  OUT.Params, Params_Transform, burn.in, LPDS.sampleProp)
 {

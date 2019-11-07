@@ -1,40 +1,40 @@
-##' Give the gradient for basis function w.r.t. the knots (subsets) locations for
-##' different types of splines.
-##'
-##' The function can be extended by adding new basis. This function gives the gradient for
-##' the (vecX) w.r.t. vec(xi')'. You may need the transpose of the results if you want
-##' gradient for the (vecX)' w.r.t. vec(xi'). This function is mostly used inside the
-##' function of gradient, so always consider the parameters input convenience when you
-##' update it.
-##'
-##' @title Gradient with respect to the knots locations.
-##'
-##' @param x "matrix".
-##'         The data matrix,  you don't have to provide a constant column.
-##' @param knots "list".
-##'         knots$thinplate.s:
-##'         knots$thinplate.a:
-##' @param splineArgs  NA
-##' @param knotsArgs "list".
-##'         Arguments need to pass to the function, see bellow.
-##'         knotsArgs$comp: "character", is the components in the design matrix;
-##'         knotsArgs$thinplate.a.locate: "character",  is the location for the additive spline
-##'         if used, same as d.matrix() function.
-##'         knotsArgs$thinplate.s.subset: "integer", is the subset label of the knots locations
-##'         to be updated in the thinplate surface component;
-##'         knotsArgs$thinplate.a.subset: "integer", is the subset label of the knots locations
-##'         to be updated in the thinplate additive component;
-##'
-##' @return "list" the gradient parts for different knots components
-##'         $thinplate.s: "matrix".
-##'         The gradient w.r.t the input of args$thinplate.s.subset and other
-##'         relevant values. Note this will only give the dense part of the full gradient
-##'         matrix w.r.t. the subset. It can also give the full gradient matrix w.r.t. all
-##'         knots location if args$KnotsSubset is set to same as the full set.
-##'         $thinplate.a: "matrix". Same as above but for the additive spline part.
-##'
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Give the gradient for basis function w.r.t. the knots (subsets) locations for
+#' different types of splines.
+#'
+#' The function can be extended by adding new basis. This function gives the gradient for
+#' the (vecX) w.r.t. vec(xi')'. You may need the transpose of the results if you want
+#' gradient for the (vecX)' w.r.t. vec(xi'). This function is mostly used inside the
+#' function of gradient, so always consider the parameters input convenience when you
+#' update it.
+#'
+#' @title Gradient with respect to the knots locations.
+#'
+#' @param x "matrix".
+#'         The data matrix,  you don't have to provide a constant column.
+#' @param knots "list".
+#'         knots$thinplate.s:
+#'         knots$thinplate.a:
+#' @param splineArgs  NA
+#' @param knotsArgs "list".
+#'         Arguments need to pass to the function, see bellow.
+#'         knotsArgs$comp: "character", is the components in the design matrix;
+#'         knotsArgs$thinplate.a.locate: "character",  is the location for the additive spline
+#'         if used, same as d.matrix() function.
+#'         knotsArgs$thinplate.s.subset: "integer", is the subset label of the knots locations
+#'         to be updated in the thinplate surface component;
+#'         knotsArgs$thinplate.a.subset: "integer", is the subset label of the knots locations
+#'         to be updated in the thinplate additive component;
+#'
+#' @return "list" the gradient parts for different knots components
+#'         $thinplate.s: "matrix".
+#'         The gradient w.r.t the input of args$thinplate.s.subset and other
+#'         relevant values. Note this will only give the dense part of the full gradient
+#'         matrix w.r.t. the subset. It can also give the full gradient matrix w.r.t. all
+#'         knots location if args$KnotsSubset is set to same as the full set.
+#'         $thinplate.a: "matrix". Same as above but for the additive spline part.
+#'
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 delta.xi <- function(x, knots, splineArgs)
 {
 

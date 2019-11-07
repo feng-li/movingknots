@@ -1,15 +1,15 @@
-##' Perform a dense matrix multiplying by Dev[vec[A %*% P_i]]/Dev[vecX_i'] %*% (I_q_i^2 +
-##' K_qi,qi)
-##'
-##' Part 1.
-##' @param Mat "Matrix"
-##' @param A "Matrix" Spares
-##' @param p  NA
-##' @param q  NA
-##' @param q_i  NA
-##' @return "Matrix"
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Perform a dense matrix multiplying by Dev[vec[A %*% P_i]]/Dev[vecX_i'] %*% (I_q_i^2 +
+#' K_qi,qi)
+#'
+#' Part 1.
+#' @param Mat "Matrix"
+#' @param A "Matrix" Spares
+#' @param p  NA
+#' @param q  NA
+#' @param q_i  NA
+#' @return "Matrix"
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Mat.x.DvecA.k.P_stp1 <- function(Mat, A, p, q, q_i)
 {
   dim.Mat <- dim(Mat)

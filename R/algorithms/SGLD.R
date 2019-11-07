@@ -1,21 +1,21 @@
-##' Stochastic MCMC using Stochastic gradient Langevin dynamics
-##'
-##' Fast version using stochastic gradient langevin dynamics.
-##' @param param.cur NA
-##' @param logpost.fun.name MA
-##' @param Params NA
-##' @param Y NA
-##' @param x0 NA
-##' @param callParam NA
-##' @param splineArgs NA
-##' @param priorArgs NA
-##' @param algArgs  NA
-##' @param Params_Transform NA
-##' @param Params_Transfor NA
-##' @return NA
-##' @references Ma, Chen, & Fox 2015 A Complete Recipe for Stochastic Gradient MCMC.
-##' @author Feng Li, Central University of Finance and Economics.
-##' @export
+#' Stochastic MCMC using Stochastic gradient Langevin dynamics
+#'
+#' Fast version using stochastic gradient langevin dynamics.
+#' @param param.cur NA
+#' @param logpost.fun.name MA
+#' @param Params NA
+#' @param Y NA
+#' @param x0 NA
+#' @param callParam NA
+#' @param splineArgs NA
+#' @param priorArgs NA
+#' @param algArgs  NA
+#' @param Params_Transform NA
+#' @param Params_Transfor NA
+#' @return NA
+#' @references Ma, Chen, & Fox 2015 A Complete Recipe for Stochastic Gradient MCMC.
+#' @author Feng Li, Central University of Finance and Economics.
+#' @export
 SGLD = function(param.cur,
                 logpost.fun.name,
                 Params,

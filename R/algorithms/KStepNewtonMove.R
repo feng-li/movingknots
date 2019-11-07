@@ -1,23 +1,23 @@
-##' Newton move for spline models without dimession changes.
-##'
-##' Details see the paper.
-##' @param param.cur "matrix".  The initial values for the Newton update.
-##' @param gradhess.fun.name NA
-##' @param KStep NA
-##' @param Params NA
-##' @param hessMethod NA
-##' @param Y NA
-##' @param x0 NA
-##' @param callParam NA
-##' @param splineArgs NA
-##' @param priorArgs NA
-##' @param Params_Transform NA
-##' @param priorArgs NA
-##' @return "list". See bellow.  `gradObs.cur`: The gradient matrix. `invHessObs.cur`: The
-##'     inverse hessian matrix.  `param.cur`: The updated parameters after K step Newton
-##'     iterations.
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Newton move for spline models without dimession changes.
+#'
+#' Details see the paper.
+#' @param param.cur "matrix".  The initial values for the Newton update.
+#' @param gradhess.fun.name NA
+#' @param KStep NA
+#' @param Params NA
+#' @param hessMethod NA
+#' @param Y NA
+#' @param x0 NA
+#' @param callParam NA
+#' @param splineArgs NA
+#' @param priorArgs NA
+#' @param Params_Transform NA
+#' @param priorArgs NA
+#' @return "list". See bellow.  `gradObs.cur`: The gradient matrix. `invHessObs.cur`: The
+#'     inverse hessian matrix.  `param.cur`: The updated parameters after K step Newton
+#'     iterations.
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 KStepNewtonMove <- function(param.cur, gradhess.fun.name, KStep, Params,
                             hessMethod, Y, x0, callParam, splineArgs,
                             priorArgs, Params_Transform)

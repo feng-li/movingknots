@@ -1,14 +1,14 @@
-##' Convert the parameters corresponding to different transformations
-##'
-##' Details.
-##' @param mean NA
-##' @param var  NA
-##' @param linkage NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @note First version: Wed Feb 02 16:09:43 CET 2011;
-##'       Current: Wed Feb 02 16:09:48 CET 2011.
-##' @export
+#' Convert the parameters corresponding to different transformations
+#'
+#' Details.
+#' @param mean NA
+#' @param var  NA
+#' @param linkage NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @note First version: Wed Feb 02 16:09:43 CET 2011;
+#'       Current: Wed Feb 02 16:09:48 CET 2011.
+#' @export
 convert.densParams <- function(mean, var, linkage)
   {
     if(linkage == "log")

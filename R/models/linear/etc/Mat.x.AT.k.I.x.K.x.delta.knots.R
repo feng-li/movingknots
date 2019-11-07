@@ -1,15 +1,15 @@
-##' <description>
-##'
-##' <details>
-##' @param Mat "matrix" Sigma4beta.tilde
-##' @param A NA
-##' @param delta.knots  NA
-##' @param p  NA
-##' @param q  NA
-##' @param q.i NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param Mat "matrix" Sigma4beta.tilde
+#' @param A NA
+#' @param delta.knots  NA
+#' @param p  NA
+#' @param q  NA
+#' @param q.i NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Mat.x.AT.k.I.x.K.x.delta.knots <- function(Mat, A, delta.knots, p, q, q.i)
 {
 

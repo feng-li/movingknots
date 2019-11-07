@@ -1,15 +1,15 @@
-##' <description>
-##'
-##' <details>
-##' @param Mat  NA
-##' @param Sigma.inv  NA
-##' @param X.delta.knots.lst  NA
-##' @param p  NA
-##' @param q  NA
-##' @param q.i  NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param Mat  NA
+#' @param Sigma.inv  NA
+#' @param X.delta.knots.lst  NA
+#' @param p  NA
+#' @param q  NA
+#' @param q.i  NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Mat.x.DvecSigma.inv.k.XTX <- function(Mat, Sigma.inv, X.delta.knots.lst, p,
                                       q, q.i)
 {

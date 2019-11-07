@@ -1,12 +1,12 @@
-##' This is the gradient for a single partition of beta's variance.
-##'
-##' Details from the paper.
-##' @param diag.K_i NA
-##' @param Sigma.inv NA
-##' @param P_i NA
-##' @return "matrix"
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' This is the gradient for a single partition of beta's variance.
+#'
+#' Details from the paper.
+#' @param diag.K_i NA
+#' @param Sigma.inv NA
+#' @param P_i NA
+#' @return "matrix"
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 delta.vecPartiSigma4beta.inv <- function(diag.K_i, Sigma.inv, P_i)
   {
     p <- dim(Sigma.inv)[1]

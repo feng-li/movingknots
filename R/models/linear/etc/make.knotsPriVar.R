@@ -1,11 +1,11 @@
-##' Set the prior variance of the knots.
-##'
-##' Details from the paper
-##' @param x  NA
-##' @param splineArgs  NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Set the prior variance of the knots.
+#'
+#' Details from the paper
+#' @param x  NA
+#' @param splineArgs  NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 make.knotsPriVar <- function(x, splineArgs)
 {
     comp <- splineArgs$comp

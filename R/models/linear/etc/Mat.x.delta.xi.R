@@ -1,14 +1,14 @@
-##' <description>
-##'
-##' <details>
-##' @param Mat NA
-##' @param delta.knots  NA
-##' @param n  NA
-##' @param p  NA
-##' @param q.i  NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param Mat NA
+#' @param delta.knots  NA
+#' @param n  NA
+#' @param p  NA
+#' @param q.i  NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Mat.delta.xi <- function(Mat, delta.knots, n, p, q.i)
 {
   knots.comp.name <- names(delta.knots)

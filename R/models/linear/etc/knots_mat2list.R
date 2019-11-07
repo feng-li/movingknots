@@ -1,11 +1,11 @@
-##' Convert the knots matrix into the knots list
-##'
-##' Details available from the paper.
-##' @param knots.mat NA
-##' @param splineArgs  NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Convert the knots matrix into the knots list
+#'
+#' Details available from the paper.
+#' @param knots.mat NA
+#' @param splineArgs  NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 knots_mat2list <- function(knots.mat, splineArgs)
   {
     out <- list()

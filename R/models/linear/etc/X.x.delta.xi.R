@@ -1,13 +1,13 @@
-##' Preform X multiply Dev xi
-##'
-##' <details>
-##' @param X NA
-##' @param delta.knots  NA
-##' @param q.i  NA
-##' @return NA
-##' @references NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Preform X multiply Dev xi
+#'
+#' <details>
+#' @param X NA
+#' @param delta.knots  NA
+#' @param q.i  NA
+#' @return NA
+#' @references NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 X.x.delta.xi <- function(X, delta.knots, q.i)
 {
   knots.comp <- names(delta.knots)

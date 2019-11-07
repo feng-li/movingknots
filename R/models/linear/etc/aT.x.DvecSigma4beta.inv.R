@@ -1,18 +1,18 @@
-##' <description>
-##'
-##' <details>
-##' @param aT  NA
-##' @param Sigma.inv NA
-##' @param diag.K.list  NA
-##' @param Xmats.delta.knots NA
-##' @param P.type  NA
-##' @param p  NA
-##' @param q  NA
-##' @param q.i  NA
-##' @param n.par4knots NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param aT  NA
+#' @param Sigma.inv NA
+#' @param diag.K.list  NA
+#' @param Xmats.delta.knots NA
+#' @param P.type  NA
+#' @param p  NA
+#' @param q  NA
+#' @param q.i  NA
+#' @param n.par4knots NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 aT.x.DvecSigma4beta.inv <- function(aT, Sigma.inv, diag.K.list, Xmats.delta.knots, P.type,
                                     p, q, q.i, n.par4knots)
 {

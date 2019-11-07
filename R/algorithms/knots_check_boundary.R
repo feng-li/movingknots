@@ -1,15 +1,15 @@
-##' Boundary check for the moving knots model
+#' Boundary check for the moving knots model
 
-##' It is easy to check with in 2D. But how to manage it in >3D space.  Check if weather
-##' each dim if fit.  The usual way shoud be check if new convex hull is same as the old
-##' convex hull by adding new data in. But that is always time comsumming. But if we know
-##' the boundary of each dimmesion, that can be easier.
-##' @param P4X NA
-##' @param method "character"
-##' @param ... Input with respect to different methods.
-##' @return "character" "ok": the knots are at good position. "bad": bad knots locations.
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' It is easy to check with in 2D. But how to manage it in >3D space.  Check if weather
+#' each dim if fit.  The usual way shoud be check if new convex hull is same as the old
+#' convex hull by adding new data in. But that is always time comsumming. But if we know
+#' the boundary of each dimmesion, that can be easier.
+#' @param P4X NA
+#' @param method "character"
+#' @param ... Input with respect to different methods.
+#' @return "character" "ok": the knots are at good position. "bad": bad knots locations.
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 knots_check_boundary <- function(P4X, method = "singular")
   {
     ## Check if the design matrix is singular

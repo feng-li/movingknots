@@ -1,23 +1,23 @@
-##' The Main MCMC algorithm for movingknots.
-##'
-##' Details are available in the paper.
-##' @param param.cur NA
-##' @param gradhess.fun.name NA
-##' @param logpost.fun.name NA
-##' @param nNewtonStep NA
-##' @param Params NA
-##' @param hessMethod NA
-##' @param Y.iCross NA
-##' @param x.iCross NA
-##' @param callParam NA
-##' @param splineArgs NA
-##' @param priorArgs NA
-##' @param algArgs NA
-##' @param Params_Transform NA
-##' @param propMethod NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' The Main MCMC algorithm for movingknots.
+#'
+#' Details are available in the paper.
+#' @param param.cur NA
+#' @param gradhess.fun.name NA
+#' @param logpost.fun.name NA
+#' @param nNewtonStep NA
+#' @param Params NA
+#' @param hessMethod NA
+#' @param Y.iCross NA
+#' @param x.iCross NA
+#' @param callParam NA
+#' @param splineArgs NA
+#' @param priorArgs NA
+#' @param algArgs NA
+#' @param Params_Transform NA
+#' @param propMethod NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 MHPropMain <- function(param.cur, gradhess.fun.name, logpost.fun.name, nNewtonStep,
                        Params, hessMethod, Y.iCross, x.iCross, callParam, splineArgs,
                        priorArgs, algArgs, Params_Transform, propMethod)

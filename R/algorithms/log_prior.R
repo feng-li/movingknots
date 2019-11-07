@@ -1,21 +1,21 @@
-##' A collection of log densities for common priors.
-##'
-##' The parameters after "..." should be matched exactly.
-##'
-##' @title logarithm density for priors
-##'
-##' @param B "matrix".  The paramter that need to be added with a prior. The prior density
-##'     is calculated conditional on B. B should be always an one-column matrix,
-##' @param priorArgs "list".  when priorArgs$prior_type: is set to "mvnorm", you have to
-##'     provide priorArgs$mean: "matrix", the mean of parameter, mu0 should be always an
-##'     one-column matrix; priorArgs$covariance: "matrix", the covariance matrix. A
-##'     g-prior can be constructed by setting it to X'X, where X is the covariates
-##'     matrix.; priorArgs$shrinkage: "numeric", the shrinkage for the covariance.
-##'
-##' @return "scalor". The log density of priors.
-##'
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' A collection of log densities for common priors.
+#'
+#' The parameters after "..." should be matched exactly.
+#'
+#' @title logarithm density for priors
+#'
+#' @param B "matrix".  The paramter that need to be added with a prior. The prior density
+#'     is calculated conditional on B. B should be always an one-column matrix,
+#' @param priorArgs "list".  when priorArgs$prior_type: is set to "mvnorm", you have to
+#'     provide priorArgs$mean: "matrix", the mean of parameter, mu0 should be always an
+#'     one-column matrix; priorArgs$covariance: "matrix", the covariance matrix. A
+#'     g-prior can be constructed by setting it to X'X, where X is the covariates
+#'     matrix.; priorArgs$shrinkage: "numeric", the shrinkage for the covariance.
+#'
+#' @return "scalor". The log density of priors.
+#'
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 log_prior <- function(B, priorArgs)
 {
   if (tolower(priorArgs$prior_type) == "mvnorm") # vecB ~ N(mu0, c0*Sigma0)

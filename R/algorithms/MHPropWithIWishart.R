@@ -1,18 +1,18 @@
-##' Random walk Metropolis–Hastings algorithm for Sigma
-##'
-##' Details are available in the paper.
-##' @param param.cur  NA
-##' @param logpost.fun.name NA
-##' @param Params  NA
-##' @param Y  NA
-##' @param x0  NA
-##' @param callParam NA
-##' @param splineArgs  NA
-##' @param priorArgs  NA
-##' @param Params_Transform NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Random walk Metropolis–Hastings algorithm for Sigma
+#'
+#' Details are available in the paper.
+#' @param param.cur  NA
+#' @param logpost.fun.name NA
+#' @param Params  NA
+#' @param Y  NA
+#' @param x0  NA
+#' @param callParam NA
+#' @param splineArgs  NA
+#' @param priorArgs  NA
+#' @param Params_Transform NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 MHPropWithIWishart <- function(param.cur, logpost.fun.name, Params, Y, x0, callParam,
                                splineArgs, priorArgs, Params_Transform)
 {

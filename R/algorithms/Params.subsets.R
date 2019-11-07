@@ -1,13 +1,13 @@
-##' Organize the subsets of the parameters by taking away the fixed parameters.
-##'
-##' Details are available in the paper.
-##' @param p NA
-##' @param splineArgs NA
-##' @param Params_Fixed NA
-##' @param Params_subsetsArgs  NA
-##' @return NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' Organize the subsets of the parameters by taking away the fixed parameters.
+#'
+#' Details are available in the paper.
+#' @param p NA
+#' @param splineArgs NA
+#' @param Params_Fixed NA
+#' @param Params_subsetsArgs  NA
+#' @return NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Params.subsets <- function(p, splineArgs, Params_Fixed, Params_subsetsArgs)
   {
     out <- list()

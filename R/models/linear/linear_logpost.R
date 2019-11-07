@@ -1,39 +1,39 @@
-##' The conditional and joint log posterior function
-##'
-##' Details are available in the paper.
-##' @param Y  NA
-##' @param x0  NA
-##' @param Params NA
-##' @param callParam NA
-##' @param splineArgs "list".
-##' @param priorArgs  NA
-##' @param Params_Transform NA
-##' @param ParamsTransArgs "list"
-##' @param Params NA
-##'         Params$xi:
-##'         Parmas$K:
-##' @param priorArgs
-##'         priorArgs$prior_type:
-##'         priorArgs$n0:
-##'         priorArgs$S0:
-##'         priorArgs$mu:
-##'         priorArgs$M:
-##'         priorArgs$mu0:
-##'         priorArgs$Sigma0:
-##'         priorArgs$ka0:
-##'         priorArgs$ka.mu0:
-##'         priorArgs$ka.Sigma0:
-##'         priorArgs$Sigma.mu0:
-##'         priorArgs$Sigma.Sigma0:
-##' @param callParam
-##'        callParam$id: It should be able to obtain conditianl posterior or joint
-##'        posterior or just likelihood.
-##'        callParam$subset: If the paramater set is larg, we may only update a subset of
-##'        them.
-##'
-##' @return "scalar".
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' The conditional and joint log posterior function
+#'
+#' Details are available in the paper.
+#' @param Y  NA
+#' @param x0  NA
+#' @param Params NA
+#' @param callParam NA
+#' @param splineArgs "list".
+#' @param priorArgs  NA
+#' @param Params_Transform NA
+#' @param ParamsTransArgs "list"
+#' @param Params NA
+#'         Params$xi:
+#'         Parmas$K:
+#' @param priorArgs
+#'         priorArgs$prior_type:
+#'         priorArgs$n0:
+#'         priorArgs$S0:
+#'         priorArgs$mu:
+#'         priorArgs$M:
+#'         priorArgs$mu0:
+#'         priorArgs$Sigma0:
+#'         priorArgs$ka0:
+#'         priorArgs$ka.mu0:
+#'         priorArgs$ka.Sigma0:
+#'         priorArgs$Sigma.mu0:
+#'         priorArgs$Sigma.Sigma0:
+#' @param callParam
+#'        callParam$id: It should be able to obtain conditianl posterior or joint
+#'        posterior or just likelihood.
+#'        callParam$subset: If the paramater set is larg, we may only update a subset of
+#'        them.
+#'
+#' @return "scalar".
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 linear_logpost <- function(Y, x0, Params, callParam, splineArgs, priorArgs, Params_Transform)
 {
 

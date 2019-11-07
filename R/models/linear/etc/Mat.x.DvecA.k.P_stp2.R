@@ -1,12 +1,12 @@
-##' <description>
-##'
-##' <details>
-##' @param Mat "matrix"
-##' @param X_i "matrix" the matrix used for obtaining P_i matrix
-##' @param delta_i "matrix" the matrix for the gradient
-##' @return "matrix"
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param Mat "matrix"
+#' @param X_i "matrix" the matrix used for obtaining P_i matrix
+#' @param delta_i "matrix" the matrix for the gradient
+#' @return "matrix"
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 Mat.x.DvecA.k.P_stp2 <- function(Mat, Xmats.delta.knots.i, p, q, q_i)
   {
     dim.Mat <- dim(Mat)

@@ -1,15 +1,15 @@
-##' <description>
-##'
-##' <details>
-##' @param P.mats NA
-##' @param q.i  NA
-##' @param Xmats.delta.knots.lst  NA
-##' @param priorArgs  NA
-##' @param n.par4knots  NA
-##' @return NA
-##' @references NA
-##' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
-##' @export
+#' <description>
+#'
+#' <details>
+#' @param P.mats NA
+#' @param q.i  NA
+#' @param Xmats.delta.knots.lst  NA
+#' @param priorArgs  NA
+#' @param n.par4knots  NA
+#' @return NA
+#' @references NA
+#' @author Feng Li, Department of Statistics, Stockholm University, Sweden.
+#' @export
 delta.sumlogdetP <- function(P.mats, q.i, Xmats.delta.knots.lst, priorArgs, n.par4knots)
   {
     knots.comp <- names(Xmats.delta.knots.lst)
