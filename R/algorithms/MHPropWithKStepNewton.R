@@ -61,7 +61,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
                                         # draw.
         logjump.cur2prop = dmvt(x = matrix(param.cur.prop - param.prop, 1, ),
                                 sigma = -invHessObs.cur.prop,
-                                df = prop.df, log = TRUE)
+                                df = prop.df, log = TRUE, checkSymmetry = FALSE)
 
 
     }
@@ -100,7 +100,7 @@ MHPropWithKStepNewton <- function(param.cur, gradhess.fun.name, logpost.fun.name
                                         # draw.
         logjump.prop2cur = dmvt(x = matrix(param.prop.prop - param.cur, 1, ),
                                 sigma = -invHessObs.prop.prop,
-                                df = prop.df, log = TRUE)
+                                df = prop.df, log = TRUE, checkSymmetry = FALSE)
 
 
         Params.prop <- Params
