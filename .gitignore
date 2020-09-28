@@ -3,7 +3,7 @@
 *.\#*\#
 *.\#*
 *.PID*
-
+#*#
 *.Rc
 .Rhistory
 .emacs.desktop
