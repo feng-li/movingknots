@@ -41,7 +41,7 @@ require("Matrix")
 require("mvtnorm")
 require("parallel")
 
-dev = TRUE
+dev = FALSE
 parallel = TRUE
 
 if(dev == TRUE)
@@ -67,8 +67,10 @@ if(parallel == TRUE)
         require("Matrix")
         require("mvtnorm")
 
-        source("~/code/flutils/R/systools/sourceDir.R")
-        sourceDir("~/code/movingknots/R", "~/code/flutils/R", recursive = TRUE)
+        require("flutils")
+        require("movingknots")
+        ## source("~/code/flutils/R/systools/sourceDir.R")
+        ## sourceDir("~/code/movingknots/R", "~/code/flutils/R", recursive = TRUE)
     })
 }
 
