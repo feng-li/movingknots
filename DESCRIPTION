@@ -8,5 +8,5 @@ Maintainer: Feng Li <feng.li@cufe.edu.cn>
 Description: Efficient Bayesian multivariate surface regression that combines both additive splines and interactive splines, and a highly efficient Markov chain Monte Carlo algorithm to update all the knot locations jointly.
 License: GPL (>=2.0)
 LazyLoad: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 Encoding: UTF-8

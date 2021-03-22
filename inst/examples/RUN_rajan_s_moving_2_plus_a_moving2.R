@@ -41,7 +41,7 @@ require("Matrix")
 require("mvtnorm")
 require("parallel")
 
-dev = TRUE
+dev = FALSE
 parallel = TRUE
 
 if(dev == TRUE)
