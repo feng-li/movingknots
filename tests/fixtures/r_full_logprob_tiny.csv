@@ -1,0 +1,9 @@
+component,value
+log_likelihood,-9.46221046613904
+beta_shrinkage_prior,-20.5882178026818
+log_shrinkage_prior,-6.52846828386443
+sigma_prior,-7.87217817204083
+sigma_cholesky_log_jacobian,1.61958171629079
+additive_knot_prior,-3.94291073106951
+surface_knot_prior,-5.26175976263814
+full_log_prob,-52.0361635021429

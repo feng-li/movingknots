@@ -1,0 +1,8 @@
+component,value
+marginal_log_likelihood,-18.4404495121042
+log_shrinkage_prior,-6.52846828386443
+sigma_prior,-7.87217817204083
+sigma_cholesky_log_jacobian,1.61958171629079
+additive_knot_prior,-3.94291073106951
+surface_knot_prior,-5.26175976263814
+marginal_log_prob,-40.4261847454263

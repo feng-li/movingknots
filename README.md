@@ -1,89 +1,117 @@
-# `movingknots`: Efficient Bayesian multivariate surface regression
+# movingknots Python
 
-Efficient Bayesian multivariate surface regression that combines both additive splines and
-interactive splines, and a highly efficient Markov chain Monte Carlo algorithm to update
-all the knot locations jointly.
+This repository root is the main entry point for the active Python/JAX implementation of
+`movingknots`. The package source is in `movingknots/`, tests are in `tests/`, and runnable
+examples are in `examples/`.
 
+The original R code is retained under `legacy/` as legacy/reference material. The Python
+tests include R-generated fixtures where parity with the original implementation is
+important.
 
-The code is written in native R and should be compatible with R version >= 2.12
+## Setup
 
+From the repository root:
 
-Copyright & Citation
---------------------
+```bash
+python -m pip install -e .
+python -m unittest discover -s tests
+```
 
-This code is base on our published paper:
+Run the marginal Gaussian workflow example:
 
-* Li, F., & Villani, M. (2013). [Efficient Bayesian multivariate surface
-  regression](http://dx.doi.org/10.1111/sjos.12022). _Scandinavian Journal of Statistics_, 40(4), 706-723.
+```bash
+python -m examples.gaussian_marginal_workflow
+```
 
-* Please use this BibTeX entry to cite our work:
+## Current Scope
 
-```bibtex
-@article{li2013efficient,
-  title={Efficient Bayesian multivariate surface regression},
-  author={Li, Feng and Villani, Mattias},
-  journal={Scandinavian Journal of Statistics},
-  volume={40},
-  number={4},
-  pages={706--723},
-  year={2013},
-  publisher={Wiley Online Library}
+- thin-plate surface and additive basis construction
+- selected `flutils` helper ports used by `movingknots`
+- Gaussian moving-knot regression with JAX automatic differentiation
+- mean-field variational inference
+- fixed-knot, full-parameter, and marginalized-coefficient Gaussian fitters
+- R parity fixtures for likelihood, prior, parameter schema, and posterior calculations
+
+## Gaussian Workflows
+
+Use the fixed-knot path when knot locations are treated as known:
+
+- `fit_fixed_knots_gaussian_vi`
+- `fit_gaussian_vi(..., free_knots=False)`
+
+Use the full Gaussian path when coefficients, shrinkage, covariance, and moving knots
+should all live in the variational state:
+
+- `fit_full_gaussian_vi`
+- `fit_gaussian_vi(..., free_knots="full")`
+
+Use the marginalized Gaussian path when coefficients should be integrated out during VI:
+
+- `fit_marginal_gaussian_vi`
+- `fit_gaussian_vi(..., free_knots="marginal")`
+
+The marginalized path usually has fewer variational parameters and lower Monte Carlo
+variance for scoring because `B | Y, knots, shrinkage, Sigma` is available in closed form.
+The full path remains useful as a direct representation of all model parameters and as a
+cross-check against the marginalized implementation.
+
+## Prediction And Scoring
+
+Common helpers:
+
+- `predict_mean(fit, x_new)`: posterior mean prediction at the variational mean.
+- `predict_samples(fit, x_new, key, n_samples, include_noise=False)`: posterior latent or
+  noisy predictive samples.
+- `gaussian_lpds(fit, x_test, y_test, key, n_samples)`: log predictive density summary.
+- `cross_validate_gaussian_vi(...)`: K-fold model scoring wrapper.
+
+Marginalized Gaussian helpers:
+
+- `marginal_fit_beta_posterior(fit, z=None)`: exact conditional posterior for the
+  coefficient matrix `B`.
+- `marginal_fit_predictive_moments(fit, x_new, z=None, include_noise=False)`: exact
+  predictive mean and covariance at fixed non-coefficient parameters.
+- `marginal_fit_log_predictive_density(fit, x_new, y_new, z=None)`: exact Gaussian log
+  predictive density with `B` integrated out.
+
+## Minimal Marginal Gaussian Example
+
+```python
+import jax
+import jax.numpy as jnp
+
+from movingknots.basis import design_matrix
+from movingknots.fit import fit_marginal_gaussian_vi, gaussian_lpds, predict_mean
+
+x = jnp.linspace(-1.0, 1.0, 20)[:, None]
+true_knots = {"thinplate.a": jnp.array([[-0.45]])}
+initial_knots = {"thinplate.a": jnp.array([[0.75]])}
+spline_config = {
+    "comp": ("intercept", "covariates", "thinplate.a"),
+    "thinplate.a.locate": (1,),
 }
+beta_true = jnp.array([[0.0], [0.0], [4.0]])
+y = design_matrix(x, true_knots, spline_config) @ beta_true
+
+fit = fit_marginal_gaussian_vi(
+    x,
+    y,
+    knots=initial_knots,
+    spline_config=spline_config,
+    free_additive=True,
+    key=jax.random.PRNGKey(0),
+    n_steps=20,
+    n_samples=1,
+    p_matrix_types=("X'X", "identity"),
+)
+
+y_hat = predict_mean(fit, x)
+score = gaussian_lpds(fit, x, y, key=jax.random.PRNGKey(1), n_samples=4)
 ```
 
-Installation
--------------
+## R Fixtures
 
-- This package depends on Feng Li's [`flutils`](https://github.com/feng-li/flutils)
-package. Please follow the link to download the latest version and install it.
-
-``` r
-devtools::install_github("feng-li/flutils")
-```
-
-- The package could be installed as a standard R library, provided that `flutils` and
-`devtools` are installed.
-
-```r
-devtools::install_github("feng-li/movingknots")
-```
-
-Run the code
-------------
-
-Please take a look at the `inst/examples` folder which contains a few setup templates for
-configuring the model. You should edit the file to point the location of `flutils`.
-
-
-### Run inside R
-
-* You only need to use the `source` function to source the model template and the
-algorithm run automatically and the summary of the results will be printed on the R
-console. For example
-
-```R
-source(file.path(system.file(package = "movingknots"), "examples","RUN_rajan_s_moving_2_plus_a_moving2.R"))
-source(file.path(system.file(package = "movingknots"), "examples","RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R"))
-```
-### Run with Rscript (with Linux)
-
-* Make sure that `#! /usr/bin/Rscript` or `#! /usr/bin/env Rscript` is on the first line of your R script.
-
-* You need make sure the script is executable in a terminal
-
-```sh
-chmod +x movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2.R
-chmod +x movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R
-```
-* And then just execute it like other bash scripts
-
-```sh
-./movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2.R
-./movingknots/inst/examples/RUN_rajan_s_moving_2_plus_a_moving2_SGLD.R
-```
-
-Help and bug reports
---------------------
-
-Please visit [issues](https://github.com/feng-li/movingknots/issues) for bug reports. For
-further assistance, please contact the package author Feng Li <feng.li@cufe.edu.cn>.
+Files under `tests/fixtures` include R-generated reference values. They are used to ensure
+the Python/JAX port matches the original implementation for selected likelihood, prior,
+and posterior calculations. Treat them as parity checks, not as the primary runtime path.
+Use `legacy/` only for fixture regeneration, paper comparison, or algorithm archaeology.
