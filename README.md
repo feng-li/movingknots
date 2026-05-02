@@ -1,4 +1,4 @@
-# movingknots Python
+# `movingknots`
 
 This repository root is the main entry point for the active Python/JAX implementation of
 `movingknots`. The package source is in `movingknots/`, tests are in `tests/`, and runnable
@@ -32,7 +32,6 @@ python -m examples.rajan_paper_workflow
 ## Current Scope
 
 - thin-plate surface and additive basis construction
-- selected `flutils` helper ports used by `movingknots`
 - Gaussian moving-knot regression with JAX automatic differentiation
 - mean-field variational inference
 - fixed-knot, full-parameter, and marginalized-coefficient Gaussian fitters
