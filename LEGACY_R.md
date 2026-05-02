@@ -1,14 +1,14 @@
 # Legacy R Code
 
-The original R implementation is retained in this repository as legacy/reference code.
-The active implementation target is the Python/JAX package at the repository root.
+The original R implementation is retained as legacy/reference code. The active
+implementation target is the Python/JAX package at the repository root.
 
 ## Where It Lives
 
-- [legacy/R/](legacy/R/): original R functions.
-- [legacy/inst/](legacy/inst/): original examples, tests, and scripts.
-- [legacy/man/](legacy/man/): original R documentation.
-- [data/](data/): historical datasets used by the original package.
+- `legacy/R/`: original R functions.
+- `legacy/inst/`: original examples, tests, and scripts.
+- `legacy/man/`: original R documentation.
+- `data/`: historical datasets used by the original package and Python examples.
 
 ## What It Is Used For
 
@@ -19,21 +19,18 @@ Use the R code for:
 - regenerating R parity fixtures in `tests/fixtures`,
 - checking details that have not yet been ported to Python.
 
-## What Not To Do
+## Development Priority
 
-Do not treat the R package as the primary runtime path for new work. Avoid broad R
-refactors, formatting sweeps, or behavior changes unless the task is explicitly about:
+Normal development should prioritize the current root-level Python structure:
 
-- fixture generation,
-- reproducing a paper result,
-- validating a Python port against the original implementation.
-
-Normal development should prioritize:
-
-- Python package API in `movingknots`,
-- Python tests in `tests`,
-- runnable examples in `examples`,
+- package API in `movingknots/`,
+- tests in `tests/`,
+- runnable examples in `examples/`,
 - Python documentation in `README.md`.
+
+Avoid broad R refactors, formatting sweeps, or behavior changes unless the task is
+explicitly about fixture generation, reproducing a paper result, or validating the Python
+port against the original implementation.
 
 ## Fixture Regeneration
 

@@ -23,6 +23,12 @@ Run the marginal Gaussian workflow example:
 python -m examples.gaussian_marginal_workflow
 ```
 
+Run the compact Rajan paper-data workflow:
+
+```bash
+python -m examples.rajan_paper_workflow
+```
+
 ## Current Scope
 
 - thin-plate surface and additive basis construction
@@ -31,6 +37,7 @@ python -m examples.gaussian_marginal_workflow
 - mean-field variational inference
 - fixed-knot, full-parameter, and marginalized-coefficient Gaussian fitters
 - R parity fixtures for likelihood, prior, parameter schema, and posterior calculations
+- Rajan-Zingales paper-data example using `data/RajanData.mat`
 
 ## Gaussian Workflows
 
@@ -115,3 +122,10 @@ Files under `tests/fixtures` include R-generated reference values. They are used
 the Python/JAX port matches the original implementation for selected likelihood, prior,
 and posterior calculations. Treat them as parity checks, not as the primary runtime path.
 Use `legacy/` only for fixture regeneration, paper comparison, or algorithm archaeology.
+
+Normal development should prioritize the current root-level Python structure:
+
+- package API in `movingknots/`
+- tests in `tests/`
+- examples in `examples/`
+- reference R code in `legacy/`
