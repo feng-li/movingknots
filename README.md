@@ -37,7 +37,15 @@ python -m examples.rajan_paper_workflow
 - mean-field variational inference
 - fixed-knot, full-parameter, and marginalized-coefficient Gaussian fitters
 - R parity fixtures for likelihood, prior, parameter schema, and posterior calculations
-- Rajan-Zingales paper-data example using `data/RajanData.mat`
+- Rajan-Zingales paper-data example using `data/RajanData.mat` and `data/RajanData.csv`
+
+## Data
+
+The Rajan-Zingales paper example data are available in two formats:
+
+- `data/RajanData.mat`: original MATLAB data file used by the Python example.
+- `data/RajanData.csv`: CSV conversion with columns
+  `const,tang,mbtr,logsale,profit,debtratio`.
 
 ## Gaussian Workflows
 
@@ -129,3 +137,23 @@ Normal development should prioritize the current root-level Python structure:
 - tests in `tests/`
 - examples in `examples/`
 - reference R code in `legacy/`
+
+## Citation
+
+```bibtex
+@article{LiF2013EfficientBayesian,
+  title = {Efficient Bayesian Multivariate Surface Regression},
+  author = {Li, Feng and Villani, Mattias},
+  date = {2013-06},
+  journaltitle = {Scandinavian Journal of Statistics},
+  volume = {40},
+  number = {4},
+  pages = {706--723},
+  issn = {1467-9469},
+  doi = {10.1111/sjos.12022},
+  url = {https://arxiv.org/abs/1110.3689},
+  urldate = {2022-11-11},
+  language = {en},
+  keywords = {Bayesian inference,free knots,Markov chain Monte Carlo,splines,surface regression},
+}
+```
