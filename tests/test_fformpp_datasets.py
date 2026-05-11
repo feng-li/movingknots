@@ -36,6 +36,11 @@ class FFormPPDatasetTests(unittest.TestCase):
 
         self.assertEqual(metrics["predicted"].shape, (3, 7))
         self.assertEqual(len(metrics["selected_model_names"]), 3)
+        self.assertEqual(metrics["fit_summary"]["n_features"], 3)
+        self.assertEqual(metrics["evaluation"]["n_obs"], 3)
+        self.assertEqual(metrics["evaluation"]["n_models"], 7)
+        self.assertTrue(np.isfinite(metrics["fit_summary"]["training_mse"]))
+        self.assertTrue(np.isfinite(metrics["evaluation"]["mse"]))
         self.assertTrue(np.isfinite(metrics["mean_selected_error"]))
 
 

@@ -38,9 +38,18 @@ def main(
             "init_scale": 0.01,
         },
     )
+    fit_summary = fformpp.summary(fit)
     predicted = fformpp.predict(
         fit,
         test.features[:, :n_features],
+        key=keys[1],
+        n_samples=n_predictive_samples,
+        estimate="median",
+    )
+    evaluation = fformpp.evaluate(
+        fit,
+        test.features[:, :n_features],
+        test.errors,
         key=keys[1],
         n_samples=n_predictive_samples,
         estimate="median",
@@ -56,6 +65,8 @@ def main(
         "n_test": int(n_test),
         "n_features": int(n_features),
         "model_names": train.model_names,
+        "fit_summary": fit_summary,
+        "evaluation": evaluation,
         "predicted": predicted,
         "selected_model_names": selected["model_names"],
         "selected_errors": selected["min_errors"],
@@ -63,6 +74,8 @@ def main(
     }
     if print_results:
         print("models:", ", ".join(metrics["model_names"]))
+        print("fit mse:", f"{metrics['fit_summary']['training_mse']:.3f}")
+        print("test mse:", f"{metrics['evaluation']['mse']:.3f}")
         print("selected:", metrics["selected_model_names"])
         print("mean selected error:", f"{metrics['mean_selected_error']:.3f}")
     return metrics

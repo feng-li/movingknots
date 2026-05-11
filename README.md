@@ -155,6 +155,14 @@ fit = fformpp.fit(
     },
 )
 
+fit_info = fformpp.summary(fit)
+metrics = fformpp.evaluate(
+    fit,
+    test.features[:, :4],
+    test.errors,
+    key=jax.random.PRNGKey(1),
+    n_samples=2,
+)
 predicted_errors = fformpp.predict(
     fit,
     test.features[:, :4],

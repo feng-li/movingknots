@@ -9,7 +9,7 @@ import jax
 import numpy as np
 
 from movingknots.data import make_knots
-from movingknots.fit import fit_marginal_gaussian_vi, predict_samples
+from movingknots.fit import fit_marginal_gaussian_vi, predict_mean, predict_samples
 
 
 @dataclass(frozen=True)
@@ -125,6 +125,85 @@ def predict(
         index=_input_index(features),
         return_frame=return_frame,
     )
+
+
+def summary(fit: FFormPPFit):
+    """Return fit metadata and lightweight training diagnostics."""
+    moving_fit = fit.movingknots_fit
+    out = {
+        "n_features": len(fit.feature_names),
+        "n_models": len(fit.model_names),
+        "feature_names": fit.feature_names,
+        "model_names": fit.model_names,
+        "y_transform": fit.y_transform,
+        "n_coef": int(moving_fit["n_coef"]),
+        "n_response": int(moving_fit["n_response"]),
+        "n_variational_parameters": int(moving_fit["vi"]["mu"].size),
+        "final_elbo": float(moving_fit["vi"]["elbo"][-1]),
+        "free_additive": bool(moving_fit.get("free_additive", False)),
+        "free_surface": bool(moving_fit.get("free_surface", False)),
+        "constant_feature_count": int(
+            np.sum(np.asarray(fit.x_standardization.get("constant", []), dtype=bool))
+        ),
+    }
+    if "additive_knots_mean" in moving_fit:
+        out["additive_knots_shape"] = tuple(
+            np.asarray(moving_fit["additive_knots_mean"]).shape
+        )
+    if "surface_knots_mean" in moving_fit:
+        out["surface_knots_shape"] = tuple(
+            np.asarray(moving_fit["surface_knots_mean"]).shape
+        )
+    if "x_train" in moving_fit and "y_train" in moving_fit:
+        fitted = np.asarray(predict_mean(moving_fit, moving_fit["x_train"]))
+        observed = np.asarray(moving_fit["y_train"])
+        residual = fitted - observed
+        out["training_mse"] = float(np.mean(residual**2))
+        out["training_mae"] = float(np.mean(np.abs(residual)))
+    return out
+
+
+def evaluate(
+    fit: FFormPPFit,
+    features,
+    errors,
+    *,
+    key=None,
+    n_samples: int = 500,
+    estimate: str | Callable = "median",
+    return_predictions: bool = False,
+):
+    """Evaluate forecast-error predictions against an observed error matrix."""
+    observed, _ = _as_matrix_and_names(errors, "errors", prefix="model")
+    predicted = predict(
+        fit,
+        features,
+        key=key,
+        n_samples=n_samples,
+        estimate=estimate,
+        return_frame=False,
+    )
+    if observed.shape != predicted.shape:
+        raise ValueError("errors must have the same shape as predicted forecast errors")
+    residual = predicted - observed
+    selected = np.argmin(predicted, axis=1)
+    selected_counts = {
+        name: int(np.sum(selected == i)) for i, name in enumerate(fit.model_names)
+    }
+    out = {
+        "n_obs": int(observed.shape[0]),
+        "n_models": int(observed.shape[1]),
+        "mse": float(np.mean(residual**2)),
+        "mae": float(np.mean(np.abs(residual))),
+        "per_model_mse": np.mean(residual**2, axis=0),
+        "per_model_mae": np.mean(np.abs(residual), axis=0),
+        "selected_model_counts": selected_counts,
+        "selected_model_indices": selected,
+        "selected_model_names": tuple(fit.model_names[i] for i in selected),
+    }
+    if return_predictions:
+        out["predicted_errors"] = predicted
+    return out
 
 
 def _make_spline_config(n_features: int, surface_knots: int, additive_knots):
