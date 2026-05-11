@@ -123,6 +123,74 @@ y_hat = predict_mean(fit, x)
 score = gaussian_lpds(fit, x, y, key=jax.random.PRNGKey(1), n_samples=4)
 ```
 
+## fformpp Forecast Performance Prediction
+
+`movingknots.fformpp` is the Python/JAX migration path for the legacy R `fformpp`
+application. It fits a multivariate moving-knot regression from time-series feature
+matrices to forecast-error matrices, then predicts which forecasting method is expected
+to perform best.
+
+Preferred API:
+
+```python
+import jax
+
+from movingknots import fformpp
+
+train = fformpp.load_m3_example(n_rows=16)
+test = fformpp.load_m1_example(n_rows=5)
+
+fit = fformpp.fit(
+    train.features[:, :4],
+    train.errors,
+    model_names=train.model_names,
+    surface_knots=1,
+    additive_knots=1,
+    key=jax.random.PRNGKey(0),
+    fit_kwargs={
+        "n_steps": 2,
+        "n_samples": 1,
+        "learning_rate": 0.01,
+        "init_scale": 0.01,
+    },
+)
+
+predicted_errors = fformpp.predict(
+    fit,
+    test.features[:, :4],
+    key=jax.random.PRNGKey(1),
+    n_samples=2,
+)
+selected = fformpp.individual_forecast(
+    predicted_errors,
+    actual_errors=test.errors,
+    model_names=train.model_names,
+)
+```
+
+Runnable compact example:
+
+```bash
+python -m examples.fformpp_workflow
+```
+
+Bundled example data:
+
+- `load_m3_example()`: M3-style training features and forecast errors.
+- `load_m1_example()`: M1-style evaluation features and forecast errors.
+
+Differences from legacy R `fformpp`:
+
+- The Python implementation uses JAX mean-field VI through `fit_marginal_gaussian_vi`
+  instead of the original R MCMC machinery.
+- Test features are standardized with the training-set mean and standard deviation
+  saved in the fit object. The R `predict_fformpp` standardized each test batch by its
+  own mean and standard deviation.
+- `fformpp.fit` and `fformpp.predict` are the preferred names. `fit_fformpp` and
+  `predict_fformpp` remain as compatibility aliases.
+- The repository-level untracked `fformpp/` directory is treated as legacy source
+  reference for this migration unless it is explicitly moved or committed later.
+
 ## R Fixtures
 
 Files under `tests/fixtures` include R-generated reference values. They are used to ensure
