@@ -16,3 +16,6 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["movingknots*"]
+
+[tool.setuptools.package-data]
+"movingknots.fformpp" = ["data/*.csv"]
