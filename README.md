@@ -123,9 +123,9 @@ y_hat = predict_mean(fit, x)
 score = gaussian_lpds(fit, x, y, key=jax.random.PRNGKey(1), n_samples=4)
 ```
 
-## fformpp Forecast Performance Prediction
+## `fformpp`: Forecast Performance Prediction
 
-`movingknots.fformpp` is the Python/JAX migration path for the legacy R `fformpp`
+`movingknots.fformpp` is the Python/JAX migration path for the legacy R [`fformpp`](https://github.com/thiyangt/fformpp)
 application. It fits a multivariate moving-knot regression from time-series feature
 matrices to forecast-error matrices, then predicts which forecasting method is expected
 to perform best.
@@ -213,9 +213,25 @@ Normal development should prioritize the current root-level Python structure:
 - examples in `examples/`
 - reference R code in `legacy/`
 
-## Citation
+## Citations
 
 ```bibtex
+@article{TalagalaTS2022FFORMPPFeaturebased,
+  title = {FFORMPP: Feature-Based Forecast Model Performance Prediction},
+  shorttitle = {FFORMPP},
+  author = {Talagala, Thiyanga S. and Li, Feng and Kang, Yanfei},
+  date = {2022-07},
+  journaltitle = {International Journal of Forecasting},
+  volume = {38},
+  number = {3},
+  pages = {920--943},
+  issn = {0169-2070},
+  doi = {10.1016/j.ijforecast.2021.07.002},
+  url = {https://arxiv.org/abs/1908.11500},
+  urldate = {2022-11-11},
+  keywords = {Forecasting,M4 competition,Meta-learning,Performance prediction,Surface regression,Time series simulation}
+}
+
 @article{LiF2013EfficientBayesian,
   title = {Efficient Bayesian Multivariate Surface Regression},
   author = {Li, Feng and Villani, Mattias},
